@@ -19,7 +19,9 @@ BEGIN
 	DECLARE @ErrCodigo varchar(10),
 			@ErrMensaje varchar(200),
 
-			@Nombre varchar(50)
+			@Nombre varchar(50),
+			@CorreoExistente varchar(100),
+			@TelefonoExistente varchar(20)
 
 	-- Validación del Cliente: Revisamos primero si el idCliente existe en la tabla
 
@@ -54,7 +56,12 @@ BEGIN
 
 	-- Validación del Correo: no debe estar registrado por otro cliente
 
-	IF EXISTS (SELECT 1 FROM Cliente WHERE Correo = @p_Correo AND idCliente <> @p_idCliente) BEGIN
+	SELECT
+		@CorreoExistente = Correo
+	FROM Cliente
+	WHERE Correo = @p_Correo AND idCliente <> @p_idCliente
+
+	IF @CorreoExistente IS NOT NULL BEGIN
 
 		SELECT 	@ErrCodigo = '000003',
 				@ErrMensaje = 'El correo ya está registrado por otro cliente'
@@ -67,7 +74,12 @@ BEGIN
 
 	-- Validación del Telefono: no debe estar registrado por otro cliente
 
-	IF @p_Telefono IS NOT NULL AND EXISTS (SELECT 1 FROM Cliente WHERE Telefono = @p_Telefono AND idCliente <> @p_idCliente) BEGIN
+	SELECT
+		@TelefonoExistente = Telefono
+	FROM Cliente
+	WHERE Telefono = @p_Telefono AND idCliente <> @p_idCliente
+
+	IF @p_Telefono IS NOT NULL AND @TelefonoExistente IS NOT NULL BEGIN
 
 		SELECT 	@ErrCodigo = '000004',
 				@ErrMensaje = 'El teléfono ya está registrado por otro cliente'

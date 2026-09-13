@@ -16,7 +16,10 @@ AS
 BEGIN
 
 	DECLARE @ErrCodigo varchar(10),
-			@ErrMensaje varchar(200)
+			@ErrMensaje varchar(200),
+
+			@CorreoExistente varchar(100),
+			@TelefonoExistente varchar(20)
 
 	-- Validación del Sexo: debe ser 'M' o 'F'
 
@@ -33,7 +36,12 @@ BEGIN
 
 	-- Validación del Correo: no debe estar registrado por otro cliente
 
-	IF EXISTS (SELECT 1 FROM Cliente WHERE Correo = @p_Correo) BEGIN
+	SELECT
+		@CorreoExistente = Correo
+	FROM Cliente
+	WHERE Correo = @p_Correo
+
+	IF @CorreoExistente IS NOT NULL BEGIN
 
 		SELECT 	@ErrCodigo = '000002',
 				@ErrMensaje = 'El correo ya está registrado'
@@ -46,7 +54,12 @@ BEGIN
 
 	-- Validación del Telefono: no debe estar registrado por otro cliente
 
-	IF @p_Telefono IS NOT NULL AND EXISTS (SELECT 1 FROM Cliente WHERE Telefono = @p_Telefono) BEGIN
+	SELECT
+		@TelefonoExistente = Telefono
+	FROM Cliente
+	WHERE Telefono = @p_Telefono
+
+	IF @p_Telefono IS NOT NULL AND @TelefonoExistente IS NOT NULL BEGIN
 
 		SELECT 	@ErrCodigo = '000003',
 				@ErrMensaje = 'El teléfono ya está registrado'
