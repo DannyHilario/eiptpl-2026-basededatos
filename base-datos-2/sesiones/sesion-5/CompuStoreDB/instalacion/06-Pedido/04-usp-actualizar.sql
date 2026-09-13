@@ -14,12 +14,14 @@ BEGIN
 	DECLARE @ErrCodigo varchar(10),
 			@ErrMensaje varchar(200),
 
-			@idCliente int
+			@idCliente int,
+			@Cerrado bit
 
 	-- Validación del Pedido: Revisamos primero si el idPedido existe en la tabla
 
 	SELECT
-		@idCliente = idCliente
+		@idCliente = idCliente,
+		@Cerrado = Cerrado
 	FROM Pedido
 	WHERE idPedido = @p_idPedido
 
@@ -34,11 +36,24 @@ BEGIN
 		RETURN
 	END
 
+	-- Validación del estado: el pedido no debe estar entregado
+
+	IF @Cerrado = 1 BEGIN
+
+		SELECT 	@ErrCodigo = '000002',
+				@ErrMensaje = 'El pedido ya fue entregado y no puede modificarse'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
 	-- Validación de la Fecha: no puede ser fecha pasada
 
 	IF @p_Fecha < GETDATE() BEGIN
 
-		SELECT 	@ErrCodigo = '000002',
+		SELECT 	@ErrCodigo = '000003',
 				@ErrMensaje = 'La fecha no puede ser pasada'
 
 		SELECT	@ErrCodigo as ErrCodigo,
