@@ -82,6 +82,7 @@ La carpeta `instalacion/` está organizada en una subcarpeta por entidad (prefij
 | `06-Pedido/04-usp-actualizar.sql` | `usp_actualizarPedido` — actualiza la fecha de un pedido |
 | `06-Pedido/05-usp-entregar.sql` | `usp_entregarPedido` — marca el pedido como entregado (`Cerrado = 1`, `FechaEntrega`) |
 | `06-Pedido/06-ufn-calcular-total.sql` | `ufn_calcularTotalPedido` — total de un pedido a partir de sus líneas |
+| `06-Pedido/07-usp-obtener-detalle.sql` | `usp_obtenerDetallePedido` — consulta el encabezado + líneas de un solo pedido |
 | `07-DetallePedido/01-create-table.sql` | Tabla `DetallePedido` |
 | `07-DetallePedido/02-usp-insertar.sql` | `usp_insertarDetallePedido` — agrega una línea a un pedido (o suma cantidad si el artículo ya estaba en ese pedido) |
 | `07-DetallePedido/03-usp-eliminar.sql` | `usp_eliminarDetallePedido` — quita una línea de un pedido (`DELETE` físico) |
@@ -176,6 +177,7 @@ El detalle de cada procedimiento está en [`CompuStoreDB/docs`](CompuStoreDB/doc
 - [`usp_eliminarPedido`](CompuStoreDB/docs/usp_eliminarPedido.md) — elimina un pedido sin líneas registradas (`DELETE` físico, `Pedido` no tiene `Activo`)
 - [`usp_actualizarPedido`](CompuStoreDB/docs/usp_actualizarPedido.md) — actualiza la fecha de un pedido
 - [`usp_entregarPedido`](CompuStoreDB/docs/usp_entregarPedido.md) — marca el pedido como entregado (`Cerrado = 1`), cerrándolo para más cambios
+- [`usp_obtenerDetallePedido`](CompuStoreDB/docs/usp_obtenerDetallePedido.md) — SP de solo consulta: encabezado + líneas de un solo pedido (parámetro `@p_idPedido`)
 - [`ufn_calcularTotalPedido`](CompuStoreDB/docs/funciones/ufn_calcularTotalPedido.md) — total del pedido calculado al vuelo desde `DetallePedido` (no se guarda en `Pedido`)
 
 **DetallePedido**
