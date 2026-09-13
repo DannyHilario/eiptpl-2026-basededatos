@@ -90,8 +90,43 @@ La carpeta `instalacion/` está organizada en una subcarpeta por entidad (prefij
 | `08-Vistas/02-vw-articulo-con-categorias.sql` | `vw_ArticuloConCategorias` — artículo + cada categoría que tiene asignada |
 | `08-Vistas/03-vw-ventas-por-articulo.sql` | `vw_VentasPorArticulo` — unidades vendidas y total facturado por artículo (solo pedidos entregados) |
 | `08-Vistas/04-vw-cliente-resumen.sql` | `vw_ClienteResumen` — número de pedidos y total gastado por cliente |
+| `09-DatosDemo/01-cargar-pedidos.sql` | 35 pedidos de ejemplo con sus líneas (algunos entregados, otros abiertos) — ver explicación abajo |
 
-`Pedido`, `DetallePedido` y `HistoricoPrecioArticulo` se crean vacías — son tablas de hechos/historial, no catálogos, y no había datos reales que reutilizar para ellas.
+`HistoricoPrecioArticulo` se crea vacía — es una tabla de historial y no había datos reales que reutilizar para ella. `Pedido` y `DetallePedido` también nacían vacías por lo mismo, pero `09-DatosDemo/01-cargar-pedidos.sql` las llena con datos sintéticos después, para que `vw_PedidoResumen`, `vw_VentasPorArticulo` y `vw_ClienteResumen` tengan algo real que mostrar sin que cada quien tenga que fabricar pedidos a mano antes de poder ver qué hacen las vistas.
+
+### Cómo funciona `09-DatosDemo/01-cargar-pedidos.sql`
+
+Es puro `EXEC` de los SPs que ya existen (nunca `INSERT` directo) — cada pedido pasa por las mismas validaciones que si lo capturara un alumno a mano. El bloque se repite 35 veces; esto es lo que hace cada línea, para quien todavía no ha visto estas construcciones:
+
+```sql
+DECLARE @idPedido int,
+        @Fecha date
+```
+Declara **dos variables**, reutilizadas para los 35 pedidos (a cada una se le asigna un valor nuevo en cada vuelta, sobre el valor anterior — no hace falta declarar 70 variables distintas).
+
+```sql
+SET @Fecha = DATEADD(DAY, 2, CAST(GETDATE() AS DATE))
+EXEC usp_insertarPedido @p_idCliente = 1, @p_Fecha = @Fecha
+```
+- `GETDATE()` regresa la fecha **y hora** actual del servidor.
+- `CAST(GETDATE() AS DATE)` la convierte a solo fecha (sin hora) — `CAST` ya lo vimos en la sesión 2 para conversión de tipos.
+- `DATEADD(DAY, 2, fecha)` le suma 2 días a esa fecha. Se usa en vez de escribir una fecha fija (como `'2026-09-15'`) para que el script nunca "caduque": sin importar cuándo se ejecute, siempre calcula una fecha futura real, y `usp_insertarPedido` rechaza fechas pasadas.
+- El resultado se guarda primero en `@Fecha` con `SET`, y **luego** se manda al `EXEC` — `EXEC` no acepta una expresión/función calculada directamente como valor de un parámetro (mismo motivo por el que tampoco acepta una subconsulta entre paréntesis, como se documentó para los SPs de `Categoria`/`Articulo`): solo admite constantes o variables ya resueltas.
+
+```sql
+SET @idPedido = (SELECT MAX(idPedido) FROM Pedido)
+```
+`SET` le asigna un valor nuevo a una variable ya declarada (a diferencia de `DECLARE @x int = valor`, que declara **y** asigna en un solo paso). Aquí se usa para "recordar" el `idPedido` que acaba de generar el `INSERT` de adentro de `usp_insertarPedido` — como el procedimiento no lo regresa como parámetro de salida, se recupera con `MAX(idPedido)` (funciona porque este script inserta un pedido a la vez y nadie más está insertando al mismo tiempo).
+
+```sql
+EXEC usp_insertarDetallePedido @p_idPedido = @idPedido, @p_idArticulo = 20, @p_Cantidad = 3
+```
+Usa la variable `@idPedido` que se acaba de capturar arriba, para agregar cada línea al pedido correcto. Se repite 1 a 3 veces por pedido, con artículos y cantidades distintos.
+
+```sql
+EXEC usp_entregarPedido @p_idPedido = @idPedido
+```
+Solo aparece en los pedidos que el script decide dejar "entregados" (2 de cada 3, aproximadamente) — el resto se quedan abiertos a propósito, para poder comparar en las vistas cómo se ve un pedido entregado contra uno que no.
 
 `usp_actualizarPrecioArticulo` (dentro de `02-Articulo/`) hace `EXEC usp_insertarHistoricoPrecioArticulo` (definido en `04-HistoricoPrecioArticulo/`) antes de actualizar `Articulo.PrecioUnitario`. SQL Server resuelve nombres de objetos en un procedimiento (o función) hasta que se ejecuta, no al crearlo, así que el orden de las carpetas no rompe la instalación aunque el SP de Articulo se cree antes que el de HistoricoPrecioArticulo — solo importa que ambos existan antes de invocar `usp_actualizarPrecioArticulo`. Lo mismo aplica a `ufn_calcularTotalPedido` (carpeta `06-Pedido`), que consulta `DetallePedido` (carpeta `07`) sin que eso rompa nada.
 
