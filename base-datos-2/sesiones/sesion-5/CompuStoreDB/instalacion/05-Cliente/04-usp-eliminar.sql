@@ -5,7 +5,7 @@
 USE CompuStoreDB;
 GO
 
-ALTER PROCEDURE usp_eliminarCliente
+CREATE PROCEDURE usp_eliminarCliente
 	@p_idCliente int
 AS
 BEGIN
