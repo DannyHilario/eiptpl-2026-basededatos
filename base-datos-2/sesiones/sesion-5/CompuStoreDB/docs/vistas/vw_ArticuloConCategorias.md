@@ -11,11 +11,11 @@ Solo incluye artículos que **sí tienen** al menos una categoría asignada (`IN
 | Columna | Origen | Descripción |
 |---------|--------|-------------|
 | `idArticulo` | `Articulo` | Id del artículo |
+| `idCategoria` | `Categoria` | Id de la categoría asignada |
+| `Categoria` | `Categoria.Nombre` | Nombre de la categoría asignada |
 | `Articulo` | `Articulo.Nombre` | Nombre del artículo |
 | `Marca` | `Articulo` | Marca del artículo |
 | `PrecioUnitario` | `Articulo` | Precio de lista vigente |
-| `idCategoria` | `Categoria` | Id de la categoría asignada |
-| `Categoria` | `Categoria.Nombre` | Nombre de la categoría asignada |
 
 ## Ejemplo de uso
 
