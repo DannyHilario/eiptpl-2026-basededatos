@@ -15,5 +15,6 @@ CREATE TABLE DetallePedido (
     CONSTRAINT fk_DetallePedido_Pedido FOREIGN KEY (idPedido) REFERENCES Pedido(idPedido),
     CONSTRAINT fk_DetallePedido_Articulo FOREIGN KEY (idArticulo) REFERENCES Articulo(idArticulo),
     CONSTRAINT chk_DetallePedido_Cantidad CHECK (Cantidad > 0),
-    CONSTRAINT chk_DetallePedido_PrecioUnitario CHECK (PrecioUnitario > 0)
+    CONSTRAINT chk_DetallePedido_PrecioUnitario CHECK (PrecioUnitario > 0),
+    CONSTRAINT uq_DetallePedido_Pedido_Articulo UNIQUE (idPedido, idArticulo)
 );

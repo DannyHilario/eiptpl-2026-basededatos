@@ -1,5 +1,5 @@
 -- Tema:        CompuStoreDB - Sesión 5
--- Descripción: Alta de una línea de pedido, con validaciones de guard clause
+-- Descripción: Alta de una línea de pedido, fusionando cantidades si el artículo ya está en el pedido
 -- Autor:       Daniel Hilario
 
 USE CompuStoreDB;
@@ -18,7 +18,8 @@ BEGIN
 			@idCliente int,
 			@Cerrado bit,
 			@PrecioUnitario decimal(10,2),
-			@Activo bit
+			@Activo bit,
+			@idDetallePedidoExistente int
 
 	-- Validación del Pedido: debe existir
 
@@ -90,6 +91,32 @@ BEGIN
 
 		SELECT 	@ErrCodigo = '000005',
 				@ErrMensaje = 'La cantidad debe ser mayor a cero'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- Fusión: si el artículo ya está en el pedido, se suma la cantidad a esa línea en vez de duplicarla
+	-- (coincide con el UNIQUE(idPedido, idArticulo) de la tabla). El PrecioUnitario de la línea existente
+	-- no se toca: es el precio que ya quedó pactado la primera vez que se agregó ese artículo al pedido.
+
+	SELECT
+		@idDetallePedidoExistente = idDetallePedido
+	FROM DetallePedido
+	WHERE idPedido = @p_idPedido AND idArticulo = @p_idArticulo
+
+	IF @idDetallePedidoExistente IS NOT NULL BEGIN
+
+		UPDATE DetallePedido
+		SET
+			Cantidad = Cantidad + @p_Cantidad,
+			FechaUltimaModificacion = GETDATE()
+		WHERE idDetallePedido = @idDetallePedidoExistente
+
+		SELECT 	@ErrCodigo = '000000',
+				@ErrMensaje = 'Cantidad sumada a la línea existente'
 
 		SELECT	@ErrCodigo as ErrCodigo,
 				@ErrMensaje as ErrMensaje
