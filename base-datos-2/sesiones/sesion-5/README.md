@@ -28,41 +28,91 @@ Todas las tablas tienen `FechaCreacion` y `FechaUltimaModificacion` (auditoría)
 
 ## Paquete de instalación
 
-Ver [`CompuStoreDB/instalacion`](CompuStoreDB/instalacion):
+Hay dos formas de instalar `CompuStoreDB`, ambas válidas — usa la que prefieras:
 
-| # | Archivo | Contenido |
-|---|---------|-----------|
-| 01 | `01-create-database.sql` | `CREATE DATABASE CompuStoreDB` |
-| 02 | `02-create-table-categoria.sql` | Tabla `Categoria` |
-| 03 | `03-create-table-articulo.sql` | Tabla `Articulo` |
-| 04 | `04-create-table-articulocategoria.sql` | Tabla puente `ArticuloCategoria` |
-| 05 | `05-create-table-historicoprecioarticulo.sql` | Tabla `HistoricoPrecioArticulo` |
-| 06 | `06-create-table-cliente.sql` | Tabla `Cliente` |
-| 07 | `07-create-table-pedido.sql` | Tabla `Pedido` |
-| 08 | `08-create-table-detallepedido.sql` | Tabla `DetallePedido` |
-| 09 | `09-insert-categoria.sql` | 11 categorías |
-| 10 | `10-insert-articulo.sql` | 51 artículos |
-| 11 | `11-insert-articulocategoria.sql` | 55 relaciones Articulo-Categoria (4 artículos en 2 categorías, para ilustrar la N:N) |
-| 12 | `12-insert-cliente.sql` | 25 clientes |
-| 13 | `13-usp-insertar-cliente.sql` | `usp_insertarCliente` — alta de cliente |
-| 14 | `14-usp-eliminar-cliente.sql` | `usp_eliminarCliente` — baja lógica de cliente |
-| 15 | `15-usp-habilitar-cliente.sql` | `usp_habilitarCliente` — reactivar un cliente dado de baja |
-| 16 | `16-usp-actualizar-cliente.sql` | `usp_actualizarCliente` — sobrescribe los datos principales de un cliente |
+1. **Instalación completa en un solo script**: [`CompuStoreDB/instalar-completo.sql`](CompuStoreDB/instalar-completo.sql). Ábrelo en SSMS y ejecútalo completo (F5) — crea la base, las 7 tablas, los datos y los 19 procedimientos en un solo paso. Es la concatenación, en orden, de todos los scripts de `instalacion/`; cada uno queda separado con `GO` porque un `CREATE PROCEDURE` debe ser la única instrucción de su lote.
+2. **Instalación manual, script por script**: ejecutar cada archivo de [`CompuStoreDB/instalacion`](CompuStoreDB/instalacion) en el orden de la tabla de abajo. Más lento, pero deja ver qué hace cada pieza por separado — recomendado la primera vez que se estudia el modelo.
+
+Si modificas algún script de `instalacion/`, actualiza también `instalar-completo.sql` (o pide que se regenere) para que ambas formas de instalar sigan siendo equivalentes.
+
+La carpeta `instalacion/` está organizada en una subcarpeta por entidad (prefijo numérico = orden de instalación, respeta las llaves foráneas):
+
+| Carpeta/Archivo | Contenido |
+|-----------------|-----------|
+| `00-create-database.sql` | `CREATE DATABASE CompuStoreDB` |
+| `01-Categoria/01-create-table.sql` | Tabla `Categoria` |
+| `01-Categoria/02-insert.sql` | 11 categorías |
+| `01-Categoria/03-usp-insertar.sql` | `usp_insertarCategoria` — alta de categoría |
+| `01-Categoria/04-usp-eliminar.sql` | `usp_eliminarCategoria` — baja lógica de categoría |
+| `01-Categoria/05-usp-habilitar.sql` | `usp_habilitarCategoria` — reactivar una categoría dada de baja |
+| `01-Categoria/06-usp-actualizar.sql` | `usp_actualizarCategoria` — actualiza el nombre de una categoría |
+| `02-Articulo/01-create-table.sql` | Tabla `Articulo` |
+| `02-Articulo/02-insert.sql` | 51 artículos |
+| `02-Articulo/03-usp-insertar.sql` | `usp_insertarArticulo` — alta de artículo |
+| `02-Articulo/04-usp-eliminar.sql` | `usp_eliminarArticulo` — baja lógica de artículo |
+| `02-Articulo/05-usp-habilitar.sql` | `usp_habilitarArticulo` — reactivar un artículo dado de baja |
+| `02-Articulo/06-usp-actualizar-precio.sql` | `usp_actualizarPrecioArticulo` — cambia el precio de lista, invocando el registro de histórico |
+| `02-Articulo/07-usp-actualizar.sql` | `usp_actualizarArticulo` — actualiza nombre y marca de un artículo |
+| `03-ArticuloCategoria/01-create-table.sql` | Tabla puente `ArticuloCategoria` |
+| `03-ArticuloCategoria/02-insert.sql` | 55 relaciones Articulo-Categoria (4 artículos en 2 categorías, para ilustrar la N:N) |
+| `03-ArticuloCategoria/03-usp-asignar.sql` | `usp_asignarCategoriaArticulo` — asigna una categoría a un artículo |
+| `03-ArticuloCategoria/04-usp-quitar.sql` | `usp_quitarCategoriaArticulo` — quita la asignación (`DELETE` físico) |
+| `04-HistoricoPrecioArticulo/01-create-table.sql` | Tabla `HistoricoPrecioArticulo` |
+| `04-HistoricoPrecioArticulo/02-usp-insertar.sql` | `usp_insertarHistoricoPrecioArticulo` — registra un cambio de precio |
+| `05-Cliente/01-create-table.sql` | Tabla `Cliente` |
+| `05-Cliente/02-insert.sql` | 25 clientes |
+| `05-Cliente/03-usp-insertar.sql` | `usp_insertarCliente` — alta de cliente |
+| `05-Cliente/04-usp-eliminar.sql` | `usp_eliminarCliente` — baja lógica de cliente |
+| `05-Cliente/05-usp-habilitar.sql` | `usp_habilitarCliente` — reactivar un cliente dado de baja |
+| `05-Cliente/06-usp-actualizar.sql` | `usp_actualizarCliente` — sobrescribe los datos principales de un cliente |
+| `06-Pedido/01-create-table.sql` | Tabla `Pedido` |
+| `06-Pedido/02-usp-insertar.sql` | `usp_insertarPedido` — alta de pedido |
+| `06-Pedido/03-usp-eliminar.sql` | `usp_eliminarPedido` — elimina un pedido sin líneas registradas |
+| `06-Pedido/04-usp-actualizar.sql` | `usp_actualizarPedido` — actualiza la fecha de un pedido |
+| `07-DetallePedido/01-create-table.sql` | Tabla `DetallePedido` |
 
 `Pedido`, `DetallePedido` y `HistoricoPrecioArticulo` se crean vacías — son tablas de hechos/historial, no catálogos, y no había datos reales que reutilizar para ellas.
 
-Reversa en [`CompuStoreDB/reversa`](CompuStoreDB/reversa): elimina las tablas en orden inverso a las llaves foráneas y luego la base de datos.
+`usp_actualizarPrecioArticulo` (dentro de `02-Articulo/`) hace `EXEC usp_insertarHistoricoPrecioArticulo` (definido en `04-HistoricoPrecioArticulo/`) antes de actualizar `Articulo.PrecioUnitario`. SQL Server resuelve nombres de objetos en un procedimiento hasta que se ejecuta (no al crearlo), así que el orden de las carpetas no rompe la instalación aunque el SP de Articulo se cree antes que el de HistoricoPrecioArticulo — solo importa que ambos existan antes de invocar `usp_actualizarPrecioArticulo`.
 
-### CRUD de Cliente (`13`–`16`)
+Reversa en [`CompuStoreDB/reversa`](CompuStoreDB/reversa): elimina las tablas en orden inverso a las llaves foráneas y luego la base de datos. No hay scripts de reversa por procedimiento porque `02-drop-database.sql` elimina la base completa, incluyendo todos los `usp_`.
 
-Los 4 procedimientos siguen el patrón de "guard clauses" con códigos de salida visto en las sesiones 3 y 4 (`@ErrCodigo`/`@ErrMensaje`, `'000000'` para éxito, `RETURN` en cada validación fallida) — sin `TRY CATCH` todavía. Requieren `USE CompuStoreDB; GO` antes del `CREATE`/`ALTER PROCEDURE` porque, a diferencia de una tabla o un `INSERT`, un procedimiento debe ser la primera instrucción de su batch.
+### Documentación de los procedimientos
 
-- **`usp_insertarCliente`**: valida `Sexo` (`'M'`/`'F'`), y que `Correo`/`Telefono` no estén ya registrados, antes del `INSERT`.
-- **`usp_eliminarCliente`**: valida que el cliente exista; hace baja lógica (`Activo = 0`) y actualiza `FechaUltimaModificacion`.
-- **`usp_habilitarCliente`**: valida que el cliente exista y que no esté ya activo, antes de reactivarlo (`Activo = 1`).
-- **`usp_actualizarCliente`**: valida que el cliente exista, `Sexo`, y que `Correo`/`Telefono` no choquen con **otro** cliente (`idCliente <> @p_idCliente`), antes de sobrescribir sus datos principales.
+Todos siguen el patrón de "guard clauses" con códigos de salida visto en las sesiones 3 y 4 (`@ErrCodigo`/`@ErrMensaje`, `'000000'` para éxito, `RETURN` en cada validación fallida) — sin `TRY CATCH` todavía. Requieren `USE CompuStoreDB; GO` antes del `CREATE PROCEDURE` porque, a diferencia de una tabla o un `INSERT`, un procedimiento debe ser la primera instrucción de su batch.
 
-Los 4 se probaron manualmente en la instancia de AWS (casos de error y de éxito) antes de quedar documentados aquí.
+El detalle de cada uno (parámetros, validaciones, códigos de salida, ejemplo `EXEC` y casos de prueba) está en [`CompuStoreDB/docs`](CompuStoreDB/docs):
+
+**Categoria**
+- [`usp_insertarCategoria`](CompuStoreDB/docs/usp_insertarCategoria.md) — alta de categoría
+- [`usp_eliminarCategoria`](CompuStoreDB/docs/usp_eliminarCategoria.md) — baja lógica de categoría
+- [`usp_habilitarCategoria`](CompuStoreDB/docs/usp_habilitarCategoria.md) — reactivar una categoría dada de baja
+- [`usp_actualizarCategoria`](CompuStoreDB/docs/usp_actualizarCategoria.md) — actualiza el nombre de una categoría
+
+**ArticuloCategoria**
+- [`usp_asignarCategoriaArticulo`](CompuStoreDB/docs/usp_asignarCategoriaArticulo.md) — asigna una categoría a un artículo
+- [`usp_quitarCategoriaArticulo`](CompuStoreDB/docs/usp_quitarCategoriaArticulo.md) — quita la asignación (`DELETE` físico, no hay `Activo` en la tabla puente)
+
+**Cliente**
+- [`usp_insertarCliente`](CompuStoreDB/docs/usp_insertarCliente.md) — alta de cliente
+- [`usp_eliminarCliente`](CompuStoreDB/docs/usp_eliminarCliente.md) — baja lógica de cliente
+- [`usp_habilitarCliente`](CompuStoreDB/docs/usp_habilitarCliente.md) — reactivar un cliente dado de baja
+- [`usp_actualizarCliente`](CompuStoreDB/docs/usp_actualizarCliente.md) — sobrescribe los datos principales de un cliente
+
+**Articulo**
+- [`usp_insertarArticulo`](CompuStoreDB/docs/usp_insertarArticulo.md) — alta de artículo
+- [`usp_eliminarArticulo`](CompuStoreDB/docs/usp_eliminarArticulo.md) — baja lógica de artículo
+- [`usp_habilitarArticulo`](CompuStoreDB/docs/usp_habilitarArticulo.md) — reactivar un artículo dado de baja
+- [`usp_insertarHistoricoPrecioArticulo`](CompuStoreDB/docs/usp_insertarHistoricoPrecioArticulo.md) — registra un cambio de precio (pieza interna, no usar directo)
+- [`usp_actualizarPrecioArticulo`](CompuStoreDB/docs/usp_actualizarPrecioArticulo.md) — cambia el precio de lista invocando el SP anterior
+- [`usp_actualizarArticulo`](CompuStoreDB/docs/usp_actualizarArticulo.md) — actualiza nombre y marca (no toca el precio)
+
+**Pedido**
+- [`usp_insertarPedido`](CompuStoreDB/docs/usp_insertarPedido.md) — alta de pedido
+- [`usp_eliminarPedido`](CompuStoreDB/docs/usp_eliminarPedido.md) — elimina un pedido sin líneas registradas (`DELETE` físico, `Pedido` no tiene `Activo`)
+- [`usp_actualizarPedido`](CompuStoreDB/docs/usp_actualizarPedido.md) — actualiza la fecha de un pedido
+
+Todos se probaron manualmente en la instancia de AWS (casos de error y de éxito) antes de quedar documentados.
 
 ---
 
