@@ -8,17 +8,17 @@ Retoma el ejercicio del PIA de Base de Datos I ([equipo-3.md](../../../base-dato
 
 ![Modelo Relacional de CompuStoreDB](assets/diagrama-er.png)
 
-7 tablas:
+7 tablas — cada una con su ficha de diccionario de datos (columnas y **para qué sirve cada constraint**) en [`CompuStoreDB/docs/tablas`](CompuStoreDB/docs/tablas):
 
 | Tabla | Descripción |
 |-------|-------------|
-| `Categoria` | Catálogo de categorías de artículos (Laptops, Monitores, Teclados, etc.) |
-| `Articulo` | Catálogo de artículos, con precio de lista vigente |
-| `ArticuloCategoria` | Tabla puente — relación **N:N** entre `Articulo` y `Categoria` |
-| `HistoricoPrecioArticulo` | Historial de cambios de precio de un artículo (`PrecioAnterior` → `PrecioNuevo`), **1:N** con `Articulo` |
-| `Cliente` | Catálogo de clientes |
-| `Pedido` | Encabezado de pedido — **1:N** con `Cliente` |
-| `DetallePedido` | Líneas de un pedido (artículo, cantidad, precio al momento de la venta) — **1:N** con `Pedido`, N:1 con `Articulo` |
+| [`Categoria`](CompuStoreDB/docs/tablas/Categoria.md) | Catálogo de categorías de artículos (Laptops, Monitores, Teclados, etc.) |
+| [`Articulo`](CompuStoreDB/docs/tablas/Articulo.md) | Catálogo de artículos, con precio de lista vigente |
+| [`ArticuloCategoria`](CompuStoreDB/docs/tablas/ArticuloCategoria.md) | Tabla puente — relación **N:N** entre `Articulo` y `Categoria` |
+| [`HistoricoPrecioArticulo`](CompuStoreDB/docs/tablas/HistoricoPrecioArticulo.md) | Historial de cambios de precio de un artículo (`PrecioAnterior` → `PrecioNuevo`), **1:N** con `Articulo` |
+| [`Cliente`](CompuStoreDB/docs/tablas/Cliente.md) | Catálogo de clientes |
+| [`Pedido`](CompuStoreDB/docs/tablas/Pedido.md) | Encabezado de pedido — **1:N** con `Cliente` |
+| [`DetallePedido`](CompuStoreDB/docs/tablas/DetallePedido.md) | Líneas de un pedido (artículo, cantidad, precio al momento de la venta) — **1:N** con `Pedido`, N:1 con `Articulo`. Un artículo aparece **una sola vez** por pedido (`UNIQUE(idPedido, idArticulo)`); agregarlo de nuevo suma la cantidad en vez de duplicar la línea (ver [`usp_insertarDetallePedido`](CompuStoreDB/docs/usp_insertarDetallePedido.md)) |
 
 Todas las tablas tienen `FechaCreacion` y `FechaUltimaModificacion` (auditoría). Los catálogos (`Categoria`, `Articulo`, `Cliente`) además tienen `Activo BIT` para baja lógica.
 
@@ -33,16 +33,18 @@ Todas las tablas tienen `FechaCreacion` y `FechaUltimaModificacion` (auditoría)
 
 Esto es lo que distingue esta parte del ejercicio de un CRUD simple: hay un evento de negocio (`usp_entregarPedido`) que cambia el comportamiento de otros 5 procedimientos (`usp_actualizarPedido`, `usp_eliminarPedido`, `usp_insertarDetallePedido`, `usp_actualizarDetallePedido`, `usp_eliminarDetallePedido`), todos ellos validando el mismo estado (`Cerrado`) antes de dejar pasar cualquier cambio.
 
+`Pedido` **no** tiene una columna `Total`: se calcula al vuelo con `ufn_calcularTotalPedido` (y se expone ya resuelto en `vw_PedidoResumen`) en vez de guardarlo, para no arriesgar que quede desincronizado si se agrega/quita/modifica una línea de `DetallePedido` sin pasar por los SPs. Guardarlo requeriría un trigger en `DetallePedido` que lo recalculara en cada cambio — queda como posible ejercicio futuro de triggers.
+
 ---
 
 ## Paquete de instalación
 
 Hay dos formas de instalar `CompuStoreDB`, ambas válidas — usa la que prefieras:
 
-1. **Instalación completa en un solo script**: [`CompuStoreDB/instalar-completo.sql`](CompuStoreDB/instalar-completo.sql). Ábrelo en SSMS y ejecútalo completo (F5) — crea la base, las 7 tablas, los datos y los 19 procedimientos en un solo paso. Es la concatenación, en orden, de todos los scripts de `instalacion/`; cada uno queda separado con `GO` porque un `CREATE PROCEDURE` debe ser la única instrucción de su lote.
-2. **Instalación manual, script por script**: ejecutar cada archivo de [`CompuStoreDB/instalacion`](CompuStoreDB/instalacion) en el orden de la tabla de abajo. Más lento, pero deja ver qué hace cada pieza por separado — recomendado la primera vez que se estudia el modelo.
+1. **Instalación completa en un solo script**: [`CompuStoreDB/instalar-completo.sql`](CompuStoreDB/instalar-completo.sql). Ábrelo en SSMS y ejecútalo completo (F5) — crea la base, las 7 tablas, los datos, los 23 procedimientos, la función y la vista en un solo paso.
+2. **Instalación manual, script por script**: ejecutar cada archivo de [`CompuStoreDB/instalacion`](CompuStoreDB/instalacion) en el orden de la tabla de abajo — sigue siendo una opción completamente válida, aunque la lista sea larga. Más lento, pero deja ver qué hace cada pieza por separado; recomendado la primera vez que se estudia el modelo.
 
-Si modificas algún script de `instalacion/`, actualiza también `instalar-completo.sql` (o pide que se regenere) para que ambas formas de instalar sigan siendo equivalentes.
+**Las dos formas usan exactamente el mismo orden**, por construcción: `instalar-completo.sql` se genera concatenando los archivos de `instalacion/` en orden alfabético de carpeta y nombre (`find instalacion -name "*.sql" | sort`) — el mismo orden en el que está la tabla de abajo. Como el prefijo numérico de cada carpeta (`01-Categoria`, `02-Articulo`, ...) ya sigue el orden que respeta las llaves foráneas, un ordenamiento alfabético simple basta; no hay una lista separada que mantener sincronizada a mano. Si agregas o quitas un script en `instalacion/`, solo hay que regenerar `instalar-completo.sql` (pide que se regenere) y, si aplica, agregar/quitar su fila en la tabla de abajo.
 
 La carpeta `instalacion/` está organizada en una subcarpeta por entidad (prefijo numérico = orden de instalación, respeta las llaves foráneas):
 
@@ -79,22 +81,36 @@ La carpeta `instalacion/` está organizada en una subcarpeta por entidad (prefij
 | `06-Pedido/03-usp-eliminar.sql` | `usp_eliminarPedido` — elimina un pedido sin líneas registradas |
 | `06-Pedido/04-usp-actualizar.sql` | `usp_actualizarPedido` — actualiza la fecha de un pedido |
 | `06-Pedido/05-usp-entregar.sql` | `usp_entregarPedido` — marca el pedido como entregado (`Cerrado = 1`, `FechaEntrega`) |
+| `06-Pedido/06-ufn-calcular-total.sql` | `ufn_calcularTotalPedido` — total de un pedido a partir de sus líneas |
 | `07-DetallePedido/01-create-table.sql` | Tabla `DetallePedido` |
-| `07-DetallePedido/02-usp-insertar.sql` | `usp_insertarDetallePedido` — agrega una línea a un pedido |
+| `07-DetallePedido/02-usp-insertar.sql` | `usp_insertarDetallePedido` — agrega una línea a un pedido (o suma cantidad si el artículo ya estaba en ese pedido) |
 | `07-DetallePedido/03-usp-eliminar.sql` | `usp_eliminarDetallePedido` — quita una línea de un pedido (`DELETE` físico) |
 | `07-DetallePedido/04-usp-actualizar.sql` | `usp_actualizarDetallePedido` — actualiza la cantidad de una línea |
+| `08-Vistas/01-vw-pedido-resumen.sql` | `vw_PedidoResumen` — pedido + cliente + total + estado de entrega |
+| `08-Vistas/02-vw-articulo-con-categorias.sql` | `vw_ArticuloConCategorias` — artículo + cada categoría que tiene asignada |
+| `08-Vistas/03-vw-ventas-por-articulo.sql` | `vw_VentasPorArticulo` — unidades vendidas y total facturado por artículo (solo pedidos entregados) |
+| `08-Vistas/04-vw-cliente-resumen.sql` | `vw_ClienteResumen` — número de pedidos y total gastado por cliente |
 
 `Pedido`, `DetallePedido` y `HistoricoPrecioArticulo` se crean vacías — son tablas de hechos/historial, no catálogos, y no había datos reales que reutilizar para ellas.
 
-`usp_actualizarPrecioArticulo` (dentro de `02-Articulo/`) hace `EXEC usp_insertarHistoricoPrecioArticulo` (definido en `04-HistoricoPrecioArticulo/`) antes de actualizar `Articulo.PrecioUnitario`. SQL Server resuelve nombres de objetos en un procedimiento hasta que se ejecuta (no al crearlo), así que el orden de las carpetas no rompe la instalación aunque el SP de Articulo se cree antes que el de HistoricoPrecioArticulo — solo importa que ambos existan antes de invocar `usp_actualizarPrecioArticulo`.
+`usp_actualizarPrecioArticulo` (dentro de `02-Articulo/`) hace `EXEC usp_insertarHistoricoPrecioArticulo` (definido en `04-HistoricoPrecioArticulo/`) antes de actualizar `Articulo.PrecioUnitario`. SQL Server resuelve nombres de objetos en un procedimiento (o función) hasta que se ejecuta, no al crearlo, así que el orden de las carpetas no rompe la instalación aunque el SP de Articulo se cree antes que el de HistoricoPrecioArticulo — solo importa que ambos existan antes de invocar `usp_actualizarPrecioArticulo`. Lo mismo aplica a `ufn_calcularTotalPedido` (carpeta `06-Pedido`), que consulta `DetallePedido` (carpeta `07`) sin que eso rompa nada.
+
+**`CREATE VIEW` es distinto: no tiene resolución diferida.** Necesita que *todas* las tablas y funciones que referencia ya existan en el momento de crearla, o falla de inmediato (a diferencia de un SP o una función, donde el error solo aparecería al *ejecutarlos*, no al crearlos). Por eso las 4 vistas —que cruzan varias tablas— se agrupan en una carpeta final, `08-Vistas/`, en vez de vivir dentro de la carpeta de su tabla principal: así siempre se crean después de que toda la base ya existe, sin excepciones que memorizar sobre el orden.
 
 Reversa en [`CompuStoreDB/reversa`](CompuStoreDB/reversa): elimina las tablas en orden inverso a las llaves foráneas y luego la base de datos. No hay scripts de reversa por procedimiento porque `02-drop-database.sql` elimina la base completa, incluyendo todos los `usp_`.
 
-### Documentación de los procedimientos
+### Documentación de los procedimientos, funciones y vistas
 
-Todos siguen el patrón de "guard clauses" con códigos de salida visto en las sesiones 3 y 4 (`@ErrCodigo`/`@ErrMensaje`, `'000000'` para éxito, `RETURN` en cada validación fallida) — sin `TRY CATCH` todavía. Requieren `USE CompuStoreDB; GO` antes del `CREATE PROCEDURE` porque, a diferencia de una tabla o un `INSERT`, un procedimiento debe ser la primera instrucción de su batch.
+Todos siguen el patrón de "guard clauses" con códigos de salida visto en las sesiones 3 y 4 (`@ErrCodigo`/`@ErrMensaje`, `'000000'` para éxito, `RETURN` en cada validación fallida) — sin `TRY CATCH` todavía. Requieren `USE CompuStoreDB; GO` antes del `CREATE PROCEDURE`/`CREATE FUNCTION`/`CREATE VIEW` porque, a diferencia de una tabla o un `INSERT`, deben ser la primera instrucción de su batch.
 
-El detalle de cada uno (parámetros, validaciones, códigos de salida, ejemplo `EXEC` y casos de prueba) está en [`CompuStoreDB/docs`](CompuStoreDB/docs):
+`CompuStoreDB/docs` está organizada por tipo de objeto:
+
+- [`docs/tablas`](CompuStoreDB/docs/tablas) — un `.md` por tabla: diccionario de datos completo y, para cada `constraint`, qué es y para qué sirve.
+- `docs/*.md` (raíz) — un `.md` por procedimiento almacenado (parámetros, validaciones, códigos de salida, ejemplo `EXEC` y casos de prueba).
+- [`docs/funciones`](CompuStoreDB/docs/funciones) — un `.md` por función definida por el usuario.
+- [`docs/vistas`](CompuStoreDB/docs/vistas) — un `.md` por vista.
+
+El detalle de cada procedimiento está en [`CompuStoreDB/docs`](CompuStoreDB/docs):
 
 **Categoria**
 - [`usp_insertarCategoria`](CompuStoreDB/docs/usp_insertarCategoria.md) — alta de categoría
@@ -125,11 +141,18 @@ El detalle de cada uno (parámetros, validaciones, códigos de salida, ejemplo `
 - [`usp_eliminarPedido`](CompuStoreDB/docs/usp_eliminarPedido.md) — elimina un pedido sin líneas registradas (`DELETE` físico, `Pedido` no tiene `Activo`)
 - [`usp_actualizarPedido`](CompuStoreDB/docs/usp_actualizarPedido.md) — actualiza la fecha de un pedido
 - [`usp_entregarPedido`](CompuStoreDB/docs/usp_entregarPedido.md) — marca el pedido como entregado (`Cerrado = 1`), cerrándolo para más cambios
+- [`ufn_calcularTotalPedido`](CompuStoreDB/docs/funciones/ufn_calcularTotalPedido.md) — total del pedido calculado al vuelo desde `DetallePedido` (no se guarda en `Pedido`)
 
 **DetallePedido**
-- [`usp_insertarDetallePedido`](CompuStoreDB/docs/usp_insertarDetallePedido.md) — agrega una línea a un pedido; el precio se toma del `Articulo` vigente, no se recibe como parámetro
+- [`usp_insertarDetallePedido`](CompuStoreDB/docs/usp_insertarDetallePedido.md) — agrega una línea a un pedido (o suma cantidad a la línea existente si el artículo ya estaba en ese pedido); el precio se toma del `Articulo` vigente, no se recibe como parámetro
 - [`usp_eliminarDetallePedido`](CompuStoreDB/docs/usp_eliminarDetallePedido.md) — quita una línea (`DELETE` físico)
 - [`usp_actualizarDetallePedido`](CompuStoreDB/docs/usp_actualizarDetallePedido.md) — actualiza solo la cantidad de una línea
+
+**Vistas** (multi-tabla, viven en `08-Vistas/` — ver nota sobre `CREATE VIEW` y resolución de nombres más arriba)
+- [`vw_PedidoResumen`](CompuStoreDB/docs/vistas/vw_PedidoResumen.md) — pedido + cliente + total + estado de entrega
+- [`vw_ArticuloConCategorias`](CompuStoreDB/docs/vistas/vw_ArticuloConCategorias.md) — artículo + cada categoría que tiene asignada (un renglón por combinación)
+- [`vw_VentasPorArticulo`](CompuStoreDB/docs/vistas/vw_VentasPorArticulo.md) — unidades vendidas y total facturado por artículo, solo de pedidos entregados
+- [`vw_ClienteResumen`](CompuStoreDB/docs/vistas/vw_ClienteResumen.md) — número de pedidos y total gastado por cliente
 
 Todos se probaron manualmente en la instancia de AWS (casos de error y de éxito) antes de quedar documentados.
 
@@ -144,7 +167,7 @@ Todos se probaron manualmente en la instancia de AWS (casos de error y de éxito
 
 - `PRIMARY KEY` con `IDENTITY(1,1)` en todas las tablas.
 - `FOREIGN KEY` nombradas (`fk_<Tabla>_<TablaReferenciada>`) en todas las relaciones.
-- `UNIQUE` en `Categoria.Nombre`; `Articulo` (`Nombre`, `Marca`); `Cliente.Correo` y `Cliente.Telefono`; y en el par (`idArticulo`, `idCategoria`) de `ArticuloCategoria`, para no duplicar la misma relación.
+- `UNIQUE` en `Categoria.Nombre`; `Articulo` (`Nombre`, `Marca`); `Cliente.Correo` y `Cliente.Telefono`; en el par (`idArticulo`, `idCategoria`) de `ArticuloCategoria`; y en el par (`idPedido`, `idArticulo`) de `DetallePedido`, para no duplicar la misma relación.
 - `CHECK` en precios y cantidades (`> 0`), en `Cliente.Sexo` (`IN ('M', 'F')`), y en `HistoricoPrecioArticulo` para que `PrecioNuevo` sea distinto de `PrecioAnterior` (no registrar un "cambio" que no cambió nada).
 - `DEFAULT 1` en todos los `Activo`, y `DEFAULT GETDATE()` en los campos de auditoría.
 - `DEFAULT 0` en `Pedido.Cerrado` y `DEFAULT '1900-01-01'` en `Pedido.FechaEntrega` — misma filosofía que `Activo`: nunca dejar una columna de estado en `NULL`.
