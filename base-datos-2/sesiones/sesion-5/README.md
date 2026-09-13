@@ -24,6 +24,15 @@ Todas las tablas tienen `FechaCreacion` y `FechaUltimaModificacion` (auditoría)
 
 `Articulo.PrecioUnitario` es el precio de lista vigente; `DetallePedido.PrecioUnitario` conserva el precio real de cada venta aunque el precio de lista cambie después. El registro en `HistoricoPrecioArticulo` es manual (no hay trigger todavía).
 
+### Ciclo de vida de un Pedido
+
+`Pedido` no tiene `Activo` (no es catálogo), pero sí tiene dos columnas para trackear su entrega:
+
+- `Cerrado BIT NOT NULL DEFAULT 0` — se pone en `1` cuando el pedido se entrega (ver [`usp_entregarPedido`](CompuStoreDB/docs/usp_entregarPedido.md)). Un pedido con `Cerrado = 1` queda congelado: ya no admite `usp_actualizarPedido`, `usp_eliminarPedido`, ni alta/baja/actualización de sus líneas en `DetallePedido`.
+- `FechaEntrega DATE NOT NULL DEFAULT '1900-01-01'` — fecha en la que se marcó como entregado. Nace en `1900-01-01` como valor centinela ("todavía no entregado"), en vez de dejarla en `NULL`, siguiendo la misma lógica de no usar `NULL` como estado por defecto que ya se aplica con `Activo`.
+
+Esto es lo que distingue esta parte del ejercicio de un CRUD simple: hay un evento de negocio (`usp_entregarPedido`) que cambia el comportamiento de otros 5 procedimientos (`usp_actualizarPedido`, `usp_eliminarPedido`, `usp_insertarDetallePedido`, `usp_actualizarDetallePedido`, `usp_eliminarDetallePedido`), todos ellos validando el mismo estado (`Cerrado`) antes de dejar pasar cualquier cambio.
+
 ---
 
 ## Paquete de instalación
@@ -69,7 +78,11 @@ La carpeta `instalacion/` está organizada en una subcarpeta por entidad (prefij
 | `06-Pedido/02-usp-insertar.sql` | `usp_insertarPedido` — alta de pedido |
 | `06-Pedido/03-usp-eliminar.sql` | `usp_eliminarPedido` — elimina un pedido sin líneas registradas |
 | `06-Pedido/04-usp-actualizar.sql` | `usp_actualizarPedido` — actualiza la fecha de un pedido |
+| `06-Pedido/05-usp-entregar.sql` | `usp_entregarPedido` — marca el pedido como entregado (`Cerrado = 1`, `FechaEntrega`) |
 | `07-DetallePedido/01-create-table.sql` | Tabla `DetallePedido` |
+| `07-DetallePedido/02-usp-insertar.sql` | `usp_insertarDetallePedido` — agrega una línea a un pedido |
+| `07-DetallePedido/03-usp-eliminar.sql` | `usp_eliminarDetallePedido` — quita una línea de un pedido (`DELETE` físico) |
+| `07-DetallePedido/04-usp-actualizar.sql` | `usp_actualizarDetallePedido` — actualiza la cantidad de una línea |
 
 `Pedido`, `DetallePedido` y `HistoricoPrecioArticulo` se crean vacías — son tablas de hechos/historial, no catálogos, y no había datos reales que reutilizar para ellas.
 
@@ -111,6 +124,12 @@ El detalle de cada uno (parámetros, validaciones, códigos de salida, ejemplo `
 - [`usp_insertarPedido`](CompuStoreDB/docs/usp_insertarPedido.md) — alta de pedido
 - [`usp_eliminarPedido`](CompuStoreDB/docs/usp_eliminarPedido.md) — elimina un pedido sin líneas registradas (`DELETE` físico, `Pedido` no tiene `Activo`)
 - [`usp_actualizarPedido`](CompuStoreDB/docs/usp_actualizarPedido.md) — actualiza la fecha de un pedido
+- [`usp_entregarPedido`](CompuStoreDB/docs/usp_entregarPedido.md) — marca el pedido como entregado (`Cerrado = 1`), cerrándolo para más cambios
+
+**DetallePedido**
+- [`usp_insertarDetallePedido`](CompuStoreDB/docs/usp_insertarDetallePedido.md) — agrega una línea a un pedido; el precio se toma del `Articulo` vigente, no se recibe como parámetro
+- [`usp_eliminarDetallePedido`](CompuStoreDB/docs/usp_eliminarDetallePedido.md) — quita una línea (`DELETE` físico)
+- [`usp_actualizarDetallePedido`](CompuStoreDB/docs/usp_actualizarDetallePedido.md) — actualiza solo la cantidad de una línea
 
 Todos se probaron manualmente en la instancia de AWS (casos de error y de éxito) antes de quedar documentados.
 
@@ -128,6 +147,7 @@ Todos se probaron manualmente en la instancia de AWS (casos de error y de éxito
 - `UNIQUE` en `Categoria.Nombre`; `Articulo` (`Nombre`, `Marca`); `Cliente.Correo` y `Cliente.Telefono`; y en el par (`idArticulo`, `idCategoria`) de `ArticuloCategoria`, para no duplicar la misma relación.
 - `CHECK` en precios y cantidades (`> 0`), en `Cliente.Sexo` (`IN ('M', 'F')`), y en `HistoricoPrecioArticulo` para que `PrecioNuevo` sea distinto de `PrecioAnterior` (no registrar un "cambio" que no cambió nada).
 - `DEFAULT 1` en todos los `Activo`, y `DEFAULT GETDATE()` en los campos de auditoría.
+- `DEFAULT 0` en `Pedido.Cerrado` y `DEFAULT '1900-01-01'` en `Pedido.FechaEntrega` — misma filosofía que `Activo`: nunca dejar una columna de estado en `NULL`.
 
 ---
 

@@ -144,6 +144,8 @@ CREATE TABLE Pedido (
     idPedido INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
     idCliente INT NOT NULL,
     Fecha DATE NOT NULL,
+    Cerrado BIT NOT NULL DEFAULT 0,
+    FechaEntrega DATE NOT NULL DEFAULT '1900-01-01',
     FechaCreacion DATETIME NOT NULL DEFAULT GETDATE(),
     FechaUltimaModificacion DATETIME NOT NULL DEFAULT GETDATE(),
     CONSTRAINT fk_Pedido_Cliente FOREIGN KEY (idCliente) REFERENCES Cliente(idCliente)
@@ -1675,12 +1677,14 @@ BEGIN
 			@ErrMensaje varchar(200),
 
 			@idCliente int,
+			@Cerrado bit,
 			@idDetallePedidoExistente int
 
 	-- Validación del Pedido: debe existir
 
 	SELECT
-		@idCliente = idCliente
+		@idCliente = idCliente,
+		@Cerrado = Cerrado
 	FROM Pedido
 	WHERE idPedido = @p_idPedido
 
@@ -1688,6 +1692,19 @@ BEGIN
 
 		SELECT 	@ErrCodigo = '000001',
 				@ErrMensaje = 'El pedido no existe'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- Validación del estado: el pedido no debe estar entregado
+
+	IF @Cerrado = 1 BEGIN
+
+		SELECT 	@ErrCodigo = '000002',
+				@ErrMensaje = 'El pedido ya fue entregado y no puede eliminarse'
 
 		SELECT	@ErrCodigo as ErrCodigo,
 				@ErrMensaje as ErrMensaje
@@ -1704,7 +1721,7 @@ BEGIN
 
 	IF @idDetallePedidoExistente IS NOT NULL BEGIN
 
-		SELECT 	@ErrCodigo = '000002',
+		SELECT 	@ErrCodigo = '000003',
 				@ErrMensaje = 'El pedido tiene líneas registradas y no puede eliminarse'
 
 		SELECT	@ErrCodigo as ErrCodigo,
@@ -1745,12 +1762,14 @@ BEGIN
 	DECLARE @ErrCodigo varchar(10),
 			@ErrMensaje varchar(200),
 
-			@idCliente int
+			@idCliente int,
+			@Cerrado bit
 
 	-- Validación del Pedido: Revisamos primero si el idPedido existe en la tabla
 
 	SELECT
-		@idCliente = idCliente
+		@idCliente = idCliente,
+		@Cerrado = Cerrado
 	FROM Pedido
 	WHERE idPedido = @p_idPedido
 
@@ -1765,11 +1784,24 @@ BEGIN
 		RETURN
 	END
 
+	-- Validación del estado: el pedido no debe estar entregado
+
+	IF @Cerrado = 1 BEGIN
+
+		SELECT 	@ErrCodigo = '000002',
+				@ErrMensaje = 'El pedido ya fue entregado y no puede modificarse'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
 	-- Validación de la Fecha: no puede ser fecha pasada
 
 	IF @p_Fecha < GETDATE() BEGIN
 
-		SELECT 	@ErrCodigo = '000002',
+		SELECT 	@ErrCodigo = '000003',
 				@ErrMensaje = 'La fecha no puede ser pasada'
 
 		SELECT	@ErrCodigo as ErrCodigo,
@@ -1783,6 +1815,372 @@ BEGIN
 		Fecha = @p_Fecha,
 		FechaUltimaModificacion = GETDATE()
 	WHERE idPedido = @p_idPedido
+
+	SELECT 	@ErrCodigo = '000000',
+			@ErrMensaje = 'Actualización correcta'
+
+	SELECT	@ErrCodigo as ErrCodigo,
+			@ErrMensaje as ErrMensaje
+
+END
+
+GO
+
+-- ============================================================
+-- 06-Pedido/05-usp-entregar.sql
+-- ============================================================
+-- Tema:        CompuStoreDB - Sesión 5
+-- Descripción: Marcar un pedido como entregado (lo cierra para futuras modificaciones)
+-- Autor:       Daniel Hilario
+
+USE CompuStoreDB;
+GO
+
+CREATE PROCEDURE usp_entregarPedido
+	@p_idPedido int
+AS
+BEGIN
+
+	DECLARE @ErrCodigo varchar(10),
+			@ErrMensaje varchar(200),
+
+			@idCliente int,
+			@Cerrado bit,
+			@idDetallePedidoExistente int
+
+	-- Validación del Pedido: debe existir
+
+	SELECT
+		@idCliente = idCliente,
+		@Cerrado = Cerrado
+	FROM Pedido
+	WHERE idPedido = @p_idPedido
+
+	IF @idCliente IS NULL BEGIN
+
+		SELECT 	@ErrCodigo = '000001',
+				@ErrMensaje = 'El pedido no existe'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- Validación del estado: el pedido no debe estar ya entregado
+
+	IF @Cerrado = 1 BEGIN
+
+		SELECT 	@ErrCodigo = '000002',
+				@ErrMensaje = 'El pedido ya fue entregado'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- Validación del DetallePedido: el pedido debe tener al menos una línea registrada
+
+	SELECT
+		@idDetallePedidoExistente = idDetallePedido
+	FROM DetallePedido
+	WHERE idPedido = @p_idPedido
+
+	IF @idDetallePedidoExistente IS NULL BEGIN
+
+		SELECT 	@ErrCodigo = '000003',
+				@ErrMensaje = 'El pedido no tiene líneas registradas y no puede entregarse'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	UPDATE Pedido
+	SET
+		Cerrado = 1,
+		FechaEntrega = GETDATE(),
+		FechaUltimaModificacion = GETDATE()
+	WHERE idPedido = @p_idPedido
+
+	SELECT 	@ErrCodigo = '000000',
+			@ErrMensaje = 'Entrega registrada correctamente'
+
+	SELECT	@ErrCodigo as ErrCodigo,
+			@ErrMensaje as ErrMensaje
+
+END
+
+GO
+
+-- ============================================================
+-- 07-DetallePedido/02-usp-insertar.sql
+-- ============================================================
+-- Tema:        CompuStoreDB - Sesión 5
+-- Descripción: Alta de una línea de pedido, con validaciones de guard clause
+-- Autor:       Daniel Hilario
+
+USE CompuStoreDB;
+GO
+
+CREATE PROCEDURE usp_insertarDetallePedido
+	@p_idPedido int,
+	@p_idArticulo int,
+	@p_Cantidad int
+AS
+BEGIN
+
+	DECLARE @ErrCodigo varchar(10),
+			@ErrMensaje varchar(200),
+
+			@idCliente int,
+			@Cerrado bit,
+			@PrecioUnitario decimal(10,2),
+			@Activo bit
+
+	-- Validación del Pedido: debe existir
+
+	SELECT
+		@idCliente = idCliente,
+		@Cerrado = Cerrado
+	FROM Pedido
+	WHERE idPedido = @p_idPedido
+
+	IF @idCliente IS NULL BEGIN
+
+		SELECT 	@ErrCodigo = '000001',
+				@ErrMensaje = 'El pedido no existe'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- Validación del estado: el pedido no debe estar entregado
+
+	IF @Cerrado = 1 BEGIN
+
+		SELECT 	@ErrCodigo = '000002',
+				@ErrMensaje = 'El pedido ya fue entregado y no admite nuevas líneas'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- Validación del Articulo: debe existir
+
+	SELECT
+		@PrecioUnitario = PrecioUnitario,
+		@Activo = Activo
+	FROM Articulo
+	WHERE idArticulo = @p_idArticulo
+
+	IF @PrecioUnitario IS NULL BEGIN
+
+		SELECT 	@ErrCodigo = '000003',
+				@ErrMensaje = 'El artículo no existe'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- Validación del Articulo: debe estar activo
+
+	IF @Activo = 0 BEGIN
+
+		SELECT 	@ErrCodigo = '000004',
+				@ErrMensaje = 'El artículo está dado de baja'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- Validación de la Cantidad: debe ser mayor a cero
+
+	IF @p_Cantidad <= 0 BEGIN
+
+		SELECT 	@ErrCodigo = '000005',
+				@ErrMensaje = 'La cantidad debe ser mayor a cero'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- El PrecioUnitario se toma del precio vigente del artículo, no se recibe como parámetro,
+	-- para dejar congelado el precio real de la venta aunque el precio de lista cambie después
+
+	INSERT INTO DetallePedido (idPedido, idArticulo, Cantidad, PrecioUnitario)
+	VALUES (@p_idPedido, @p_idArticulo, @p_Cantidad, @PrecioUnitario)
+
+	SELECT 	@ErrCodigo = '000000',
+			@ErrMensaje = 'Inserción correcta'
+
+	SELECT	@ErrCodigo as ErrCodigo,
+			@ErrMensaje as ErrMensaje
+
+END
+
+GO
+
+-- ============================================================
+-- 07-DetallePedido/03-usp-eliminar.sql
+-- ============================================================
+-- Tema:        CompuStoreDB - Sesión 5
+-- Descripción: Baja de una línea de pedido
+-- Autor:       Daniel Hilario
+
+USE CompuStoreDB;
+GO
+
+CREATE PROCEDURE usp_eliminarDetallePedido
+	@p_idDetallePedido int
+AS
+BEGIN
+
+	DECLARE @ErrCodigo varchar(10),
+			@ErrMensaje varchar(200),
+
+			@idPedido int,
+			@Cerrado bit
+
+	-- Validación del DetallePedido: debe existir
+
+	SELECT
+		@idPedido = idPedido
+	FROM DetallePedido
+	WHERE idDetallePedido = @p_idDetallePedido
+
+	IF @idPedido IS NULL BEGIN
+
+		SELECT 	@ErrCodigo = '000001',
+				@ErrMensaje = 'La línea de pedido no existe'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- Validación del estado: el pedido no debe estar entregado
+
+	SELECT
+		@Cerrado = Cerrado
+	FROM Pedido
+	WHERE idPedido = @idPedido
+
+	IF @Cerrado = 1 BEGIN
+
+		SELECT 	@ErrCodigo = '000002',
+				@ErrMensaje = 'El pedido ya fue entregado y no admite cambios en sus líneas'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	DELETE FROM DetallePedido
+	WHERE idDetallePedido = @p_idDetallePedido
+
+	SELECT 	@ErrCodigo = '000000',
+			@ErrMensaje = 'Eliminación correcta'
+
+	SELECT	@ErrCodigo as ErrCodigo,
+			@ErrMensaje as ErrMensaje
+
+END
+
+GO
+
+-- ============================================================
+-- 07-DetallePedido/04-usp-actualizar.sql
+-- ============================================================
+-- Tema:        CompuStoreDB - Sesión 5
+-- Descripción: Actualizar la cantidad de una línea de pedido
+-- Autor:       Daniel Hilario
+
+USE CompuStoreDB;
+GO
+
+CREATE PROCEDURE usp_actualizarDetallePedido
+	@p_idDetallePedido int,
+	@p_Cantidad int
+AS
+BEGIN
+
+	DECLARE @ErrCodigo varchar(10),
+			@ErrMensaje varchar(200),
+
+			@idPedido int,
+			@Cerrado bit
+
+	-- Validación del DetallePedido: debe existir
+
+	SELECT
+		@idPedido = idPedido
+	FROM DetallePedido
+	WHERE idDetallePedido = @p_idDetallePedido
+
+	IF @idPedido IS NULL BEGIN
+
+		SELECT 	@ErrCodigo = '000001',
+				@ErrMensaje = 'La línea de pedido no existe'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- Validación del estado: el pedido no debe estar entregado
+
+	SELECT
+		@Cerrado = Cerrado
+	FROM Pedido
+	WHERE idPedido = @idPedido
+
+	IF @Cerrado = 1 BEGIN
+
+		SELECT 	@ErrCodigo = '000002',
+				@ErrMensaje = 'El pedido ya fue entregado y no admite cambios en sus líneas'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- Validación de la Cantidad: debe ser mayor a cero
+
+	IF @p_Cantidad <= 0 BEGIN
+
+		SELECT 	@ErrCodigo = '000003',
+				@ErrMensaje = 'La cantidad debe ser mayor a cero'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- Solo se actualiza la Cantidad: el Articulo, el Pedido y el PrecioUnitario de la venta no se modifican
+
+	UPDATE DetallePedido
+	SET
+		Cantidad = @p_Cantidad,
+		FechaUltimaModificacion = GETDATE()
+	WHERE idDetallePedido = @p_idDetallePedido
 
 	SELECT 	@ErrCodigo = '000000',
 			@ErrMensaje = 'Actualización correcta'
