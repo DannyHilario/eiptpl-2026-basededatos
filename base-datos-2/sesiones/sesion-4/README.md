@@ -81,7 +81,7 @@ Esto evita romper llaves foráneas de otras tablas (por ejemplo `Funcion`) que r
 
 ## Nota de nomenclatura
 
-En clase estos procedimientos se crearon originalmente con el prefijo `sp_`. En la [Sesión 5](../sesion-5) se renombraron a `usp_` (tanto en CineDB como en estos scripts) para alinearlos con la convención del repositorio (ver [CLAUDE.md](../../../CLAUDE.md)) — `sp_` queda reservado por SQL Server para procedimientos del sistema.
+En clase estos procedimientos se crearon originalmente con el prefijo `sp_`. En la [Sesión 5-6](../sesion-5-6) se renombraron a `usp_` (tanto en CineDB como en estos scripts) para alinearlos con la convención del repositorio (ver [CLAUDE.md](../../../CLAUDE.md)) — `sp_` queda reservado por SQL Server para procedimientos del sistema.
 
 ## Escenarios para seguir practicando
 

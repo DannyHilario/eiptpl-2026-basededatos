@@ -101,7 +101,7 @@ END
 
 > **Trabajo en progreso:** este procedimiento quedó incompleto al cierre de la sesión — solo tiene la validación de `idClasificacion` y termina con un `SELECT 'Se saltó el IF'` de prueba en vez del `INSERT` real. La validación de `idGenero` y el `INSERT INTO Pelicula` final se completan en la [Sesión 4](../sesion-4).
 
-> **Nota de nomenclatura:** en clase estos procedimientos se crearon originalmente con el prefijo `sp_`. En la [Sesión 5](../sesion-5) se renombraron a `usp_` (tanto en CineDB como en estos scripts) para alinearlos con la convención del repositorio (ver [CLAUDE.md](../../../CLAUDE.md)) — `sp_` queda reservado por SQL Server para procedimientos del sistema.
+> **Nota de nomenclatura:** en clase estos procedimientos se crearon originalmente con el prefijo `sp_`. En la [Sesión 5-6](../sesion-5-6) se renombraron a `usp_` (tanto en CineDB como en estos scripts) para alinearlos con la convención del repositorio (ver [CLAUDE.md](../../../CLAUDE.md)) — `sp_` queda reservado por SQL Server para procedimientos del sistema.
 
 ---
 

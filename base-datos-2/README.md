@@ -22,7 +22,8 @@ base-datos-2/
     ├── sesion-2/          # CineDB — funciones escalares y vistas
     ├── sesion-3/          # CineDB — variables y procedimientos almacenados
     ├── sesion-4/          # CineDB — validaciones y manejo de errores en SPs
-    └── sesion-5/          # CompuStoreDB — modelado, N:N, auditoría y constraints
+    ├── sesion-5-6/        # CompuStoreDB — modelado, N:N, auditoría y constraints (dos sábados de trabajo)
+    └── sesion-7/          # HospitalDB — modelo base para Evidencias 1 y 2
 ```
 
 Se irá ampliando conforme avancen las sesiones del semestre.
@@ -35,7 +36,8 @@ Se irá ampliando conforme avancen las sesiones del semestre.
 | [Sesión 2](sesiones/sesion-2) | CineDB | Funciones escalares (`UPPER`, `LOWER`, `ROUND`, `CAST`, `SUBSTRING`, `LEN`, concatenación) y vistas (`CREATE VIEW`) — CineDB reutilizada de Base de Datos I |
 | [Sesión 3](sesiones/sesion-3) | CineDB | Variables T-SQL, `IF`/`ELSE`, y procedimientos almacenados (`CREATE`/`ALTER PROCEDURE`) |
 | [Sesión 4](sesiones/sesion-4) | CineDB | Validaciones en procedimientos almacenados y patrón de manejo de errores con códigos de salida |
-| [Sesión 5](sesiones/sesion-5) | CompuStoreDB | Modelado desde cero (relación N:N con tabla puente, historial de precios), campos de auditoría, baja lógica y constraints (`PK`, `FK`, `UNIQUE`, `CHECK`, `DEFAULT`) |
+| [Sesión 5-6](sesiones/sesion-5-6) | CompuStoreDB | Modelado desde cero (relación N:N con tabla puente, historial de precios), campos de auditoría, baja lógica, constraints (`PK`, `FK`, `UNIQUE`, `CHECK`, `DEFAULT`), CRUD completo con SPs, funciones, vistas y datos demo |
+| [Sesión 7](sesiones/sesion-7) | HospitalDB | Modelo base para Evidencias 1 y 2 (vistas/funciones y procedimientos almacenados, uno distinto por alumno) — tablas, constraints y datos iniciales instalados |
 
 ---
 
