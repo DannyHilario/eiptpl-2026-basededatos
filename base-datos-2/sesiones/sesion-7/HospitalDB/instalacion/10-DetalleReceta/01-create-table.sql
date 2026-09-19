@@ -9,7 +9,7 @@ CREATE TABLE DetalleReceta (
     idReceta INT NOT NULL,
     idMedicamento INT NOT NULL,
     Cantidad INT NOT NULL,
-    Indicaciones VARCHAR(200),
+    Indicaciones VARCHAR(200) NOT NULL,
     FechaCreacion DATETIME NOT NULL DEFAULT GETDATE(),
     FechaUltimaModificacion DATETIME NOT NULL DEFAULT GETDATE(),
     CONSTRAINT fk_DetalleReceta_Receta FOREIGN KEY (idReceta) REFERENCES Receta(idReceta),

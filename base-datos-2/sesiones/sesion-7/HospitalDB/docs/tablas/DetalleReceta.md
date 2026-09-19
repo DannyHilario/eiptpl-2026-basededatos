@@ -12,7 +12,7 @@ Líneas de una [`Receta`](Receta.md): qué [`Medicamento`](Medicamento.md), cuá
 | `idReceta` | `INT` | No | — | FK a `Receta` |
 | `idMedicamento` | `INT` | No | — | FK a `Medicamento` |
 | `Cantidad` | `INT` | No | — | Cantidad prescrita |
-| `Indicaciones` | `VARCHAR(200)` | Sí | — | Dosis/frecuencia (ej. "Tomar 1 tableta cada 8 horas") |
+| `Indicaciones` | `VARCHAR(200)` | No | — | Dosis/frecuencia (ej. "Tomar 1 tableta cada 8 horas") |
 | `FechaCreacion` | `DATETIME` | No | `GETDATE()` | Cuándo se creó el renglón |
 | `FechaUltimaModificacion` | `DATETIME` | No | `GETDATE()` | Cuándo se modificó por última vez |
 

@@ -11,10 +11,10 @@ Catálogo de médicos.
 | `idMedico` | `INT IDENTITY(1,1)` | No | autonumérico | Llave primaria |
 | `Nombre` | `VARCHAR(50)` | No | — | Nombre(s) del médico |
 | `PrimerApellido` | `VARCHAR(50)` | No | — | Primer apellido |
-| `SegundoApellido` | `VARCHAR(50)` | Sí | — | Segundo apellido (opcional) |
+| `SegundoApellido` | `VARCHAR(50)` | No | — | Segundo apellido |
 | `Cedula` | `VARCHAR(20)` | No | — | Cédula profesional |
-| `Telefono` | `VARCHAR(20)` | Sí | — | Teléfono de contacto |
-| `Correo` | `VARCHAR(100)` | Sí | — | Correo electrónico |
+| `Telefono` | `VARCHAR(20)` | No | — | Teléfono de contacto |
+| `Correo` | `VARCHAR(100)` | No | — | Correo electrónico |
 | `Activo` | `BIT` | No | `1` | `1` = activo, `0` = dado de baja (baja lógica) |
 | `FechaCreacion` | `DATETIME` | No | `GETDATE()` | Cuándo se creó el renglón |
 | `FechaUltimaModificacion` | `DATETIME` | No | `GETDATE()` | Cuándo se modificó por última vez |

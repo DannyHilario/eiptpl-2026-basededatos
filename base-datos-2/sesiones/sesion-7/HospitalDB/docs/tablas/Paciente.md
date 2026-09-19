@@ -11,11 +11,11 @@ Catálogo de pacientes.
 | `idPaciente` | `INT IDENTITY(1,1)` | No | autonumérico | Llave primaria |
 | `Nombre` | `VARCHAR(50)` | No | — | Nombre(s) del paciente |
 | `PrimerApellido` | `VARCHAR(50)` | No | — | Primer apellido |
-| `SegundoApellido` | `VARCHAR(50)` | Sí | — | Segundo apellido (opcional) |
+| `SegundoApellido` | `VARCHAR(50)` | No | — | Segundo apellido |
 | `Sexo` | `CHAR(1)` | No | — | `M` o `F` |
-| `Telefono` | `VARCHAR(20)` | Sí | — | Teléfono de contacto |
-| `Correo` | `VARCHAR(100)` | Sí | — | Correo electrónico |
-| `FechaNacimiento` | `DATE` | Sí | — | Fecha de nacimiento |
+| `Telefono` | `VARCHAR(20)` | No | — | Teléfono de contacto |
+| `Correo` | `VARCHAR(100)` | No | — | Correo electrónico |
+| `FechaNacimiento` | `DATE` | No | — | Fecha de nacimiento |
 | `Activo` | `BIT` | No | `1` | `1` = activo, `0` = dado de baja (baja lógica) |
 | `FechaCreacion` | `DATETIME` | No | `GETDATE()` | Cuándo se creó el renglón |
 | `FechaUltimaModificacion` | `DATETIME` | No | `GETDATE()` | Cuándo se modificó por última vez |
