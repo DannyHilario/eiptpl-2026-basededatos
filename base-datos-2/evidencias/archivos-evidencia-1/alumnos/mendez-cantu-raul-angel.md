@@ -5,7 +5,7 @@
 
 ## Contexto
 
-`Paciente` guarda el nombre en tres columnas separadas (`Nombre`, `PrimerApellido`, `SegundoApellido`). Cada vez que alguien necesita mostrar el nombre completo de un paciente, tiene que concatenar las tres a mano — y arriesgarse a que el segundo apellido (que puede ser `NULL`) rompa el resultado. Tu función resuelve esa concatenación una sola vez, bien hecha.
+`Paciente` guarda el nombre en tres columnas separadas (`Nombre`, `PrimerApellido`, `SegundoApellido`). Cada vez que alguien necesita mostrar el nombre completo de un paciente, tiene que concatenar las tres a mano. Tu función resuelve esa concatenación una sola vez.
 
 ## Tu tarea
 
@@ -22,8 +22,7 @@ Crea una función escalar llamada exactamente `ufn_nombreCompletoPaciente` que r
 ## Criterios de aceptación
 
 - [ ] La función se llama exactamente `ufn_nombreCompletoPaciente` y recibe `@p_idPaciente int`.
-- [ ] Regresa `Nombre + ' ' + PrimerApellido`, y si `SegundoApellido` no es `NULL`, lo agrega al final con un espacio antes.
-- [ ] Si `SegundoApellido` es `NULL`, el resultado **no** debe traer un espacio de más al final ni la palabra `NULL` pegada al texto — usa `ISNULL(' ' + SegundoApellido, '')` en vez de concatenar la columna directo con `+`.
+- [ ] Regresa `Nombre + ' ' + PrimerApellido + ' ' + SegundoApellido` (las tres columnas son `NOT NULL`, siempre tienen valor).
 - [ ] Si el `idPaciente` no existe, regresa `NULL` (no genera error).
 
 ## Ejemplo de salida esperada
@@ -39,11 +38,7 @@ Crea una función escalar llamada exactamente `ufn_nombreCompletoPaciente` que r
 ```sql
 SELECT dbo.ufn_nombreCompletoPaciente(1) AS NombreCompleto  -- esperado: 'Sergio Castro Ibarra'
 SELECT dbo.ufn_nombreCompletoPaciente(8) AS NombreCompleto  -- esperado: 'Elena Lozano Guerrero'
-
--- Prueba con un paciente sin segundo apellido (no rompe el resultado)
-UPDATE Paciente SET SegundoApellido = NULL WHERE idPaciente = 1
-SELECT dbo.ufn_nombreCompletoPaciente(1) AS NombreCompleto  -- esperado: 'Sergio Castro' (sin espacio de más)
-UPDATE Paciente SET SegundoApellido = 'Ibarra' WHERE idPaciente = 1  -- revierte el cambio de prueba
+SELECT dbo.ufn_nombreCompletoPaciente(9999) AS NombreCompleto  -- esperado: NULL
 ```
 
 ## Entregable

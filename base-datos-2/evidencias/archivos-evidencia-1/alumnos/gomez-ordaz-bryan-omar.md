@@ -15,7 +15,7 @@ Crea una vista llamada exactamente `vw_MedicoEspecialidadCompleta` que una `Medi
 
 - [ ] La vista se llama exactamente `vw_MedicoEspecialidadCompleta`.
 - [ ] Muestra `idMedico` (de `Medico`).
-- [ ] Muestra `NombreMedico`: nombre completo del médico (`Nombre` + `PrimerApellido` + `SegundoApellido`, manejando el caso de que `SegundoApellido` sea `NULL` con `ISNULL(' ' + columna, '')`).
+- [ ] Muestra `NombreMedico`: nombre completo del médico (`Nombre + ' ' + PrimerApellido + ' ' + SegundoApellido`).
 - [ ] Muestra `NombreEspecialidad`: el valor de `Especialidad.Nombre`.
 - [ ] Une las tres tablas a través de `MedicoEspecialidad` (que conecta `idMedico` con `idEspecialidad`).
 - [ ] Si un médico tiene 2 especialidades, aparece en **2 filas** (una por cada especialidad) — no se deduplica ni se concatena en una sola fila.

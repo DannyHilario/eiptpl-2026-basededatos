@@ -18,7 +18,6 @@ Crea una vista llamada exactamente `vw_ConsultaCompleta` que una `Consulta` con 
 - [ ] Muestra `NombrePaciente`: el nombre completo del paciente, concatenando `Nombre`, `PrimerApellido` y `SegundoApellido` (separados por un espacio).
 - [ ] Muestra `NombreMedico`: el nombre completo del médico, con la misma lógica de concatenación.
 - [ ] Muestra `NombreConsultorio`: el valor de `Consultorio.Nombre`.
-- [ ] `SegundoApellido` es opcional (puede ser `NULL`) tanto en `Paciente` como en `Medico` — si es `NULL`, el nombre completo debe quedar bien formado igual (sin un espacio de más al final, ni el texto `NULL` pegado). Usa `ISNULL(' ' + columna, '')` para resolverlo, en vez de concatenar la columna directo.
 - [ ] Incluye **todas** las consultas, sin importar el valor de `Efectuada` (agendadas y ya efectuadas).
 
 ## Ejemplo de salida esperada
@@ -35,8 +34,7 @@ Crea una vista llamada exactamente `vw_ConsultaCompleta` que una `Consulta` con 
 -- Ver toda la agenda
 SELECT * FROM vw_ConsultaCompleta
 
--- Verificar que el manejo de SegundoApellido no rompe el nombre (todos los registros semilla sí tienen segundo apellido,
--- pero si insertas una fila de prueba sin él, el nombre debe seguir viéndose bien)
+-- Verificar el nombre completo de una consulta específica
 SELECT NombrePaciente, NombreMedico
 FROM vw_ConsultaCompleta
 WHERE idConsulta = 1

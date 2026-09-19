@@ -15,7 +15,7 @@ Crea una vista llamada exactamente `vw_RecetaVigente` que una `Receta` con `Cons
 
 - [ ] La vista se llama exactamente `vw_RecetaVigente`.
 - [ ] Muestra `idReceta` (de `Receta`).
-- [ ] Muestra `NombrePaciente`: nombre completo del paciente dueño de la receta (a través de `Receta.idConsulta → Consulta.idPaciente → Paciente`), concatenando `Nombre` + `PrimerApellido` + `SegundoApellido` (con `ISNULL(' ' + SegundoApellido, '')` para el caso `NULL`).
+- [ ] Muestra `NombrePaciente`: nombre completo del paciente dueño de la receta (a través de `Receta.idConsulta → Consulta.idPaciente → Paciente`), concatenando `Nombre + ' ' + PrimerApellido + ' ' + SegundoApellido`.
 - [ ] Muestra `NombreEstatus`: el valor de `EstatusReceta.Nombre` (el estatus **actual** de la receta, no su historial).
 - [ ] Muestra `FechaConsulta`: el valor de `Consulta.Fecha` (la fecha de la consulta que generó la receta).
 - [ ] Incluye **todas** las recetas, sin importar su estatus (Creada, En atención, Surtida, Surtida parcialmente o Cancelada).

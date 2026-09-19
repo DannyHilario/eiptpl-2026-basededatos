@@ -64,16 +64,16 @@ Los datos de contacto de un médico (nombre, apellidos, teléfono, correo) puede
 | `@p_idMedico` | `int` | Id del médico a actualizar |
 | `@p_Nombre` | `varchar(50)` | Nombre(s) |
 | `@p_PrimerApellido` | `varchar(50)` | Primer apellido |
-| `@p_SegundoApellido` | `varchar(50)` | Segundo apellido (puede ser `NULL`) |
-| `@p_Telefono` | `varchar(20)` | Teléfono (puede ser `NULL`) |
-| `@p_Correo` | `varchar(100)` | Correo (puede ser `NULL`) |
+| `@p_SegundoApellido` | `varchar(50)` | Segundo apellido |
+| `@p_Telefono` | `varchar(20)` | Teléfono |
+| `@p_Correo` | `varchar(100)` | Correo |
 
 ### Criterios de aceptación
 
-- [ ] El procedimiento se llama exactamente `usp_actualizarMedico` y recibe los 6 parámetros de arriba (nota: **no** recibe `Cedula` — esa no se actualiza).
+- [ ] El procedimiento se llama exactamente `usp_actualizarMedico` y recibe los 6 parámetros de arriba (todos obligatorios; nota: **no** recibe `Cedula` — esa no se actualiza).
 - [ ] Valida que el médico exista; si no, regresa `ErrCodigo = '000001'`, `ErrMensaje = 'El médico no existe'`, y termina con `RETURN`.
-- [ ] Si `@p_Telefono` **no es `NULL`**, valida que no esté registrado por **otro** médico (`idMedico <> @p_idMedico`); si ya existe, regresa `ErrCodigo = '000002'`, `ErrMensaje = 'El teléfono ya está registrado'`, y termina con `RETURN`.
-- [ ] Si `@p_Correo` **no es `NULL`**, valida de la misma forma; si ya existe, regresa `ErrCodigo = '000003'`, `ErrMensaje = 'El correo ya está registrado'`, y termina con `RETURN`.
+- [ ] Valida que `@p_Telefono` no esté registrado por **otro** médico (`idMedico <> @p_idMedico`); si ya existe, regresa `ErrCodigo = '000002'`, `ErrMensaje = 'El teléfono ya está registrado'`, y termina con `RETURN`.
+- [ ] Valida que `@p_Correo` no esté registrado por **otro** médico, de la misma forma; si ya existe, regresa `ErrCodigo = '000003'`, `ErrMensaje = 'El correo ya está registrado'`, y termina con `RETURN`.
 - [ ] Si todas las validaciones pasan, actualiza `Nombre`, `PrimerApellido`, `SegundoApellido`, `Telefono`, `Correo` y `FechaUltimaModificacion = GETDATE()`.
 - [ ] Al terminar exitosamente, regresa `ErrCodigo = '000000'`, `ErrMensaje = 'Actualización correcta'`.
 
@@ -94,7 +94,7 @@ EXEC usp_actualizarMedico @p_idMedico = 10, @p_Nombre = 'Mariana', @p_PrimerApel
 
 -- El teléfono ya lo tiene otro médico (el 1)
 EXEC usp_actualizarMedico @p_idMedico = 10, @p_Nombre = 'Mariana', @p_PrimerApellido = 'Delgado',
-     @p_SegundoApellido = 'Ortiz', @p_Telefono = '8112000001', @p_Correo = NULL
+     @p_SegundoApellido = 'Ortiz', @p_Telefono = '8112000001', @p_Correo = 'mariana.delgado2@hospitaldb.com'
 ```
 
 ---

@@ -16,11 +16,11 @@ Si un médico se equivocó al capturar la cantidad o las indicaciones de una lí
 |-----------|------|-------------|
 | `@p_idDetalleReceta` | `int` | Id de la línea a actualizar |
 | `@p_Cantidad` | `int` | Nueva cantidad |
-| `@p_Indicaciones` | `varchar(200)` | Nuevas indicaciones (puede ser `NULL`) |
+| `@p_Indicaciones` | `varchar(200)` | Nuevas indicaciones |
 
 ### Criterios de aceptación
 
-- [ ] El procedimiento se llama exactamente `usp_actualizarDetalleReceta` y recibe los 3 parámetros de arriba (nota: **no** recibe `idReceta` ni `idMedicamento` — esos no cambian aquí, solo cantidad e indicaciones).
+- [ ] El procedimiento se llama exactamente `usp_actualizarDetalleReceta` y recibe los 3 parámetros de arriba (todos obligatorios; nota: **no** recibe `idReceta` ni `idMedicamento` — esos no cambian aquí, solo cantidad e indicaciones).
 - [ ] Valida que la línea exista (captura también su `idReceta`); si no, regresa `ErrCodigo = '000001'`, `ErrMensaje = 'La línea de receta no existe'`, y termina con `RETURN`.
 - [ ] Valida que `@p_Cantidad` sea mayor a cero; si no, regresa `ErrCodigo = '000002'`, `ErrMensaje = 'La cantidad debe ser mayor a cero'`, y termina con `RETURN`.
 - [ ] A partir del `idReceta` de esa línea, obtén el `idEstatusReceta` actual de la receta, y valida que sea `1` (Creada) o `2` (En atención); si está en `3`, `4` o `5`, regresa `ErrCodigo = '000003'`, `ErrMensaje = 'No se pueden modificar medicamentos de una receta en este estatus'`, y termina con `RETURN`.

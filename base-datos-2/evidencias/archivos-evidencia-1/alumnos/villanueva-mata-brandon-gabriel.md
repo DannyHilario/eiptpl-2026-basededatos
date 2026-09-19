@@ -24,7 +24,7 @@ Crea una función escalar llamada exactamente `ufn_edadPaciente` que reciba el i
 - [ ] La función se llama exactamente `ufn_edadPaciente` y recibe `@p_idPaciente int`.
 - [ ] Calcula la edad como años **completos cumplidos**, no como la simple diferencia de años de calendario.
 - [ ] **Ojo con el caso borde más común:** `DATEDIFF(YEAR, FechaNacimiento, GETDATE())` por sí solo está mal — cuenta cuántas fronteras de "1 de enero" cruzó, no si ya pasó el cumpleaños este año. Tienes que restarle 1 si el cumpleaños de este año todavía no ha ocurrido (comparando mes y día de `FechaNacimiento` contra el mes y día de hoy).
-- [ ] Si el `idPaciente` no existe, o si `FechaNacimiento` es `NULL`, regresa `NULL` (no genera error).
+- [ ] Si el `idPaciente` no existe, regresa `NULL` (no genera error).
 
 ## Ejemplo de salida esperada — con fecha de hoy 19 de septiembre de 2026
 
@@ -46,7 +46,7 @@ SELECT dbo.ufn_edadPaciente(1) AS Edad  -- Sergio Castro Ibarra, nacido 1978-04-
 -- Paciente cuyo cumpleaños NO ha pasado este año (el caso que revela el bug si existe)
 SELECT dbo.ufn_edadPaciente(5) AS Edad  -- Daniel Aguilar Mendoza, nacido 2001-09-30
 
--- Paciente que nunca capturó FechaNacimiento (columna nullable) — no debe dar error
+-- Paciente que no existe — no debe dar error
 SELECT dbo.ufn_edadPaciente(9999) AS Edad  -- esperado: NULL
 ```
 

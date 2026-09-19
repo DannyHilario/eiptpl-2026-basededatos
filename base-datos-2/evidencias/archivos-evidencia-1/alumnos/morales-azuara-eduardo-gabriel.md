@@ -5,7 +5,7 @@
 
 ## Contexto
 
-Igual que con `Paciente`, `Medico` guarda el nombre en tres columnas separadas. Tu función resuelve la concatenación del nombre completo de un médico una sola vez, manejando bien el caso del segundo apellido opcional.
+Igual que con `Paciente`, `Medico` guarda el nombre en tres columnas separadas (`Nombre`, `PrimerApellido`, `SegundoApellido`). Tu función resuelve esa concatenación una sola vez.
 
 ## Tu tarea
 
@@ -22,8 +22,7 @@ Crea una función escalar llamada exactamente `ufn_nombreCompletoMedico` que rec
 ## Criterios de aceptación
 
 - [ ] La función se llama exactamente `ufn_nombreCompletoMedico` y recibe `@p_idMedico int`.
-- [ ] Regresa `Nombre + ' ' + PrimerApellido`, y si `SegundoApellido` no es `NULL`, lo agrega al final con un espacio antes.
-- [ ] Si `SegundoApellido` es `NULL`, el resultado **no** debe traer un espacio de más al final ni la palabra `NULL` pegada al texto — usa `ISNULL(' ' + SegundoApellido, '')` en vez de concatenar la columna directo con `+`.
+- [ ] Regresa `Nombre + ' ' + PrimerApellido + ' ' + SegundoApellido` (las tres columnas son `NOT NULL`, siempre tienen valor).
 - [ ] Si el `idMedico` no existe, regresa `NULL` (no genera error).
 
 ## Ejemplo de salida esperada
@@ -39,11 +38,7 @@ Crea una función escalar llamada exactamente `ufn_nombreCompletoMedico` que rec
 ```sql
 SELECT dbo.ufn_nombreCompletoMedico(5) AS NombreCompleto  -- esperado: 'Luis Pérez Morales'
 SELECT dbo.ufn_nombreCompletoMedico(9) AS NombreCompleto  -- esperado: 'Ricardo Gómez Reyes'
-
--- Prueba con un médico sin segundo apellido (no rompe el resultado)
-UPDATE Medico SET SegundoApellido = NULL WHERE idMedico = 5
-SELECT dbo.ufn_nombreCompletoMedico(5) AS NombreCompleto  -- esperado: 'Luis Pérez' (sin espacio de más)
-UPDATE Medico SET SegundoApellido = 'Morales' WHERE idMedico = 5  -- revierte el cambio de prueba
+SELECT dbo.ufn_nombreCompletoMedico(9999) AS NombreCompleto  -- esperado: NULL
 ```
 
 ## Entregable

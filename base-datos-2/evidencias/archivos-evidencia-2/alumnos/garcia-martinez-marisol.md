@@ -17,11 +17,11 @@ Cuando un médico prescribe un medicamento, esa línea se guarda en `DetalleRece
 | `@p_idReceta` | `int` | Id de la receta |
 | `@p_idMedicamento` | `int` | Id del medicamento a prescribir |
 | `@p_Cantidad` | `int` | Cantidad prescrita |
-| `@p_Indicaciones` | `varchar(200)` | Dosis/frecuencia (puede ser `NULL`) |
+| `@p_Indicaciones` | `varchar(200)` | Dosis/frecuencia |
 
 ### Criterios de aceptación
 
-- [ ] El procedimiento se llama exactamente `usp_insertarDetalleReceta` y recibe los 4 parámetros de arriba.
+- [ ] El procedimiento se llama exactamente `usp_insertarDetalleReceta` y recibe los 4 parámetros de arriba (todos obligatorios).
 - [ ] Valida que la receta exista (captura también su `idEstatusReceta` actual); si no, regresa `ErrCodigo = '000001'`, `ErrMensaje = 'La receta no existe'`, y termina con `RETURN`.
 - [ ] Valida que el medicamento exista; si no, regresa `ErrCodigo = '000002'`, `ErrMensaje = 'El medicamento no existe'`, y termina con `RETURN`.
 - [ ] Valida que `@p_Cantidad` sea mayor a cero; si no, regresa `ErrCodigo = '000003'`, `ErrMensaje = 'La cantidad debe ser mayor a cero'`, y termina con `RETURN`.

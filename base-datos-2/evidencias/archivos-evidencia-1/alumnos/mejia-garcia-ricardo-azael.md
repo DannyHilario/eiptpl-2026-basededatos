@@ -15,7 +15,7 @@ Crea una vista llamada exactamente `vw_ConsultaPendiente` que muestre únicament
 
 - [ ] La vista se llama exactamente `vw_ConsultaPendiente`.
 - [ ] Muestra `idConsulta` y `Fecha` (de `Consulta`, tal cual).
-- [ ] Muestra `NombrePaciente`: nombre completo del paciente (`Nombre` + `PrimerApellido` + `SegundoApellido`, con `ISNULL(' ' + columna, '')` para el segundo apellido que puede ser `NULL`).
+- [ ] Muestra `NombrePaciente`: nombre completo del paciente (`Nombre + ' ' + PrimerApellido + ' ' + SegundoApellido`).
 - [ ] Muestra `NombreMedico`: nombre completo del médico, misma lógica de concatenación.
 - [ ] Muestra `NombreConsultorio`: el valor de `Consultorio.Nombre`.
 - [ ] Filtra únicamente las consultas donde `Efectuada = 0`.
