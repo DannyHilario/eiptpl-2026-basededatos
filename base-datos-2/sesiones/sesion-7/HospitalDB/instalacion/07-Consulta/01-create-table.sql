@@ -10,6 +10,7 @@ CREATE TABLE Consulta (
     idMedico INT NOT NULL,
     idConsultorio INT NOT NULL,
     Fecha DATETIME NOT NULL,
+    Efectuada BIT NOT NULL DEFAULT 0,
     FechaCreacion DATETIME NOT NULL DEFAULT GETDATE(),
     FechaUltimaModificacion DATETIME NOT NULL DEFAULT GETDATE(),
     CONSTRAINT fk_Consulta_Paciente FOREIGN KEY (idPaciente) REFERENCES Paciente(idPaciente),

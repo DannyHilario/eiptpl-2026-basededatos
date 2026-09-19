@@ -4,6 +4,8 @@ Script: [`instalacion/08-Receta/01-create-table.sql`](../../instalacion/08-Recet
 
 Hecho — **1:1** con [`Consulta`](Consulta.md); referencia su estatus actual.
 
+> **No hacer `INSERT` directo.** Usar [`usp_generarReceta`](../procedimientos/usp_generarReceta.md), que valida que la consulta ya se haya efectuado (`Consulta.Efectuada = 1`) y que no tenga ya una receta antes de crearla.
+
 ## Diccionario de datos
 
 | Columna | Tipo | Nulo | Default | Descripción |
@@ -24,7 +26,9 @@ Hecho — **1:1** con [`Consulta`](Consulta.md); referencia su estatus actual.
 
 ## `idEstatusReceta` vs. `BitacoraEstatusReceta` — por qué se guarda en ambos lados
 
-`idEstatusReceta` es una copia de lectura rápida del estatus vigente; [`BitacoraEstatusReceta`](BitacoraEstatusReceta.md) guarda el historial completo (una fila por cada transición). Es el mismo patrón que `Articulo.PrecioUnitario` + `HistoricoPrecioArticulo` en `CompuStoreDB` (sesión 5): evita tener que calcular `MAX(Fecha)` sobre la bitácora cada vez que alguien solo necesita saber el estatus actual. La responsabilidad de mantener ambos sincronizados recaerá en el SP que cambie el estatus (pendiente de escribir): debe actualizar `Receta.idEstatusReceta` **y** registrar la transición en `BitacoraEstatusReceta` en la misma operación.
+`idEstatusReceta` es una copia de lectura rápida del estatus vigente; [`BitacoraEstatusReceta`](BitacoraEstatusReceta.md) guarda el historial completo (una fila por cada transición). Es el mismo patrón que `Articulo.PrecioUnitario` + `HistoricoPrecioArticulo` en `CompuStoreDB` (sesión 5): evita tener que calcular `MAX(Fecha)` sobre la bitácora cada vez que alguien solo necesita saber el estatus actual. La responsabilidad de mantener ambos sincronizados recae en [`usp_cambiarEstatusReceta`](../procedimientos/usp_cambiarEstatusReceta.md): actualiza `Receta.idEstatusReceta` **y** registra la transición en `BitacoraEstatusReceta` en la misma llamada.
+
+**Este es el SP que debe usarse para cambiar el estatus de una receta** — no hacer `UPDATE Receta` directo, porque eso dejaría la bitácora desincronizada.
 
 No tiene `Activo`: es una tabla de hechos, no un catálogo.
 

@@ -22,4 +22,4 @@ Historial de transiciones de estatus de una [`Receta`](Receta.md): una fila por 
 | `PRIMARY KEY (idBitacoraEstatusReceta)` | Llave primaria | Identifica cada renglón de bitácora de forma única. |
 | `FOREIGN KEY (idReceta)` / `(idEstatusReceta)` | Llave foránea | Solo permite referenciar registros que existan. |
 
-Se crea **vacía** en esta instalación inicial — el SP que cambie el estatus de una receta (pendiente de escribir) será quien la vaya llenando, un renglón por cada transición, junto con actualizar `Receta.idEstatusReceta` (ver la nota en [`Receta.md`](Receta.md)).
+Se crea **vacía** en esta instalación inicial — [`usp_cambiarEstatusReceta`](../procedimientos/usp_cambiarEstatusReceta.md) es quien la va llenando, un renglón por cada transición, junto con actualizar `Receta.idEstatusReceta` (ver la nota en [`Receta.md`](Receta.md)).

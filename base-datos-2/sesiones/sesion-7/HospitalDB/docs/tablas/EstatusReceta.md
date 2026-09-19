@@ -24,7 +24,7 @@ Catálogo de los 5 estatus por los que transiciona una receta: `1 Creada`, `2 En
 
 ## Reglas de negocio de las transiciones
 
-Válidas: `1 → 2`, `2 → 3`, `2 → 4`, `4 → 3`, `1 → 5`, `2 → 5`. **No** válidas: `3 → 4` ni cancelar (`→ 5`) desde `3` o `4` — una vez surtida (parcial o completa) ya no se cancela. Estas reglas se validarán en el procedimiento almacenado que cambie el estatus (pendiente de escribir).
+Válidas: `1 → 2`, `2 → 3`, `2 → 4`, `4 → 3`, `1 → 5`, `2 → 5`. **No** válidas: `3 → 4` ni cancelar (`→ 5`) desde `3` o `4` — una vez surtida (parcial o completa) ya no se cancela. Estas reglas se validan en [`usp_cambiarEstatusReceta`](../procedimientos/usp_cambiarEstatusReceta.md).
 
 ## Relacionada con
 

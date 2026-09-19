@@ -334,6 +334,7 @@ CREATE TABLE Consulta (
     idMedico INT NOT NULL,
     idConsultorio INT NOT NULL,
     Fecha DATETIME NOT NULL,
+    Efectuada BIT NOT NULL DEFAULT 0,
     FechaCreacion DATETIME NOT NULL DEFAULT GETDATE(),
     FechaUltimaModificacion DATETIME NOT NULL DEFAULT GETDATE(),
     CONSTRAINT fk_Consulta_Paciente FOREIGN KEY (idPaciente) REFERENCES Paciente(idPaciente),
@@ -347,27 +348,235 @@ GO
 -- instalacion/07-Consulta/02-insert.sql
 -- ============================================================
 -- Tema:        HospitalDB - Sesión 7
--- Descripción: Insertar 15 consultas (una por paciente)
+-- Descripción: Insertar 17 consultas (15 efectuadas, una por paciente, más 2 sin efectuar)
 -- Autor:       Daniel Hilario
 
 USE HospitalDB;
 
-INSERT INTO Consulta (idPaciente, idMedico, idConsultorio, Fecha)
-VALUES (1, 1, 1, '2026-09-01T09:00:00'),
-       (2, 2, 2, '2026-09-01T10:00:00'),
-       (3, 3, 3, '2026-09-02T09:00:00'),
-       (4, 4, 4, '2026-09-02T11:00:00'),
-       (5, 5, 5, '2026-09-03T09:00:00'),
-       (6, 6, 6, '2026-09-03T12:00:00'),
-       (7, 7, 7, '2026-09-04T09:00:00'),
-       (8, 8, 8, '2026-09-04T13:00:00'),
-       (9, 9, 9, '2026-09-05T09:00:00'),
-       (10, 10, 10, '2026-09-05T10:30:00'),
-       (11, 1, 1, '2026-09-08T09:00:00'),
-       (12, 2, 2, '2026-09-08T11:00:00'),
-       (13, 3, 3, '2026-09-09T09:00:00'),
-       (14, 4, 4, '2026-09-09T12:00:00'),
-       (15, 5, 5, '2026-09-10T09:00:00');
+-- Las primeras 15 ya se efectuaron y cada una generó su receta (ver 08-Receta/02-insert.sql).
+-- Las 2 últimas ilustran el flujo de "consulta agendada, pendiente de efectuarse":
+-- la 16 ya pasó su fecha y nunca se efectuó (no se presentó el paciente); la 17 todavía no llega su fecha.
+-- Ninguna de las dos tiene receta — se generaría con usp_generarReceta una vez efectuada con usp_efectuarConsulta.
+
+INSERT INTO Consulta (idPaciente, idMedico, idConsultorio, Fecha, Efectuada)
+VALUES (1, 1, 1, '2026-09-01T09:00:00', 1),
+       (2, 2, 2, '2026-09-01T10:00:00', 1),
+       (3, 3, 3, '2026-09-02T09:00:00', 1),
+       (4, 4, 4, '2026-09-02T11:00:00', 1),
+       (5, 5, 5, '2026-09-03T09:00:00', 1),
+       (6, 6, 6, '2026-09-03T12:00:00', 1),
+       (7, 7, 7, '2026-09-04T09:00:00', 1),
+       (8, 8, 8, '2026-09-04T13:00:00', 1),
+       (9, 9, 9, '2026-09-05T09:00:00', 1),
+       (10, 10, 10, '2026-09-05T10:30:00', 1),
+       (11, 1, 1, '2026-09-08T09:00:00', 1),
+       (12, 2, 2, '2026-09-08T11:00:00', 1),
+       (13, 3, 3, '2026-09-09T09:00:00', 1),
+       (14, 4, 4, '2026-09-09T12:00:00', 1),
+       (15, 5, 5, '2026-09-10T09:00:00', 1),
+       (1, 6, 6, '2026-09-11T09:00:00', 0),
+       (2, 7, 7, '2026-10-01T09:00:00', 0);
+
+GO
+
+-- ============================================================
+-- instalacion/07-Consulta/03-usp-insertar.sql
+-- ============================================================
+-- Tema:        HospitalDB - Sesión 7
+-- Descripción: Agendar una consulta, validando que no se traslape con otra del mismo médico o consultorio
+-- Autor:       Daniel Hilario
+
+USE HospitalDB;
+GO
+
+CREATE PROCEDURE usp_insertarConsulta
+	@p_idPaciente int,
+	@p_idMedico int,
+	@p_idConsultorio int,
+	@p_Fecha datetime
+AS
+BEGIN
+
+	DECLARE @ErrCodigo varchar(10),
+			@ErrMensaje varchar(200),
+
+			@NombrePaciente varchar(100),
+			@NombreMedico varchar(100),
+			@NombreConsultorio varchar(50),
+
+			@idConsultaConflicto int,
+
+			@DuracionMinutos int
+
+	SET @DuracionMinutos = 30 -- HARDCODE
+
+	-- Validación del Paciente: Revisamos primero si el idPaciente existe en la tabla
+
+	SELECT
+		@NombrePaciente = Nombre
+	FROM Paciente
+	WHERE idPaciente = @p_idPaciente
+
+	IF @NombrePaciente IS NULL BEGIN
+
+		SELECT 	@ErrCodigo = '000001',
+				@ErrMensaje = 'El paciente no existe'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- Validación del Medico: Revisamos primero si el idMedico existe en la tabla
+
+	SELECT
+		@NombreMedico = Nombre
+	FROM Medico
+	WHERE idMedico = @p_idMedico
+
+	IF @NombreMedico IS NULL BEGIN
+
+		SELECT 	@ErrCodigo = '000002',
+				@ErrMensaje = 'El médico no existe'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- Validación del Consultorio: Revisamos primero si el idConsultorio existe en la tabla
+
+	SELECT
+		@NombreConsultorio = Nombre
+	FROM Consultorio
+	WHERE idConsultorio = @p_idConsultorio
+
+	IF @NombreConsultorio IS NULL BEGIN
+
+		SELECT 	@ErrCodigo = '000003',
+				@ErrMensaje = 'El consultorio no existe'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- Validación de traslape: ninguna consulta del mismo médico o consultorio puede compartir
+	-- la ventana de @DuracionMinutos minutos con la consulta nueva
+
+	SELECT TOP 1
+		@idConsultaConflicto = idConsulta
+	FROM Consulta
+	WHERE (idMedico = @p_idMedico OR idConsultorio = @p_idConsultorio)
+	AND Fecha < DATEADD(MINUTE, @DuracionMinutos, @p_Fecha)
+	AND DATEADD(MINUTE, @DuracionMinutos, Fecha) > @p_Fecha
+
+	IF @idConsultaConflicto IS NOT NULL BEGIN
+
+		SELECT 	@ErrCodigo = '000004',
+				@ErrMensaje = 'El médico o el consultorio ya tienen una consulta agendada en ese horario'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	INSERT INTO Consulta (idPaciente, idMedico, idConsultorio, Fecha)
+	VALUES (@p_idPaciente, @p_idMedico, @p_idConsultorio, @p_Fecha)
+
+	SELECT 	@ErrCodigo = '000000',
+			@ErrMensaje = 'Inserción correcta'
+
+	SELECT	@ErrCodigo as ErrCodigo,
+			@ErrMensaje as ErrMensaje
+
+END
+
+GO
+
+-- ============================================================
+-- instalacion/07-Consulta/04-usp-efectuar.sql
+-- ============================================================
+-- Tema:        HospitalDB - Sesión 7
+-- Descripción: Marcar una consulta como efectuada (se llevó a cabo), con validaciones de guard clause
+-- Autor:       Daniel Hilario
+
+USE HospitalDB;
+GO
+
+CREATE PROCEDURE usp_efectuarConsulta
+	@p_idConsulta int
+AS
+BEGIN
+
+	DECLARE @ErrCodigo varchar(10),
+			@ErrMensaje varchar(200),
+
+			@Fecha datetime,
+			@Efectuada bit
+
+	-- Validación de la Consulta: Revisamos primero si el idConsulta existe en la tabla
+
+	SELECT
+		@Fecha = Fecha,
+		@Efectuada = Efectuada
+	FROM Consulta
+	WHERE idConsulta = @p_idConsulta
+
+	IF @Fecha IS NULL BEGIN
+
+		SELECT 	@ErrCodigo = '000001',
+				@ErrMensaje = 'La consulta no existe'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- Validación de Efectuada: no se puede efectuar una consulta que ya está efectuada
+
+	IF @Efectuada = 1 BEGIN
+
+		SELECT 	@ErrCodigo = '000002',
+				@ErrMensaje = 'La consulta ya fue efectuada'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- Validación de la Fecha: no se puede efectuar una consulta antes de su fecha programada
+
+	IF GETDATE() < @Fecha BEGIN
+
+		SELECT 	@ErrCodigo = '000003',
+				@ErrMensaje = 'No se puede efectuar una consulta antes de su fecha programada'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	UPDATE Consulta
+	SET
+		Efectuada = 1,
+		FechaUltimaModificacion = GETDATE()
+	WHERE idConsulta = @p_idConsulta
+
+	SELECT 	@ErrCodigo = '000000',
+			@ErrMensaje = 'Actualización correcta'
+
+	SELECT	@ErrCodigo as ErrCodigo,
+			@ErrMensaje as ErrMensaje
+
+END
 
 GO
 
@@ -419,6 +628,207 @@ VALUES (1, 1),
        (13, 4),
        (14, 2),
        (15, 5);
+
+GO
+
+-- ============================================================
+-- instalacion/08-Receta/03-usp-generar.sql
+-- ============================================================
+-- Tema:        HospitalDB - Sesión 7
+-- Descripción: Generar la receta de una consulta ya efectuada, con validaciones de guard clause
+-- Autor:       Daniel Hilario
+
+USE HospitalDB;
+GO
+
+CREATE PROCEDURE usp_generarReceta
+	@p_idConsulta int
+AS
+BEGIN
+
+	DECLARE @ErrCodigo varchar(10),
+			@ErrMensaje varchar(200),
+
+			@Fecha datetime,
+			@Efectuada bit,
+			@idRecetaExistente int
+
+	-- Validación de la Consulta: Revisamos primero si el idConsulta existe en la tabla
+
+	SELECT
+		@Fecha = Fecha,
+		@Efectuada = Efectuada
+	FROM Consulta
+	WHERE idConsulta = @p_idConsulta
+
+	IF @Fecha IS NULL BEGIN
+
+		SELECT 	@ErrCodigo = '000001',
+				@ErrMensaje = 'La consulta no existe'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- Validación de Efectuada: solo se genera receta de una consulta que sí se llevó a cabo
+
+	IF @Efectuada = 0 BEGIN
+
+		SELECT 	@ErrCodigo = '000002',
+				@ErrMensaje = 'La consulta no ha sido efectuada'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- Validación de la Fecha: no se puede generar una receta antes de la fecha programada de la consulta
+
+	IF GETDATE() < @Fecha BEGIN
+
+		SELECT 	@ErrCodigo = '000003',
+				@ErrMensaje = 'No se puede generar la receta antes de la fecha programada de la consulta'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- Validación de la Receta: la consulta no debe tener ya una receta generada (relación 1:1)
+
+	SELECT
+		@idRecetaExistente = idReceta
+	FROM Receta
+	WHERE idConsulta = @p_idConsulta
+
+	IF @idRecetaExistente IS NOT NULL BEGIN
+
+		SELECT 	@ErrCodigo = '000004',
+				@ErrMensaje = 'La consulta ya tiene una receta generada'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	INSERT INTO Receta (idConsulta, idEstatusReceta)
+	VALUES (@p_idConsulta, 1) -- 1 = Creada
+
+	SELECT 	@ErrCodigo = '000000',
+			@ErrMensaje = 'Inserción correcta'
+
+	SELECT	@ErrCodigo as ErrCodigo,
+			@ErrMensaje as ErrMensaje
+
+END
+
+GO
+
+-- ============================================================
+-- instalacion/08-Receta/04-usp-cambiar-estatus.sql
+-- ============================================================
+-- Tema:        HospitalDB - Sesión 7
+-- Descripción: Cambiar el estatus de una receta, registrando la transición en la bitácora
+-- Autor:       Daniel Hilario
+
+USE HospitalDB;
+GO
+
+CREATE PROCEDURE usp_cambiarEstatusReceta
+	@p_idReceta int,
+	@p_idEstatusNuevo int
+AS
+BEGIN
+
+	DECLARE @ErrCodigo varchar(10),
+			@ErrMensaje varchar(200),
+
+			@idEstatusActual int,
+			@NombreEstatusNuevo varchar(30),
+			@TransicionValida bit
+
+	-- Validación de la Receta: Revisamos primero si el idReceta existe en la tabla
+
+	SELECT
+		@idEstatusActual = idEstatusReceta
+	FROM Receta
+	WHERE idReceta = @p_idReceta
+
+	IF @idEstatusActual IS NULL BEGIN
+
+		SELECT 	@ErrCodigo = '000001',
+				@ErrMensaje = 'La receta no existe'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- Validación del EstatusReceta nuevo: Revisamos primero si el idEstatusReceta existe en la tabla
+
+	SELECT
+		@NombreEstatusNuevo = Nombre
+	FROM EstatusReceta
+	WHERE idEstatusReceta = @p_idEstatusNuevo
+
+	IF @NombreEstatusNuevo IS NULL BEGIN
+
+		SELECT 	@ErrCodigo = '000002',
+				@ErrMensaje = 'El estatus nuevo no existe'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- Validación de la transición: solo se permiten las transiciones del catálogo de negocio
+	-- 1 Creada, 2 En atención, 3 Surtida, 4 Surtida parcialmente, 5 Cancelada
+	-- Válidas: 1->2, 2->3, 2->4, 4->3, 1->5, 2->5
+
+	SET @TransicionValida = 0
+
+	IF @idEstatusActual = 1 AND @p_idEstatusNuevo = 2 SET @TransicionValida = 1
+	IF @idEstatusActual = 2 AND @p_idEstatusNuevo = 3 SET @TransicionValida = 1
+	IF @idEstatusActual = 2 AND @p_idEstatusNuevo = 4 SET @TransicionValida = 1
+	IF @idEstatusActual = 4 AND @p_idEstatusNuevo = 3 SET @TransicionValida = 1
+	IF @idEstatusActual = 1 AND @p_idEstatusNuevo = 5 SET @TransicionValida = 1
+	IF @idEstatusActual = 2 AND @p_idEstatusNuevo = 5 SET @TransicionValida = 1
+
+	IF @TransicionValida = 0 BEGIN
+
+		SELECT 	@ErrCodigo = '000003',
+				@ErrMensaje = 'La transición de estatus no es válida'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	EXEC usp_insertarBitacoraEstatusReceta
+		@p_idReceta = @p_idReceta,
+		@p_idEstatusNuevo = @p_idEstatusNuevo
+
+	UPDATE Receta
+	SET
+		idEstatusReceta = @p_idEstatusNuevo,
+		FechaUltimaModificacion = GETDATE()
+	WHERE idReceta = @p_idReceta
+
+	SELECT 	@ErrCodigo = '000000',
+			@ErrMensaje = 'Actualización correcta'
+
+	SELECT	@ErrCodigo as ErrCodigo,
+			@ErrMensaje as ErrMensaje
+
+END
 
 GO
 
@@ -546,5 +956,101 @@ CREATE TABLE BitacoraEstatusReceta (
     CONSTRAINT fk_BitacoraEstatusReceta_Receta FOREIGN KEY (idReceta) REFERENCES Receta(idReceta),
     CONSTRAINT fk_BitacoraEstatusReceta_EstatusReceta FOREIGN KEY (idEstatusReceta) REFERENCES EstatusReceta(idEstatusReceta)
 );
+
+GO
+
+-- ============================================================
+-- instalacion/11-BitacoraEstatusReceta/02-usp-insertar.sql
+-- ============================================================
+-- Tema:        HospitalDB - Sesión 7
+-- Descripción: Registrar una transición de estatus de una receta, con validaciones de guard clause
+-- Autor:       Daniel Hilario
+
+USE HospitalDB;
+GO
+
+CREATE PROCEDURE usp_insertarBitacoraEstatusReceta
+	@p_idReceta int,
+	@p_idEstatusNuevo int
+AS
+BEGIN
+
+	DECLARE @ErrCodigo varchar(10),
+			@ErrMensaje varchar(200),
+
+			@idEstatusActual int,
+			@NombreEstatusNuevo varchar(30),
+			@TransicionValida bit
+
+	-- Validación de la Receta: Revisamos primero si el idReceta existe en la tabla
+
+	SELECT
+		@idEstatusActual = idEstatusReceta
+	FROM Receta
+	WHERE idReceta = @p_idReceta
+
+	IF @idEstatusActual IS NULL BEGIN
+
+		SELECT 	@ErrCodigo = '000001',
+				@ErrMensaje = 'La receta no existe'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- Validación del EstatusReceta nuevo: Revisamos primero si el idEstatusReceta existe en la tabla
+
+	SELECT
+		@NombreEstatusNuevo = Nombre
+	FROM EstatusReceta
+	WHERE idEstatusReceta = @p_idEstatusNuevo
+
+	IF @NombreEstatusNuevo IS NULL BEGIN
+
+		SELECT 	@ErrCodigo = '000002',
+				@ErrMensaje = 'El estatus nuevo no existe'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- Validación de la transición: solo se permiten las transiciones del catálogo de negocio
+	-- 1 Creada, 2 En atención, 3 Surtida, 4 Surtida parcialmente, 5 Cancelada
+	-- Válidas: 1->2, 2->3, 2->4, 4->3, 1->5, 2->5
+
+	SET @TransicionValida = 0
+
+	IF @idEstatusActual = 1 AND @p_idEstatusNuevo = 2 SET @TransicionValida = 1
+	IF @idEstatusActual = 2 AND @p_idEstatusNuevo = 3 SET @TransicionValida = 1
+	IF @idEstatusActual = 2 AND @p_idEstatusNuevo = 4 SET @TransicionValida = 1
+	IF @idEstatusActual = 4 AND @p_idEstatusNuevo = 3 SET @TransicionValida = 1
+	IF @idEstatusActual = 1 AND @p_idEstatusNuevo = 5 SET @TransicionValida = 1
+	IF @idEstatusActual = 2 AND @p_idEstatusNuevo = 5 SET @TransicionValida = 1
+
+	IF @TransicionValida = 0 BEGIN
+
+		SELECT 	@ErrCodigo = '000003',
+				@ErrMensaje = 'La transición de estatus no es válida'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	INSERT INTO BitacoraEstatusReceta (idReceta, idEstatusReceta, Fecha)
+	VALUES (@p_idReceta, @p_idEstatusNuevo, GETDATE())
+
+	SELECT 	@ErrCodigo = '000000',
+			@ErrMensaje = 'Inserción correcta'
+
+	SELECT	@ErrCodigo as ErrCodigo,
+			@ErrMensaje as ErrMensaje
+
+END
 
 GO
