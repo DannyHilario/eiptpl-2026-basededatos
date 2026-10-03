@@ -1,6 +1,8 @@
 -- Tema:        BancoDB - Examen Final
 -- Descripción: Eliminar tablas en orden inverso al de creación
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE BancoDB;
 
 DROP TABLE Transaccion
 DROP TABLE Cuenta

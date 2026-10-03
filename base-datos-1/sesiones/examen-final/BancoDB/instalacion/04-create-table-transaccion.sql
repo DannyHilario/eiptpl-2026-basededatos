@@ -1,6 +1,8 @@
 -- Tema:        BancoDB - Examen Final
 -- Descripción: Crear tabla Transaccion
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE BancoDB;
 
 CREATE TABLE Transaccion (
     idTransaccion INT NOT NULL IDENTITY(1,1) PRIMARY KEY,

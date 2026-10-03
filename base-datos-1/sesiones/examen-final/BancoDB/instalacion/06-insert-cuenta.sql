@@ -1,6 +1,8 @@
 -- Tema:        BancoDB - Examen Final
 -- Descripción: Insertar 20 cuentas bancarias
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE BancoDB;
 
 -- Cuentas 1-7: activas sin cancelación
 INSERT INTO Cuenta (NumeroCuenta, TipoCuenta, FechaApertura, FechaCancelacion, SaldoActual,

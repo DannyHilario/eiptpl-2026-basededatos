@@ -1,6 +1,8 @@
 -- Tema:        BancoDB - Examen Final
 -- Descripción: Crear tabla Cuenta
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE BancoDB;
 
 CREATE TABLE Cuenta (
     idCuenta INT NOT NULL IDENTITY(1,1) PRIMARY KEY,

@@ -55,29 +55,59 @@ Table Transaccion {
 }
 ```
 
+![Modelo Relacional de BancoDB](assets/diagrama-er.png)
+
+Versión navegable del diagrama: [`assets/diagrama-er.html`](assets/diagrama-er.html).
+
 ---
 
 ## Resumen de tablas en BancoDB
 
+Cada tabla tiene su ficha de diccionario de datos en [`docs/tablas`](docs/tablas):
+
 | Tabla | Registros | Descripción |
 |-------|-----------|-------------|
-| `Cliente` | 30 | Clientes registrados (datos tomados de EscuelaDB) |
-| `Cuenta` | 20 | Cuentas bancarias (18 activas, 2 canceladas) |
-| `Transaccion` | 50 | Movimientos registrados en 2025 |
+| [`Cliente`](docs/tablas/Cliente.md) | 30 | Clientes registrados (datos tomados de EscuelaDB) |
+| [`Cuenta`](docs/tablas/Cuenta.md) | 20 | Cuentas bancarias (18 activas, 2 canceladas) |
+| [`Transaccion`](docs/tablas/Transaccion.md) | 50 | Movimientos registrados en 2025 |
 
 > Los clientes con `idCliente` del 23 al 30 no tienen ninguna transacción registrada.
 > Esto permite practicar la detección de ausencias con `LEFT JOIN` + `IS NULL`.
 
 ---
 
+## Constraints agregados
+
+- `PRIMARY KEY` con `IDENTITY(1,1)` en todas las tablas.
+- `FOREIGN KEY` nombradas (`fk_<Tabla>_<TablaReferenciada>`) en `Transaccion`.
+- `UNIQUE` en `Cuenta.NumeroCuenta`.
+- `CHECK` en `Cliente.Sexo` (`IN ('M', 'F')`), `Cuenta.TipoCuenta` (Débito, Nómina, Ahorro), `Cuenta.SaldoActual` (`>= 0`), `Transaccion.TipoTransaccion` (Depósito, Retiro, Transferencia) y `Transaccion.Monto` (`> 0`).
+- `DEFAULT 1` en los `Activo` y `DEFAULT 0` en `Cuenta.SaldoActual`.
+
+---
+
+## Limitaciones conocidas del modelo
+
+- **Titular de la cuenta:** `Cuenta` no tiene `idCliente`, así que el modelo no registra quién es el dueño de cada cuenta. La relación entre clientes y cuentas solo existe a través de las transacciones.
+- **Saldo:** registrar una `Transaccion` no actualiza `Cuenta.SaldoActual`; el modelo no sincroniza el saldo con los movimientos.
+
+---
+
 ## Prerequisito
 
-Asegúrate de tener seleccionada la base de datos **BancoDB** en el dropdown de SSMS
-antes de ejecutar cualquier script (excepto el primero, que crea la base de datos).
+Cada script (excepto el primero, que crea la base de datos) empieza con `USE BancoDB;`, así que
+se ejecuta sobre BancoDB aunque tengas seleccionada otra base en el dropdown de SSMS.
 
 ---
 
 ## Instalación
+
+Dos opciones:
+
+- **Rápida:** abrir [`instalar-completo.sql`](instalar-completo.sql) en SSMS y ejecutarlo completo (F5). Crea la base de datos, las 3 tablas y los datos iniciales en un solo paso.
+- **Paso a paso:** ejecutar los scripts de [`instalacion`](instalacion) en el orden de las tablas de abajo.
+
+`instalar-completo.sql` se genera concatenando los archivos de `instalacion/` en orden alfabético; si se modifica algún script de `instalacion/`, hay que regenerarlo.
 
 ### Paso 1 — Crear la base de datos
 

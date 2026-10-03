@@ -1,6 +1,8 @@
 -- Tema:        BancoDB - Examen Final
 -- Descripción: Insertar 30 clientes (datos tomados de EscuelaDB)
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE BancoDB;
 
 -- Clientes 1-10
 INSERT INTO Cliente (PrimerApellido, SegundoApellido, Nombre, FechaNacimiento, CURP,

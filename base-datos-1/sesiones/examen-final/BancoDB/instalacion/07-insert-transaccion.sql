@@ -1,7 +1,9 @@
 -- Tema:        BancoDB - Examen Final
 -- Descripción: Insertar 50 transacciones (clientes 1-22 tienen movimientos;
 --              clientes 23-30 no tienen ninguna transacción registrada)
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE BancoDB;
 
 -- Transacciones 1-10
 INSERT INTO Transaccion (idCuenta, idCliente, TipoTransaccion, Monto, FechaTransaccion,

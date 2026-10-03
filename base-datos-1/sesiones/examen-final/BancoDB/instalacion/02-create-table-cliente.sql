@@ -1,6 +1,8 @@
 -- Tema:        BancoDB - Examen Final
 -- Descripción: Crear tabla Cliente
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE BancoDB;
 
 CREATE TABLE Cliente (
     idCliente INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
