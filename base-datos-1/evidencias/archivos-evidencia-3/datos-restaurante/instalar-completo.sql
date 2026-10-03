@@ -1,3 +1,47 @@
+-- Tema:        Evidencia 3 - Consultas Simples (RestauranteDB)
+-- Descripción: Instalación completa (base de datos, tablas y datos) en un solo script
+-- Autor:       Daniel Hilario
+--
+-- Generado concatenando los scripts de instalacion/ en orden alfabético ('find instalacion -name "*.sql" | sort'),
+-- que es el mismo orden de la tabla del README y respeta las llaves foráneas.
+-- Requiere ejecutarse completo en SSMS (F5): se separa cada script con GO para que ninguno interfiera
+-- con el batch del anterior.
+
+-- ============================================================
+-- instalacion/01-create-database.sql
+-- ============================================================
+-- Tema:        Evidencia 3 - Consultas Simples
+-- Descripción: Crear base de datos RestauranteDB
+-- Autor:       Daniel Hilario
+
+CREATE DATABASE RestauranteDB;
+
+GO
+
+-- ============================================================
+-- instalacion/02-create-table-comanda.sql
+-- ============================================================
+-- Tema:        Evidencia 3 - Consultas Simples
+-- Descripción: Crear tabla Comanda (tabla desnormalizada de tickets de restaurante)
+-- Autor:       Daniel Hilario
+
+USE RestauranteDB;
+
+CREATE TABLE Comanda (
+    idComanda INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    FechaComanda DATE NOT NULL,
+    Cliente VARCHAR(100) NOT NULL,
+    Mesero VARCHAR(100) NOT NULL,
+    Mesa INT NOT NULL,
+    MedioPago VARCHAR(30) NOT NULL,
+    TotalPagado DECIMAL(10, 2) NOT NULL
+);
+
+GO
+
+-- ============================================================
+-- instalacion/03-insert-comanda.sql
+-- ============================================================
 -- Tema:        Evidencia 3 - Consultas Simples
 -- Descripción: Insertar 300 comandas del año 2025
 -- Autor:       Daniel Hilario
@@ -651,3 +695,5 @@ VALUES ('2025-12-01', 'Sofía Sánchez', 'Paulina Ibarra', 10, 'Efectivo',
         360.00),
        ('2025-12-30', 'Lucía Navarro', 'Paulina Ibarra', 9, 'Efectivo',
         200.00);
+
+GO

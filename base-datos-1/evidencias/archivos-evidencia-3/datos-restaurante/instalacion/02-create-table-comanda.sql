@@ -1,6 +1,8 @@
 -- Tema:        Evidencia 3 - Consultas Simples
 -- Descripción: Crear tabla Comanda (tabla desnormalizada de tickets de restaurante)
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE RestauranteDB;
 
 CREATE TABLE Comanda (
     idComanda INT NOT NULL IDENTITY(1,1) PRIMARY KEY,

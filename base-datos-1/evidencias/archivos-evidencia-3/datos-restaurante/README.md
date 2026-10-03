@@ -14,6 +14,10 @@ La tabla **no está normalizada** — los campos `Cliente`, `Mesero` y `MedioPag
 
 ## Estructura de la tabla
 
+![Modelo de RestauranteDB](assets/diagrama-er.png)
+
+Versión navegable del diagrama: [`assets/diagrama-er.html`](assets/diagrama-er.html). Ficha completa de la tabla en el diccionario de datos: [`docs/tablas/Comanda.md`](docs/tablas/Comanda.md).
+
 | Columna | Tipo | Descripción |
 |---------|------|-------------|
 | `idComanda` | `INT IDENTITY PK` | Identificador único de la comanda |
@@ -28,11 +32,18 @@ La tabla **no está normalizada** — los campos `Cliente`, `Mesero` y `MedioPag
 
 ## Prerequisito
 
-Asegúrate de tener seleccionada la base de datos **RestauranteDB** en el dropdown de SSMS antes de ejecutar cualquier script (excepto el primero, que crea la base de datos).
+Cada script (excepto el primero, que crea la base de datos) empieza con `USE RestauranteDB;`, así que se ejecuta sobre RestauranteDB aunque tengas seleccionada otra base en el dropdown de SSMS.
 
 ---
 
 ## Instalación
+
+Dos opciones:
+
+- **Rápida:** abrir [`instalar-completo.sql`](instalar-completo.sql) en SSMS y ejecutarlo completo (F5). Crea la base de datos, la tabla y las 300 comandas en un solo paso.
+- **Paso a paso:** ejecutar los scripts de [`instalacion`](instalacion) en el orden de abajo.
+
+`instalar-completo.sql` se genera concatenando los archivos de `instalacion/` en orden alfabético; si se modifica algún script de `instalacion/`, hay que regenerarlo.
 
 ### Paso 1 — Crear la base de datos
 
@@ -75,7 +86,7 @@ Inserta **300 comandas** distribuidas a lo largo del año 2025, con 25 registros
 | Clientes distintos | 30 |
 | Meseros distintos | 8 (Tomás Castillo, Renata Espinoza, Rodrigo Moreno, Paulina Ibarra, Oscar Peña, Alicia Soto, Marco Cervantes, Isabella Sandoval) |
 | Mesas | 1 – 15 |
-| Medios de pago | Efectivo, Tarjeta de Credito, Tarjeta de Débito, Transferencia |
+| Medios de pago | Efectivo, Tarjeta de Credito (así, sin acento), Tarjeta de Débito, Transferencia |
 | Rango de totales | $145.00 – $890.00 |
 
 ---
