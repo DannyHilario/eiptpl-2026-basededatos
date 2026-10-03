@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagrama ER CineDB</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --color-paper:   #f5f5f5;
+      --color-ink:     #2d3142;
+      --color-muted:   #4f5d75;
+      --font-sans:     'Geist', system-ui, sans-serif;
+      --font-serif:    'Instrument Serif', serif;
+      --font-mono:     'Geist Mono', ui-monospace, monospace;
+    }
+    body {
+      font-family: var(--font-sans);
+      background: var(--color-paper);
+      color: var(--color-ink);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2rem;
+    }
+    .frame { max-width: 1240px; width: 100%; }
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      margin-bottom: 0.5rem;
+    }
+    h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.5rem, 2.4vw + 0.75rem, 2rem);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: var(--color-ink);
+      margin-bottom: 1.5rem;
+    }
+    .scroll { overflow-x: auto; }
+    svg { width: 100%; min-width: 1200px; display: block; }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Esquema de base de datos · Sesión final</p>
+    <h1>CineDB · funciones y boletos de un cine</h1>
+    <div class="scroll">
+    <svg viewBox="0 0 1200 860" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="diagrama-er-title diagrama-er-desc">
+      <title id="diagrama-er-title">CineDB · funciones y boletos de un cine</title>
+      <desc id="diagrama-er-desc">Esquema físico de CineDB: cada Funcion proyecta una Pelicula en una Sala; cada Boleto es de un Cliente para una Funcion. Sala tiene un TipoSala, y Pelicula una Clasificacion y un Genero.</desc>
+      <rect width="100%" height="100%" fill="#f5f5f5"/>
+<!-- Relaciones (antes de las tablas) -->
+<!-- Boleto.idCliente (N) - Cliente.idCliente (1) -->
+<line x1="440" y1="144" x2="360" y2="144" stroke="#4f5d75" stroke-width="1"/>
+<rect x="420" y="126" width="14" height="13" rx="2" fill="#f5f5f5"/>
+<text x="432" y="136" fill="#2d3142" font-size="10" font-weight="600" font-family="'Geist Mono', monospace" text-anchor="end">N</text>
+<rect x="366" y="126" width="14" height="13" rx="2" fill="#f5f5f5"/>
+<text x="368" y="136" fill="#2d3142" font-size="10" font-weight="600" font-family="'Geist Mono', monospace" text-anchor="start">1</text>
+<!-- Boleto.idFuncion (N) - Funcion.idFuncion (1) -->
+<path d="M 760,120 H 776 Q 784,120 784,128 V 380 Q 784,388 776,388 H 760" fill="none" stroke="#4f5d75" stroke-width="1"/>
+<rect x="766" y="102" width="14" height="13" rx="2" fill="#f5f5f5"/>
+<text x="768" y="112" fill="#2d3142" font-size="10" font-weight="600" font-family="'Geist Mono', monospace" text-anchor="start">N</text>
+<rect x="766" y="370" width="14" height="13" rx="2" fill="#f5f5f5"/>
+<text x="768" y="380" fill="#2d3142" font-size="10" font-weight="600" font-family="'Geist Mono', monospace" text-anchor="start">1</text>
+<!-- Funcion.idSala (N) - Sala.idSala (1) -->
+<line x1="440" y1="412" x2="360" y2="412" stroke="#4f5d75" stroke-width="1"/>
+<rect x="420" y="394" width="14" height="13" rx="2" fill="#f5f5f5"/>
+<text x="432" y="404" fill="#2d3142" font-size="10" font-weight="600" font-family="'Geist Mono', monospace" text-anchor="end">N</text>
+<rect x="366" y="394" width="14" height="13" rx="2" fill="#f5f5f5"/>
+<text x="368" y="404" fill="#2d3142" font-size="10" font-weight="600" font-family="'Geist Mono', monospace" text-anchor="start">1</text>
+<!-- Funcion.idPelicula (N) - Pelicula.idPelicula (1) -->
+<line x1="760" y1="436" x2="840" y2="436" stroke="#4f5d75" stroke-width="1"/>
+<rect x="766" y="418" width="14" height="13" rx="2" fill="#f5f5f5"/>
+<text x="768" y="428" fill="#2d3142" font-size="10" font-weight="600" font-family="'Geist Mono', monospace" text-anchor="start">N</text>
+<rect x="820" y="418" width="14" height="13" rx="2" fill="#f5f5f5"/>
+<text x="832" y="428" fill="#2d3142" font-size="10" font-weight="600" font-family="'Geist Mono', monospace" text-anchor="end">1</text>
+<!-- Sala.idTipoSala (N) - TipoSala.idTipoSala (1) -->
+<path d="M 360,436 H 376 Q 384,436 384,444 V 600 Q 384,608 376,608 H 360" fill="none" stroke="#4f5d75" stroke-width="1"/>
+<rect x="366" y="418" width="14" height="13" rx="2" fill="#f5f5f5"/>
+<text x="368" y="428" fill="#2d3142" font-size="10" font-weight="600" font-family="'Geist Mono', monospace" text-anchor="start">N</text>
+<rect x="366" y="590" width="14" height="13" rx="2" fill="#f5f5f5"/>
+<text x="368" y="600" fill="#2d3142" font-size="10" font-weight="600" font-family="'Geist Mono', monospace" text-anchor="start">1</text>
+<!-- Pelicula.idClasificacion (N) - Clasificacion.idClasificacion (1) -->
+<path d="M 1160,460 H 1176 Q 1184,460 1184,452 V 152 Q 1184,144 1176,144 H 1160" fill="none" stroke="#4f5d75" stroke-width="1"/>
+<rect x="1166" y="442" width="14" height="13" rx="2" fill="#f5f5f5"/>
+<text x="1168" y="452" fill="#2d3142" font-size="10" font-weight="600" font-family="'Geist Mono', monospace" text-anchor="start">N</text>
+<rect x="1166" y="126" width="14" height="13" rx="2" fill="#f5f5f5"/>
+<text x="1168" y="136" fill="#2d3142" font-size="10" font-weight="600" font-family="'Geist Mono', monospace" text-anchor="start">1</text>
+<!-- Pelicula.idGenero (N) - Genero.idGenero (1) -->
+<path d="M 1160,484 H 1176 Q 1184,484 1184,492 V 696 Q 1184,704 1176,704 H 1160" fill="none" stroke="#4f5d75" stroke-width="1"/>
+<rect x="1166" y="466" width="14" height="13" rx="2" fill="#f5f5f5"/>
+<text x="1168" y="476" fill="#2d3142" font-size="10" font-weight="600" font-family="'Geist Mono', monospace" text-anchor="start">N</text>
+<rect x="1166" y="686" width="14" height="13" rx="2" fill="#f5f5f5"/>
+<text x="1168" y="696" fill="#2d3142" font-size="10" font-weight="600" font-family="'Geist Mono', monospace" text-anchor="start">1</text>
+<!-- Tabla: Cliente -->
+<rect x="40" y="104" width="320" height="220" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+<rect x="40" y="104" width="320" height="28" rx="6" fill="rgba(45,49,66,0.04)" stroke="none"/>
+<rect x="40" y="124" width="320" height="8" fill="rgba(45,49,66,0.04)"/>
+<line x1="40" y1="132" x2="360" y2="132" stroke="rgba(45,49,66,0.22)" stroke-width="1"/>
+<text x="52" y="122" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif">Cliente</text>
+<rect x="308" y="112" width="40" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.40)" stroke-width="0.8"/>
+<text x="328" y="121" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.8" letter-spacing="0.08em">TABLE</text>
+<rect x="40" y="132" width="320" height="24" fill="rgba(45,49,66,0.02)"/>
+<text x="52" y="148" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">idCliente</text>
+<rect x="220" y="138" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="230" y="147" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">PK</text>
+<rect x="244" y="138" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="254" y="147" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="348" y="148" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">INT IDENTITY</text>
+<text x="52" y="172" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">PrimerApellido</text>
+<rect x="244" y="162" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="254" y="171" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="348" y="172" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">VARCHAR(50)</text>
+<rect x="40" y="180" width="320" height="24" fill="rgba(45,49,66,0.02)"/>
+<text x="52" y="196" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">SegundoApellido</text>
+<text x="348" y="196" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">VARCHAR(50)</text>
+<text x="52" y="220" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">Nombre</text>
+<rect x="244" y="210" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="254" y="219" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="348" y="220" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">VARCHAR(100)</text>
+<rect x="40" y="228" width="320" height="24" fill="rgba(45,49,66,0.02)"/>
+<text x="52" y="244" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">Telefono</text>
+<rect x="244" y="234" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="254" y="243" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="348" y="244" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">VARCHAR(15)</text>
+<text x="52" y="268" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">CorreoElectronico</text>
+<rect x="244" y="258" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="254" y="267" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="348" y="268" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">VARCHAR(100)</text>
+<rect x="40" y="276" width="320" height="24" fill="rgba(45,49,66,0.02)"/>
+<text x="52" y="292" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">FechaNacimiento</text>
+<rect x="244" y="282" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="254" y="291" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="348" y="292" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">DATE</text>
+<text x="52" y="316" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">Activo</text>
+<rect x="244" y="306" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="254" y="315" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="348" y="316" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">BIT</text>
+<!-- Tabla: Sala -->
+<rect x="40" y="372" width="320" height="148" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+<rect x="40" y="372" width="320" height="28" rx="6" fill="rgba(45,49,66,0.04)" stroke="none"/>
+<rect x="40" y="392" width="320" height="8" fill="rgba(45,49,66,0.04)"/>
+<line x1="40" y1="400" x2="360" y2="400" stroke="rgba(45,49,66,0.22)" stroke-width="1"/>
+<text x="52" y="390" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif">Sala</text>
+<rect x="308" y="380" width="40" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.40)" stroke-width="0.8"/>
+<text x="328" y="389" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.8" letter-spacing="0.08em">TABLE</text>
+<rect x="40" y="400" width="320" height="24" fill="rgba(45,49,66,0.02)"/>
+<text x="52" y="416" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">idSala</text>
+<rect x="220" y="406" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="230" y="415" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">PK</text>
+<rect x="244" y="406" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="254" y="415" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="348" y="416" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">INT IDENTITY</text>
+<text x="52" y="440" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">idTipoSala</text>
+<rect x="220" y="430" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="230" y="439" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">FK</text>
+<rect x="244" y="430" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="254" y="439" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="348" y="440" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">INT</text>
+<rect x="40" y="448" width="320" height="24" fill="rgba(45,49,66,0.02)"/>
+<text x="52" y="464" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">Nombre</text>
+<rect x="244" y="454" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="254" y="463" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="348" y="464" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">VARCHAR(100)</text>
+<text x="52" y="488" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">Capacidad</text>
+<rect x="244" y="478" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="254" y="487" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="348" y="488" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">INT</text>
+<rect x="40" y="496" width="320" height="24" fill="rgba(45,49,66,0.02)"/>
+<text x="52" y="512" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">Activo</text>
+<rect x="244" y="502" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="254" y="511" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="348" y="512" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">BIT</text>
+<!-- Tabla: TipoSala -->
+<rect x="40" y="568" width="320" height="124" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+<rect x="40" y="568" width="320" height="28" rx="6" fill="rgba(45,49,66,0.04)" stroke="none"/>
+<rect x="40" y="588" width="320" height="8" fill="rgba(45,49,66,0.04)"/>
+<line x1="40" y1="596" x2="360" y2="596" stroke="rgba(45,49,66,0.22)" stroke-width="1"/>
+<text x="52" y="586" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif">TipoSala</text>
+<rect x="308" y="576" width="40" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.40)" stroke-width="0.8"/>
+<text x="328" y="585" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.8" letter-spacing="0.08em">TABLE</text>
+<rect x="40" y="596" width="320" height="24" fill="rgba(45,49,66,0.02)"/>
+<text x="52" y="612" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">idTipoSala</text>
+<rect x="220" y="602" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="230" y="611" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">PK</text>
+<rect x="244" y="602" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="254" y="611" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="348" y="612" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">INT IDENTITY</text>
+<text x="52" y="636" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">Descripcion</text>
+<rect x="244" y="626" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="254" y="635" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="348" y="636" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">VARCHAR(50)</text>
+<rect x="40" y="644" width="320" height="24" fill="rgba(45,49,66,0.02)"/>
+<text x="52" y="660" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">Precio</text>
+<rect x="244" y="650" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="254" y="659" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="348" y="660" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">DECIMAL(10,2)</text>
+<text x="52" y="684" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">Activo</text>
+<rect x="244" y="674" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="254" y="683" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="348" y="684" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">BIT</text>
+<!-- Tabla: Boleto -->
+<rect x="440" y="56" width="320" height="148" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+<rect x="440" y="56" width="320" height="28" rx="6" fill="rgba(45,49,66,0.04)" stroke="none"/>
+<rect x="440" y="76" width="320" height="8" fill="rgba(45,49,66,0.04)"/>
+<line x1="440" y1="84" x2="760" y2="84" stroke="rgba(45,49,66,0.22)" stroke-width="1"/>
+<text x="452" y="74" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif">Boleto</text>
+<rect x="708" y="64" width="40" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.40)" stroke-width="0.8"/>
+<text x="728" y="73" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.8" letter-spacing="0.08em">TABLE</text>
+<rect x="440" y="84" width="320" height="24" fill="rgba(45,49,66,0.02)"/>
+<text x="452" y="100" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">idBoleto</text>
+<rect x="620" y="90" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="630" y="99" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">PK</text>
+<rect x="644" y="90" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="654" y="99" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="748" y="100" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">INT IDENTITY</text>
+<text x="452" y="124" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">idFuncion</text>
+<rect x="620" y="114" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="630" y="123" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">FK</text>
+<rect x="644" y="114" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="654" y="123" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="748" y="124" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">INT</text>
+<rect x="440" y="132" width="320" height="24" fill="rgba(45,49,66,0.02)"/>
+<text x="452" y="148" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">idCliente</text>
+<rect x="620" y="138" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="630" y="147" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">FK</text>
+<rect x="644" y="138" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="654" y="147" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="748" y="148" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">INT</text>
+<text x="452" y="172" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">FechaPago</text>
+<rect x="644" y="162" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="654" y="171" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="748" y="172" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">DATE</text>
+<rect x="440" y="180" width="320" height="24" fill="rgba(45,49,66,0.02)"/>
+<text x="452" y="196" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">HoraPago</text>
+<rect x="644" y="186" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="654" y="195" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="748" y="196" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">TIME</text>
+<!-- Tabla: Funcion -->
+<rect x="440" y="348" width="320" height="244" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+<rect x="440" y="348" width="320" height="28" rx="6" fill="rgba(45,49,66,0.04)" stroke="none"/>
+<rect x="440" y="368" width="320" height="8" fill="rgba(45,49,66,0.04)"/>
+<line x1="440" y1="376" x2="760" y2="376" stroke="rgba(45,49,66,0.22)" stroke-width="1"/>
+<text x="452" y="366" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif">Funcion</text>
+<rect x="708" y="356" width="40" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.40)" stroke-width="0.8"/>
+<text x="728" y="365" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.8" letter-spacing="0.08em">TABLE</text>
+<rect x="440" y="376" width="320" height="24" fill="rgba(45,49,66,0.02)"/>
+<text x="452" y="392" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">idFuncion</text>
+<rect x="620" y="382" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="630" y="391" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">PK</text>
+<rect x="644" y="382" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="654" y="391" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="748" y="392" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">INT IDENTITY</text>
+<text x="452" y="416" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">idSala</text>
+<rect x="620" y="406" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="630" y="415" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">FK</text>
+<rect x="644" y="406" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="654" y="415" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="748" y="416" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">INT</text>
+<rect x="440" y="424" width="320" height="24" fill="rgba(45,49,66,0.02)"/>
+<text x="452" y="440" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">idPelicula</text>
+<rect x="620" y="430" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="630" y="439" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">FK</text>
+<rect x="644" y="430" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="654" y="439" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="748" y="440" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">INT</text>
+<text x="452" y="464" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">Fecha</text>
+<rect x="644" y="454" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="654" y="463" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="748" y="464" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">DATE</text>
+<rect x="440" y="472" width="320" height="24" fill="rgba(45,49,66,0.02)"/>
+<text x="452" y="488" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">Hora</text>
+<rect x="644" y="478" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="654" y="487" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="748" y="488" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">TIME</text>
+<text x="452" y="512" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">Precio</text>
+<rect x="644" y="502" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="654" y="511" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="748" y="512" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">DECIMAL(10,2)</text>
+<rect x="440" y="520" width="320" height="24" fill="rgba(45,49,66,0.02)"/>
+<text x="452" y="536" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">CantidadVendida</text>
+<rect x="644" y="526" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="654" y="535" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="748" y="536" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">INT</text>
+<line x1="440" y1="544" x2="760" y2="544" stroke="rgba(45,49,66,0.12)" stroke-width="0.8"/>
+<text x="452" y="560" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.14em">UNIQUE COMPUESTO</text>
+<text x="452" y="580" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace">uq_Funcion_SalaFechaHora</text>
+<!-- Tabla: Clasificacion -->
+<rect x="840" y="104" width="320" height="124" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+<rect x="840" y="104" width="320" height="28" rx="6" fill="rgba(45,49,66,0.04)" stroke="none"/>
+<rect x="840" y="124" width="320" height="8" fill="rgba(45,49,66,0.04)"/>
+<line x1="840" y1="132" x2="1160" y2="132" stroke="rgba(45,49,66,0.22)" stroke-width="1"/>
+<text x="852" y="122" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif">Clasificacion</text>
+<rect x="1108" y="112" width="40" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.40)" stroke-width="0.8"/>
+<text x="1128" y="121" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.8" letter-spacing="0.08em">TABLE</text>
+<rect x="840" y="132" width="320" height="24" fill="rgba(45,49,66,0.02)"/>
+<text x="852" y="148" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">idClasificacion</text>
+<rect x="1020" y="138" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="1030" y="147" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">PK</text>
+<rect x="1044" y="138" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="1054" y="147" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="1148" y="148" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">INT IDENTITY</text>
+<text x="852" y="172" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">Nombre</text>
+<rect x="1044" y="162" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="1054" y="171" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="1148" y="172" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">VARCHAR(10)</text>
+<rect x="840" y="180" width="320" height="24" fill="rgba(45,49,66,0.02)"/>
+<text x="852" y="196" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">Descripcion</text>
+<rect x="1044" y="186" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="1054" y="195" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="1148" y="196" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">VARCHAR(100)</text>
+<text x="852" y="220" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">Activo</text>
+<rect x="1044" y="210" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="1054" y="219" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="1148" y="220" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">BIT</text>
+<!-- Tabla: Pelicula -->
+<rect x="840" y="396" width="320" height="220" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+<rect x="840" y="396" width="320" height="28" rx="6" fill="rgba(45,49,66,0.04)" stroke="none"/>
+<rect x="840" y="416" width="320" height="8" fill="rgba(45,49,66,0.04)"/>
+<line x1="840" y1="424" x2="1160" y2="424" stroke="rgba(45,49,66,0.22)" stroke-width="1"/>
+<text x="852" y="414" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif">Pelicula</text>
+<rect x="1108" y="404" width="40" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.40)" stroke-width="0.8"/>
+<text x="1128" y="413" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.8" letter-spacing="0.08em">TABLE</text>
+<rect x="840" y="424" width="320" height="24" fill="rgba(45,49,66,0.02)"/>
+<text x="852" y="440" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">idPelicula</text>
+<rect x="1020" y="430" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="1030" y="439" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">PK</text>
+<rect x="1044" y="430" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="1054" y="439" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="1148" y="440" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">INT IDENTITY</text>
+<text x="852" y="464" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">idClasificacion</text>
+<rect x="1020" y="454" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="1030" y="463" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">FK</text>
+<rect x="1044" y="454" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="1054" y="463" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="1148" y="464" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">INT</text>
+<rect x="840" y="472" width="320" height="24" fill="rgba(45,49,66,0.02)"/>
+<text x="852" y="488" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">idGenero</text>
+<rect x="1020" y="478" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="1030" y="487" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">FK</text>
+<rect x="1044" y="478" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="1054" y="487" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="1148" y="488" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">INT</text>
+<text x="852" y="512" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">Nombre</text>
+<rect x="1044" y="502" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="1054" y="511" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="1148" y="512" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">VARCHAR(200)</text>
+<rect x="840" y="520" width="320" height="24" fill="rgba(45,49,66,0.02)"/>
+<text x="852" y="536" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">Duracion</text>
+<rect x="1044" y="526" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="1054" y="535" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="1148" y="536" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">INT</text>
+<text x="852" y="560" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">Director</text>
+<rect x="1044" y="550" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="1054" y="559" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="1148" y="560" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">VARCHAR(150)</text>
+<rect x="840" y="568" width="320" height="24" fill="rgba(45,49,66,0.02)"/>
+<text x="852" y="584" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">AnioEstreno</text>
+<rect x="1044" y="574" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="1054" y="583" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="1148" y="584" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">INT</text>
+<text x="852" y="608" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">Activo</text>
+<rect x="1044" y="598" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="1054" y="607" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="1148" y="608" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">BIT</text>
+<!-- Tabla: Genero -->
+<rect x="840" y="664" width="320" height="100" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+<rect x="840" y="664" width="320" height="28" rx="6" fill="rgba(45,49,66,0.04)" stroke="none"/>
+<rect x="840" y="684" width="320" height="8" fill="rgba(45,49,66,0.04)"/>
+<line x1="840" y1="692" x2="1160" y2="692" stroke="rgba(45,49,66,0.22)" stroke-width="1"/>
+<text x="852" y="682" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif">Genero</text>
+<rect x="1108" y="672" width="40" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.40)" stroke-width="0.8"/>
+<text x="1128" y="681" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.8" letter-spacing="0.08em">TABLE</text>
+<rect x="840" y="692" width="320" height="24" fill="rgba(45,49,66,0.02)"/>
+<text x="852" y="708" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">idGenero</text>
+<rect x="1020" y="698" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="1030" y="707" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">PK</text>
+<rect x="1044" y="698" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="1054" y="707" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="1148" y="708" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">INT IDENTITY</text>
+<text x="852" y="732" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">Nombre</text>
+<rect x="1044" y="722" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="1054" y="731" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="1148" y="732" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">VARCHAR(50)</text>
+<rect x="840" y="740" width="320" height="24" fill="rgba(45,49,66,0.02)"/>
+<text x="852" y="756" fill="#2d3142" font-size="12" font-family="'Geist', sans-serif">Activo</text>
+<rect x="1044" y="746" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="1054" y="755" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="1148" y="756" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="end">BIT</text>
+<!-- Leyenda -->
+<line x1="40" y1="804" x2="1160" y2="804" stroke="rgba(45,49,66,0.10)" stroke-width="0.8"/>
+<text x="40" y="820" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.18em">LEYENDA</text>
+<rect x="40" y="832" width="20" height="12" rx="2" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+<text x="68" y="841" fill="#4f5d75" font-size="8.5" font-family="'Geist', sans-serif">Tabla</text>
+<rect x="140" y="832" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="150" y="841" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">PK</text>
+<text x="168" y="841" fill="#4f5d75" font-size="8.5" font-family="'Geist', sans-serif">Llave primaria</text>
+<rect x="280" y="832" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="290" y="841" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">FK</text>
+<text x="308" y="841" fill="#4f5d75" font-size="8.5" font-family="'Geist', sans-serif">Llave foránea</text>
+<rect x="420" y="832" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="430" y="841" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">UQ</text>
+<text x="448" y="841" fill="#4f5d75" font-size="8.5" font-family="'Geist', sans-serif">Único</text>
+<rect x="540" y="832" width="20" height="12" rx="2" fill="none" stroke="rgba(45,49,66,0.35)" stroke-width="0.8"/><text x="550" y="841" fill="#2d3142" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.75">NN</text>
+<text x="568" y="841" fill="#4f5d75" font-size="8.5" font-family="'Geist', sans-serif">NOT NULL</text>
+<line x1="680" y1="838" x2="720" y2="838" stroke="#4f5d75" stroke-width="1"/>
+<text x="684" y="834" fill="#2d3142" font-size="8" font-weight="600" font-family="'Geist Mono', monospace">1</text>
+<text x="716" y="834" fill="#2d3142" font-size="8" font-weight="600" font-family="'Geist Mono', monospace" text-anchor="end">N</text>
+<text x="728" y="841" fill="#4f5d75" font-size="8.5" font-family="'Geist', sans-serif">Relación: 1 del lado de la PK, N del lado de la FK</text>
+    </svg>
+    </div>
+  </div>
+</body>
+</html>

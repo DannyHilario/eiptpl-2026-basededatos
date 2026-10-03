@@ -68,6 +68,8 @@ Fíjate que `3 Surtida` y `5 Cancelada` son "callejones sin salida": una vez que
 
 ![Modelo Relacional de HospitalDB](assets/diagrama-er.png)
 
+Versión navegable del diagrama: [`assets/diagrama-er.html`](assets/diagrama-er.html).
+
 11 tablas — cada una con su ficha de diccionario de datos en [`HospitalDB/docs/tablas`](HospitalDB/docs/tablas):
 
 | Tabla | Descripción |

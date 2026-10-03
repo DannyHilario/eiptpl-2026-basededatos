@@ -14,6 +14,8 @@ Este documento describe el orden de ejecución de los scripts SQL de la sesión 
 
 ![Modelo Relacional de AutoFixDB](assets/diagrama-er.png)
 
+Versión navegable del diagrama: [`assets/diagrama-er.html`](assets/diagrama-er.html).
+
 ---
 
 ## Prerequisito

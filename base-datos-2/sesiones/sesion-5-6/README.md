@@ -8,6 +8,8 @@ Retoma el ejercicio del PIA de Base de Datos I ([equipo-3.md](../../../base-dato
 
 ![Modelo Relacional de CompuStoreDB](assets/diagrama-er.png)
 
+Versión navegable del diagrama: [`assets/diagrama-er.html`](assets/diagrama-er.html).
+
 7 tablas — cada una con su ficha de diccionario de datos (columnas y **para qué sirve cada constraint**) en [`CompuStoreDB/docs/tablas`](CompuStoreDB/docs/tablas):
 
 | Tabla | Descripción |

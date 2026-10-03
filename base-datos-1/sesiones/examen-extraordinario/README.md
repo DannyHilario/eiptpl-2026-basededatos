@@ -12,6 +12,8 @@
 
 ![Diagrama ER](assets/diagrama-er.png)
 
+Versión navegable del diagrama: [`assets/diagrama-er.html`](assets/diagrama-er.html).
+
 | Tabla | Descripción | Registros |
 |-------|-------------|-----------|
 | `Empleado` | Catálogo de empleados por departamento | 25 |

@@ -147,6 +147,8 @@ Table Boleto {
 
 ![Modelo Relacional de CineDB](assets/diagrama-er.png)
 
+Versión navegable del diagrama: [`assets/diagrama-er.html`](assets/diagrama-er.html).
+
 ---
 
 ## Limitaciones conocidas del modelo
