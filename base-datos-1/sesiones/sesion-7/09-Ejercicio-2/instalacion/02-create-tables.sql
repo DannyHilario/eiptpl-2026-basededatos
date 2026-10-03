@@ -1,10 +1,12 @@
 -- Tema:        Ejercicio 2 - Hotel Vista
 -- Descripción: Crear tablas del modelo relacional del hotel
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE CursoDB;
 
 -- Tabla Huesped
 CREATE TABLE Huesped (
-    idHuesped INT IDENTITY(1,1) PRIMARY KEY,
+    idHuesped INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
     PrimerApellido VARCHAR(50) NOT NULL,
     SegundoApellido VARCHAR(50) NOT NULL,
     Nombre VARCHAR(50) NOT NULL,
@@ -14,20 +16,20 @@ CREATE TABLE Huesped (
 
 -- Tabla TipoHabitacion
 CREATE TABLE TipoHabitacion (
-    idTipoHabitacion INT IDENTITY(1,1) PRIMARY KEY,
+    idTipoHabitacion INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
     TipoHabitacion VARCHAR(50) NOT NULL UNIQUE,
     PrecioPorNoche DECIMAL(10,2) NOT NULL,
-    CONSTRAINT CHK_PrecioPorNoche CHECK (PrecioPorNoche > 0)
+    CONSTRAINT chk_TipoHabitacion_PrecioPorNoche CHECK (PrecioPorNoche > 0)
 );
 
 -- Tabla Habitacion
 CREATE TABLE Habitacion (
-    idHabitacion INT IDENTITY(1,1) PRIMARY KEY,
+    idHabitacion INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
     idTipoHabitacion INT NOT NULL,
     NumeroHabitacion VARCHAR(10) NOT NULL,
     DescripcionHabitacion VARCHAR(200),
-    CONSTRAINT UQ_NumeroHabitacion UNIQUE (NumeroHabitacion),
-    CONSTRAINT FK_Habitacion_TipoHabitacion
+    CONSTRAINT uq_Habitacion_NumeroHabitacion UNIQUE (NumeroHabitacion),
+    CONSTRAINT fk_Habitacion_TipoHabitacion
         FOREIGN KEY (idTipoHabitacion)
         REFERENCES TipoHabitacion(idTipoHabitacion)
         ON DELETE CASCADE
@@ -36,22 +38,22 @@ CREATE TABLE Habitacion (
 
 -- Tabla Reservacion
 CREATE TABLE Reservacion (
-    idReservacion INT IDENTITY(1,1) PRIMARY KEY,
+    idReservacion INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
     idHuesped INT NOT NULL,
     idHabitacion INT NOT NULL,
     FechaIngreso DATE NOT NULL,
     NumeroNoches INT NOT NULL,
     PrecioAlMomento DECIMAL(10,2) NOT NULL,
-    CONSTRAINT FK_Reservacion_Huesped 
-        FOREIGN KEY (idHuesped) 
+    CONSTRAINT fk_Reservacion_Huesped
+        FOREIGN KEY (idHuesped)
         REFERENCES Huesped(idHuesped)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
-    CONSTRAINT FK_Reservacion_Habitacion 
-        FOREIGN KEY (idHabitacion) 
+    CONSTRAINT fk_Reservacion_Habitacion
+        FOREIGN KEY (idHabitacion)
         REFERENCES Habitacion(idHabitacion)
         ON DELETE NO ACTION
         ON UPDATE CASCADE,
-    CONSTRAINT CHK_NumeroNoches CHECK (NumeroNoches > 0),
-    CONSTRAINT CHK_PrecioAlMomento CHECK (PrecioAlMomento > 0)
+    CONSTRAINT chk_Reservacion_NumeroNoches CHECK (NumeroNoches > 0),
+    CONSTRAINT chk_Reservacion_PrecioAlMomento CHECK (PrecioAlMomento > 0)
 );

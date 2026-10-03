@@ -1,6 +1,8 @@
 -- Tema:        Ejercicio 2 - Hotel Vista
 -- Descripción: Insertar tipos de habitación
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE CursoDB;
 
 INSERT INTO TipoHabitacion (TipoHabitacion, PrecioPorNoche)
 VALUES ('Sencilla', 850.00),

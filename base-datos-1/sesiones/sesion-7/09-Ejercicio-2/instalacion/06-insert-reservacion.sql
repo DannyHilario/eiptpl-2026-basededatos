@@ -1,6 +1,8 @@
 -- Tema:        Ejercicio 2 - Hotel Vista
 -- Descripción: Insertar reservaciones ficticias
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE CursoDB;
 
 INSERT INTO Reservacion (idHuesped, idHabitacion, FechaIngreso, NumeroNoches, PrecioAlMomento)
 VALUES (1, 1, '2026-03-10', 3, 850.00),

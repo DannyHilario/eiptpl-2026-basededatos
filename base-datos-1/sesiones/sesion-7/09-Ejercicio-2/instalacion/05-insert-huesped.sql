@@ -1,6 +1,8 @@
 -- Tema:        Ejercicio 2 - Hotel Vista
 -- Descripción: Insertar huéspedes ficticios
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE CursoDB;
 
 INSERT INTO Huesped (PrimerApellido, SegundoApellido, Nombre, Telefono, Correo)
 VALUES ('Ramírez', 'Fuentes', 'Carlos', '81-5543-2210', 'carlos.ramirez@gmail.com'),

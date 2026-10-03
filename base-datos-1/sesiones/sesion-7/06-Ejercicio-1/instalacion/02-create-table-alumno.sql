@@ -1,3 +1,9 @@
+-- Tema:        Ejercicio 1
+-- Descripción: Crear tabla Alumno
+-- Autor:       Daniel Hilario
+
+USE CursoDB;
+
 CREATE TABLE Alumno (
     idAlumno INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
     PrimerApellido VARCHAR(50) NOT NULL,

@@ -1,3 +1,9 @@
+-- Tema:        Ejercicio 1
+-- Descripción: Consultas de ejemplo sobre Alumno
+-- Autor:       Daniel Hilario
+
+USE CursoDB;
+
 SELECT *
 FROM Alumno;
 

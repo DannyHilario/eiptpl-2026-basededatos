@@ -1,5 +1,7 @@
 -- Tema:        Reversa Ejercicio 1
 -- Descripción: Eliminar tabla Alumno
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
 
-DROP TABLE IF EXISTS Alumno
+USE CursoDB;
+
+DROP TABLE IF EXISTS Alumno;

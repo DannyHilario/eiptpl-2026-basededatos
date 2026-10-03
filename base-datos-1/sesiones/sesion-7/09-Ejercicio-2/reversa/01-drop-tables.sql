@@ -1,11 +1,17 @@
 -- Tema:        Reversa Ejercicio 2 - Hotel Vista
 -- Descripción: Eliminar tablas del modelo Hotel Vista en orden inverso a las llaves foráneas
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
 
-DROP TABLE IF EXISTS Reservacion
+USE CursoDB;
 
-DROP TABLE IF EXISTS Huesped
+-- Paso 1: Reservacion — depende de Huesped y de Habitacion
+DROP TABLE IF EXISTS Reservacion;
 
-DROP TABLE IF EXISTS Habitacion
+-- Paso 2: Huesped — ya no tiene dependientes tras eliminar Reservacion
+DROP TABLE IF EXISTS Huesped;
 
-DROP TABLE IF EXISTS TipoHabitacion
+-- Paso 3: Habitacion — ya no tiene dependientes tras eliminar Reservacion
+DROP TABLE IF EXISTS Habitacion;
+
+-- Paso 4: TipoHabitacion — ya no tiene dependientes tras eliminar Habitacion
+DROP TABLE IF EXISTS TipoHabitacion;

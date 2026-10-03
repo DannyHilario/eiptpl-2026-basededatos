@@ -1,3 +1,49 @@
+-- Tema:        Ejercicio 1 (CursoDB)
+-- Descripción: Instalación completa (base de datos, tablas y datos) en un solo script
+-- Autor:       Daniel Hilario
+--
+-- Generado concatenando los scripts de instalacion/ en orden alfabético ('find instalacion -name "*.sql" | sort'),
+-- que es el mismo orden de la tabla del README y respeta las llaves foráneas.
+-- Requiere ejecutarse completo en SSMS (F5): se separa cada script con GO para que ninguno interfiera
+-- con el batch del anterior.
+
+-- ============================================================
+-- instalacion/01-create-database.sql
+-- ============================================================
+-- Tema:        Ejercicio 1
+-- Descripción: Crear base de datos CursoDB
+-- Autor:       Daniel Hilario
+
+CREATE DATABASE CursoDB;
+
+GO
+
+-- ============================================================
+-- instalacion/02-create-table-alumno.sql
+-- ============================================================
+-- Tema:        Ejercicio 1
+-- Descripción: Crear tabla Alumno
+-- Autor:       Daniel Hilario
+
+USE CursoDB;
+
+CREATE TABLE Alumno (
+    idAlumno INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    PrimerApellido VARCHAR(50) NOT NULL,
+    SegundoApellido VARCHAR(50),
+    Nombre VARCHAR(100) NOT NULL,
+    FechaNacimiento DATE NOT NULL,
+    Edad INT,
+    CorreoElectronico VARCHAR(100),
+    Ciudad VARCHAR(50),
+    Sexo CHAR(1) NOT NULL
+);
+
+GO
+
+-- ============================================================
+-- instalacion/03-insert-data-alumno.sql
+-- ============================================================
 -- Tema:        Ejercicio 1
 -- Descripción: Insertar 30 alumnos de prueba
 -- Autor:       Daniel Hilario
@@ -66,3 +112,5 @@ VALUES ('Méndez', 'García', 'Carlos', '2003-07-15', 22,
         'mateo.lozano@cursodb.com', 'Puebla', 'H'),
        ('Fuentes', 'Ramos', 'Alicia', '2006-12-07', 19,
         'alicia.fuentes@cursodb.com', 'Ciudad de México', 'M');
+
+GO

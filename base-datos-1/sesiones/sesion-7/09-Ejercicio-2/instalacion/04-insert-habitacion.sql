@@ -1,6 +1,8 @@
 -- Tema:        Ejercicio 2 - Hotel Vista
 -- Descripción: Insertar habitaciones
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE CursoDB;
 
 INSERT INTO Habitacion (idTipoHabitacion, NumeroHabitacion, DescripcionHabitacion)
 VALUES (1, '101', 'Planta baja, vista al jardín'),

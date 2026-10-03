@@ -1,6 +1,8 @@
 -- Tema:        Ejercicio 2 - Hotel Vista
 -- Descripción: Consultas de validación para verificar la estructura y datos
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE CursoDB;
 
 -- 1. Ver todos los tipos de habitación
 SELECT *
