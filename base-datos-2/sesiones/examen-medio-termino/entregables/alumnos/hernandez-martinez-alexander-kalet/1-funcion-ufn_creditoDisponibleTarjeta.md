@@ -60,4 +60,4 @@ SELECT dbo.ufn_creditoDisponibleTarjeta(9999) AS CreditoDisponible  -- esperado:
 
 ## Entrega
 
-Este ejercicio va dentro de tu archivo único de examen, como **ejercicio 1**. Ver [Entregable](../../descripcion-examen.md#entregable) en la descripción del examen.
+Este ejercicio se entrega en su propio archivo, `EMT_HernandezMartinezAlexanderKalet_2212470_Ejercicio1.txt`, en la tarea de Microsoft Teams *Examen de Medio Término | Ejercicio 1 | Funciones*. Ver [Entregable](../../descripcion-examen.md#entregable) y [Forma de entrega](../../descripcion-examen.md#forma-de-entrega) en la descripción del examen.

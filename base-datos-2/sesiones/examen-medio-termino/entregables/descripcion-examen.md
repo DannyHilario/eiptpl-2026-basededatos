@@ -37,7 +37,7 @@ Algunos casos de prueba modifican datos. Para empezar de nuevo:
 2. Selecciona `master` y ejecuta [`reversa/02-drop-database.sql`](../SistemaBancarioBD/reversa/02-drop-database.sql).
 3. Vuelve a ejecutar `instalar-completo.sql`.
 
-> La reversa borra también tus objetos del examen. **Guarda tu código antes** en tu archivo de entrega.
+> La reversa borra también tus objetos del examen. **Guarda tu código antes** en tus archivos de entrega.
 
 ---
 
@@ -83,48 +83,50 @@ Tu código debe seguir las convenciones SQL del curso:
 
 ## Entregable
 
-Un solo archivo de **texto plano (`.txt`)** con el código de tus **tres** objetos, listo para copiar, pegar y ejecutar tal cual en SSMS contra `SistemaBancarioBD`. Usa esta estructura:
+**Tres** archivos de **texto plano (`.txt`)**, **uno por objeto**: uno con tu función, otro con tu vista y otro con tu procedimiento almacenado. Cada archivo debe estar listo para copiar, pegar y ejecutar tal cual en SSMS contra `SistemaBancarioBD`. Usa esta estructura en cada uno (el ejemplo es el del ejercicio 1):
 
 ```sql
 -- Tema:        Examen de Medio Término - SistemaBancarioBD
--- Descripción: Ejercicios 1, 2 y 3
+-- Descripción: Ejercicio 1 - Función ufn_...
 -- Autor:       Tu nombre completo (matrícula)
 
 USE SistemaBancarioBD;
 GO
 
--- Ejercicio 1: función
 CREATE FUNCTION ...
 GO
-
--- Ejercicio 2: vista
-CREATE VIEW ...
-GO
-
--- Ejercicio 3: procedimiento almacenado
-CREATE PROCEDURE ...
-GO
 ```
 
-> `CREATE FUNCTION`, `CREATE VIEW` y `CREATE PROCEDURE` deben ser la única sentencia de su lote: por eso va un `GO` antes y después de cada uno. Antes de entregar, comprueba que tu archivo se ejecuta completo, sin errores, sobre una instalación limpia de `SistemaBancarioBD`.
+En el archivo del ejercicio 2 va tu `CREATE VIEW` y en el del ejercicio 3 tu `CREATE PROCEDURE`, con la misma estructura.
 
-> Es `.txt` y no `.sql` porque NEXUS no acepta esa extensión; el contenido es igual código SQL.
+> `CREATE FUNCTION`, `CREATE VIEW` y `CREATE PROCEDURE` deben ser la única sentencia de su lote: por eso va un `GO` antes y después de cada uno. Antes de entregar, comprueba que cada archivo se ejecuta completo, sin errores, sobre una instalación limpia de `SistemaBancarioBD`.
 
-Nombra tu archivo de la siguiente forma:
+> Cada archivo lleva **solo** el código de su objeto: no incluyas los casos de prueba.
+
+Nombra tus archivos de la siguiente forma:
 
 ```
-EMT_ApellidoNombre_Matricula.txt
+EMT_ApellidoNombre_Matricula_Ejercicio1.txt
+EMT_ApellidoNombre_Matricula_Ejercicio2.txt
+EMT_ApellidoNombre_Matricula_Ejercicio3.txt
 ```
 
-*Ejemplo: `EMT_AguilarHernandezMarcosFernando_2254024.txt`*
+*Ejemplo: `EMT_AguilarHernandezMarcosFernando_2254024_Ejercicio1.txt`*
 
 ---
 
 ## Forma de entrega
 
-- **Modalidad:** individual. Cada alumno carga su propio archivo.
-- **Plataforma:** NEXUS, en el apartado *"Examen de medio término"*.
-- **Fecha y hora límite:** sábado 3 de octubre de 2026, 11:10 a.m.
+- **Modalidad:** individual. Cada alumno carga sus propios archivos.
+- **Plataforma:** Microsoft Teams, en la sección **Tareas**. Cada ejercicio tiene su propia tarea; sube cada archivo en la que le corresponde:
+
+| Archivo | Tarea en Teams |
+|---------|----------------|
+| `..._Ejercicio1.txt` (función) | *Examen de Medio Término \| Ejercicio 1 \| Funciones* |
+| `..._Ejercicio2.txt` (vista) | *Examen de Medio Término \| Ejercicio 2 \| Vistas* |
+| `..._Ejercicio3.txt` (procedimiento) | *Examen de Medio Término \| Ejercicio 3 \| Procedimientos Almacenados* |
+
+- **Fecha y hora límite:** sábado 3 de octubre de 2026, 11:10 a.m. (las tres tareas).
 
 ---
 

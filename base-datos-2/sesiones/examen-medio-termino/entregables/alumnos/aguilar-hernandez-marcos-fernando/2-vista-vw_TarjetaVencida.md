@@ -64,4 +64,4 @@ ORDER BY idTarjeta                           -- esperado: las 4 filas del ejempl
 
 ## Entrega
 
-Este ejercicio va dentro de tu archivo único de examen, como **ejercicio 2**. Ver [Entregable](../../descripcion-examen.md#entregable) en la descripción del examen.
+Este ejercicio se entrega en su propio archivo, `EMT_AguilarHernandezMarcosFernando_2254024_Ejercicio2.txt`, en la tarea de Microsoft Teams *Examen de Medio Término | Ejercicio 2 | Vistas*. Ver [Entregable](../../descripcion-examen.md#entregable) y [Forma de entrega](../../descripcion-examen.md#forma-de-entrega) en la descripción del examen.

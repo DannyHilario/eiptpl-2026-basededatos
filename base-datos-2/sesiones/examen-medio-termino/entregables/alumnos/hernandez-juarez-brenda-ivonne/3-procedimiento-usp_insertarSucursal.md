@@ -80,4 +80,4 @@ EXEC usp_insertarSucursal @p_Nombre = 'Sucursal Escobedo', @p_Direccion = 'Calle
 
 ## Entrega
 
-Este ejercicio va dentro de tu archivo único de examen, como **ejercicio 3**. Ver [Entregable](../../descripcion-examen.md#entregable) en la descripción del examen.
+Este ejercicio se entrega en su propio archivo, `EMT_HernandezJuarezBrendaIvonne_2253945_Ejercicio3.txt`, en la tarea de Microsoft Teams *Examen de Medio Término | Ejercicio 3 | Procedimientos Almacenados*. Ver [Entregable](../../descripcion-examen.md#entregable) y [Forma de entrega](../../descripcion-examen.md#forma-de-entrega) en la descripción del examen.

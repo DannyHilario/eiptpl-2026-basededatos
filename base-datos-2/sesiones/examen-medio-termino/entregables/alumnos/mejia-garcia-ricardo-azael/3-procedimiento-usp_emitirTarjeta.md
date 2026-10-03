@@ -112,4 +112,4 @@ EXEC usp_emitirTarjeta @p_idCliente = 26, @p_idTipoTarjetaCredito = 2, @p_Numero
 
 ## Entrega
 
-Este ejercicio va dentro de tu archivo único de examen, como **ejercicio 3**. Ver [Entregable](../../descripcion-examen.md#entregable) en la descripción del examen.
+Este ejercicio se entrega en su propio archivo, `EMT_MejiaGarciaRicardoAzael_2253586_Ejercicio3.txt`, en la tarea de Microsoft Teams *Examen de Medio Término | Ejercicio 3 | Procedimientos Almacenados*. Ver [Entregable](../../descripcion-examen.md#entregable) y [Forma de entrega](../../descripcion-examen.md#forma-de-entrega) en la descripción del examen.

@@ -76,4 +76,4 @@ EXEC usp_insertarTipoMovimiento @p_Nombre = 'Pago', @p_EsCargo = 0
 
 ## Entrega
 
-Este ejercicio va dentro de tu archivo único de examen, como **ejercicio 3**. Ver [Entregable](../../descripcion-examen.md#entregable) en la descripción del examen.
+Este ejercicio se entrega en su propio archivo, `EMT_PerezMoralesJohanValente_2254047_Ejercicio3.txt`, en la tarea de Microsoft Teams *Examen de Medio Término | Ejercicio 3 | Procedimientos Almacenados*. Ver [Entregable](../../descripcion-examen.md#entregable) y [Forma de entrega](../../descripcion-examen.md#forma-de-entrega) en la descripción del examen.
