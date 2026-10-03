@@ -1,6 +1,8 @@
 -- Tema:        Ejercicio 1 - Etapa 4
 -- Descripción: Insertar catálogo de técnicas
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE EscuelaDB;
 
 INSERT INTO Tecnica (Descripcion, Activo)
 VALUES ('Sistemas Computacionales', 1),

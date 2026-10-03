@@ -1,3 +1,90 @@
+-- Tema:        Ejercicio 1 - Etapa 4 (EscuelaDB)
+-- Descripción: Instalación completa (base de datos, tablas y datos) en un solo script
+-- Autor:       Daniel Hilario
+--
+-- Generado concatenando los scripts de instalacion/ en orden alfabético ('find instalacion -name "*.sql" | sort'),
+-- que es el mismo orden de la tabla del README y respeta las llaves foráneas.
+-- Requiere ejecutarse completo en SSMS (F5): se separa cada script con GO para que ninguno interfiera
+-- con el batch del anterior.
+
+-- ============================================================
+-- instalacion/01-create-database.sql
+-- ============================================================
+-- Tema:        Ejercicio 1 - Etapa 4
+-- Descripción: Crear base de datos EscuelaDB
+-- Autor:       Daniel Hilario
+
+CREATE DATABASE EscuelaDB;
+
+GO
+
+-- ============================================================
+-- instalacion/02-create-table-tecnica.sql
+-- ============================================================
+-- Tema:        Ejercicio 1 - Etapa 4
+-- Descripción: Crear tabla Tecnica
+-- Autor:       Daniel Hilario
+
+USE EscuelaDB;
+
+CREATE TABLE Tecnica (
+    idTecnica INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    Descripcion VARCHAR(100) NOT NULL,
+    Activo BIT NOT NULL DEFAULT 1
+);
+
+GO
+
+-- ============================================================
+-- instalacion/03-create-table-alumno.sql
+-- ============================================================
+-- Tema:        Ejercicio 1 - Etapa 4
+-- Descripción: Crear tabla Alumno
+-- Autor:       Daniel Hilario
+
+USE EscuelaDB;
+
+CREATE TABLE Alumno (
+    idAlumno INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    idTecnica INT NOT NULL,
+    PrimerApellido VARCHAR(50) NOT NULL,
+    SegundoApellido VARCHAR(50),
+    Nombre VARCHAR(100) NOT NULL,
+    Edad INT,
+    Sexo CHAR(1) NOT NULL,
+    CURP CHAR(18),
+    FechaNacimiento DATE NOT NULL,
+    Activo BIT NOT NULL DEFAULT 1,
+    CONSTRAINT fk_Alumno_Tecnica FOREIGN KEY (idTecnica) REFERENCES Tecnica(idTecnica),
+    CONSTRAINT chk_Alumno_Sexo CHECK (Sexo IN ('M', 'F'))
+);
+
+GO
+
+-- ============================================================
+-- instalacion/04-insert-tecnica.sql
+-- ============================================================
+-- Tema:        Ejercicio 1 - Etapa 4
+-- Descripción: Insertar catálogo de técnicas
+-- Autor:       Daniel Hilario
+
+USE EscuelaDB;
+
+INSERT INTO Tecnica (Descripcion, Activo)
+VALUES ('Sistemas Computacionales', 1),
+       ('Diseño de Imagen', 1),
+       ('Actividad Física y Deporte', 1),
+       ('Artes', 1),
+       ('Gastronomía Integral', 1),
+       ('Diseño y Comunicación Visual', 1),
+       ('Diseño de Modas', 1),
+       ('Fisioterapia y Readaptación Físico Deportiva', 1);
+
+GO
+
+-- ============================================================
+-- instalacion/05-insert-alumno.sql
+-- ============================================================
 -- Tema:        Ejercicio 1 - Etapa 4
 -- Descripción: Insertar 200 alumnos de prueba
 -- Autor:       Daniel Hilario
@@ -435,3 +522,5 @@ VALUES (8, 'Cervantes', 'García', 'Laura', 17,
         'M', 'TOCD091118NLHRRR04', '2009-11-18', 1),
        (8, 'Pérez', 'Sandoval', 'Monserrat', 17,
         'F', 'PESM080305NLMRRM09', '2008-03-05', 1);
+
+GO

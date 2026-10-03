@@ -1,6 +1,8 @@
 -- Tema:        Ejercicio 1 - Etapa 4
 -- Descripción: Crear tabla Tecnica
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE EscuelaDB;
 
 CREATE TABLE Tecnica (
     idTecnica INT NOT NULL IDENTITY(1,1) PRIMARY KEY,

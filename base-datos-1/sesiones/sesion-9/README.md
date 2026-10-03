@@ -16,15 +16,38 @@ Este documento describe el orden de ejecución de los scripts SQL de la sesión 
 
 Versión navegable del diagrama: [`assets/diagrama-er.html`](assets/diagrama-er.html).
 
+2 tablas — cada una con su ficha de diccionario de datos en [`04-Ejercicio-1/docs/tablas`](04-Ejercicio-1/docs/tablas):
+
+| Tabla | Descripción |
+|-------|-------------|
+| [`Tecnica`](04-Ejercicio-1/docs/tablas/Tecnica.md) | Catálogo de carreras técnicas, con baja lógica |
+| [`Alumno`](04-Ejercicio-1/docs/tablas/Alumno.md) | Alumnos inscritos; cada uno pertenece a una `Tecnica` |
+
+---
+
+## Constraints agregados
+
+- `PRIMARY KEY` con `IDENTITY(1,1)` en ambas tablas.
+- `FOREIGN KEY` nombrada `fk_Alumno_Tecnica`.
+- `CHECK` en `Alumno.Sexo` (`IN ('M', 'F')`).
+- `DEFAULT 1` en los `Activo`.
+
 ---
 
 ## Prerequisito
 
-Asegúrate de tener seleccionada la base de datos **EscuelaDB** en el dropdown de SSMS antes de ejecutar cualquier script (excepto el primero, que crea la base de datos).
+Cada script (excepto el primero, que crea la base de datos) empieza con `USE EscuelaDB;`, así que se ejecuta sobre EscuelaDB aunque tengas seleccionada otra base en el dropdown de SSMS.
 
 ---
 
 ## Instalación
+
+Dos opciones:
+
+- **Rápida:** abrir [`04-Ejercicio-1/instalar-completo.sql`](04-Ejercicio-1/instalar-completo.sql) en SSMS y ejecutarlo completo (F5). Crea la base de datos, las 2 tablas y los datos iniciales en un solo paso.
+- **Paso a paso:** ejecutar los scripts de [`04-Ejercicio-1/instalacion`](04-Ejercicio-1/instalacion) en el orden de las tablas de abajo.
+
+`instalar-completo.sql` se genera concatenando los archivos de `instalacion/` en orden alfabético; si se modifica algún script de `instalacion/`, hay que regenerarlo.
 
 ### Paso 1 — Crear la base de datos
 
