@@ -4,13 +4,39 @@ Este documento describe el orden de ejecución de los scripts SQL de la sesión 
 
 ---
 
+## Modelo Relacional
+
+![Modelo Relacional de ViajeYA](assets/diagrama-er.png)
+
+Versión navegable del diagrama: [`assets/diagrama-er.html`](assets/diagrama-er.html).
+
+Cada tabla tiene su ficha de diccionario de datos en [`solucion-evidencia-2-ejercicio-3/docs/tablas`](solucion-evidencia-2-ejercicio-3/docs/tablas): [`Pais`](solucion-evidencia-2-ejercicio-3/docs/tablas/Pais.md) · [`TipoPaquete`](solucion-evidencia-2-ejercicio-3/docs/tablas/TipoPaquete.md) · [`Cliente`](solucion-evidencia-2-ejercicio-3/docs/tablas/Cliente.md) · [`Destino`](solucion-evidencia-2-ejercicio-3/docs/tablas/Destino.md) · [`Reservacion`](solucion-evidencia-2-ejercicio-3/docs/tablas/Reservacion.md).
+
+---
+
+## Constraints agregados
+
+- `PRIMARY KEY` con `IDENTITY(1,1)` en todas las tablas.
+- `FOREIGN KEY` nombradas (`fk_<Tabla>_<TablaReferenciada>`), con acciones en cascada: `ON DELETE CASCADE` en `fk_Destino_Pais`, `fk_Destino_TipoPaquete` y `fk_Reservacion_Cliente`; `ON DELETE NO ACTION` en `fk_Reservacion_Destino`; `ON UPDATE CASCADE` en todas.
+- `UNIQUE` en `Pais.NombrePais`.
+- `CHECK` en `TipoPaquete.PrecioActual`, `Reservacion.NumeroNoches`, `Reservacion.PrecioAlMomento` y `Reservacion.TotalAPagar` (todos `> 0`).
+
+---
+
 ## Prerequisito
 
-Asegúrate de tener seleccionada la base de datos **ViajeYA** en el dropdown de SSMS antes de ejecutar cualquier script (excepto el primero, que crea la base de datos).
+Cada script (excepto el primero, que crea la base de datos) empieza con `USE ViajeYA;`, así que se ejecuta sobre ViajeYA aunque tengas seleccionada otra base en el dropdown de SSMS.
 
 ---
 
 ## Instalación
+
+Dos opciones:
+
+- **Rápida:** abrir [`solucion-evidencia-2-ejercicio-3/instalar-completo.sql`](solucion-evidencia-2-ejercicio-3/instalar-completo.sql) en SSMS y ejecutarlo completo (F5). Crea la base de datos, las 5 tablas y los datos iniciales en un solo paso.
+- **Paso a paso:** ejecutar los scripts de [`solucion-evidencia-2-ejercicio-3/instalacion`](solucion-evidencia-2-ejercicio-3/instalacion) en el orden de abajo.
+
+`instalar-completo.sql` se genera concatenando los archivos de `instalacion/` en orden alfabético; si se modifica algún script de `instalacion/`, hay que regenerarlo.
 
 ### Paso 1 — Crear la base de datos
 

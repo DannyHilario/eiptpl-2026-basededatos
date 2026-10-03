@@ -1,6 +1,8 @@
 -- Tema:        Ejercicio 3 - ViajeYA
 -- Descripción: Insertar 10 registros por tabla en la base de datos ViajeYA
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE ViajeYA;
 
 -- Tabla Pais
 INSERT INTO Pais (NombrePais)
