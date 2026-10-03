@@ -1,6 +1,8 @@
 -- Tema:        Ejercicio 2 - Etapa 4
 -- Descripción: Crear tabla TipoServicio
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE AutoFixDB;
 
 CREATE TABLE TipoServicio (
     idTipoServicio INT NOT NULL IDENTITY(1,1) PRIMARY KEY,

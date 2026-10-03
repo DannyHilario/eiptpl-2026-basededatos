@@ -16,15 +16,39 @@ Este documento describe el orden de ejecución de los scripts SQL de la sesión 
 
 Versión navegable del diagrama: [`assets/diagrama-er.html`](assets/diagrama-er.html).
 
+4 tablas — cada una con su ficha de diccionario de datos en [`05-Ejercicio-2/docs/tablas`](05-Ejercicio-2/docs/tablas):
+
+| Tabla | Descripción |
+|-------|-------------|
+| [`Cliente`](05-Ejercicio-2/docs/tablas/Cliente.md) | Catálogo de clientes (dueños de los vehículos) |
+| [`TipoServicio`](05-Ejercicio-2/docs/tablas/TipoServicio.md) | Catálogo de tipos de servicio con su costo vigente |
+| [`Vehiculo`](05-Ejercicio-2/docs/tablas/Vehiculo.md) | Vehículos registrados; cada uno pertenece a un `Cliente` |
+| [`Servicio`](05-Ejercicio-2/docs/tablas/Servicio.md) | Hecho — cada visita al taller, con el costo copiado del tipo de servicio |
+
+---
+
+## Constraints agregados
+
+- `PRIMARY KEY` con `IDENTITY(1,1)` en todas las tablas.
+- `FOREIGN KEY` nombradas (`fk_<Tabla>_<TablaReferenciada>`) en todas las relaciones.
+- `DEFAULT 1` en los `Activo`.
+
 ---
 
 ## Prerequisito
 
-Asegúrate de tener seleccionada la base de datos **AutoFixDB** en el dropdown de SSMS antes de ejecutar cualquier script (excepto el primero, que crea la base de datos).
+Cada script (excepto el primero, que crea la base de datos) empieza con `USE AutoFixDB;`, así que se ejecuta sobre AutoFixDB aunque tengas seleccionada otra base en el dropdown de SSMS.
 
 ---
 
 ## Instalación
+
+Dos opciones:
+
+- **Rápida:** abrir [`05-Ejercicio-2/instalar-completo.sql`](05-Ejercicio-2/instalar-completo.sql) en SSMS y ejecutarlo completo (F5). Crea la base de datos, las 4 tablas y los datos iniciales en un solo paso.
+- **Paso a paso:** ejecutar los scripts de [`05-Ejercicio-2/instalacion`](05-Ejercicio-2/instalacion) en el orden de las tablas de abajo.
+
+`instalar-completo.sql` se genera concatenando los archivos de `instalacion/` en orden alfabético; si se modifica algún script de `instalacion/`, hay que regenerarlo.
 
 ### Paso 1 — Crear la base de datos
 
@@ -58,7 +82,7 @@ Ejecuta en el orden indicado para respetar las llaves foráneas.
 | 1 | `instalacion/06-insert-cliente.sql` | 200 clientes (exportados de Sesión 9) |
 | 2 | `instalacion/07-insert-tiposervicio.sql` | 6 tipos de servicio |
 | 3 | `instalacion/08-insert-vehiculo.sql` | 170 vehículos para clientes 1–155 |
-| 4 | `instalacion/09-insert-servicio.sql` | 200 servicios distribuidos en vehículos 1–150 |
+| 4 | `instalacion/09-insert-servicio.sql` | 200 servicios distribuidos en vehículos 1–140 |
 
 > El orden importa por las llaves foráneas: clientes y tipos de servicio primero, luego vehículos, luego servicios.
 
@@ -80,7 +104,7 @@ Ejecuta en el orden indicado para respetar las llaves foráneas.
 | Escenario | Tablas involucradas |
 |-----------|---------------------|
 | Clientes **sin** vehículo registrado (ids 156–200) | `Cliente` ← `Vehiculo` |
-| Vehículos **sin** servicios (ids 151–170) | `Vehiculo` ← `Servicio` |
+| Vehículos **sin** servicios (36: ids 141–170, más 61, 70, 94, 103, 127 y 136) | `Vehiculo` ← `Servicio` |
 | Clientes con múltiples vehículos (ids 1–15) | `Cliente` → `Vehiculo` |
 | Vehículos con múltiples servicios | `Vehiculo` → `Servicio` |
 

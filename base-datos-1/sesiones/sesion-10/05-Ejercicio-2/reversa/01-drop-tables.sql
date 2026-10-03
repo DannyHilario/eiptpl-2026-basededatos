@@ -1,6 +1,8 @@
 -- Tema:        Reversa Ejercicio 2 - Etapa 4
 -- Descripción: Eliminar tablas en orden inverso a las llaves foráneas
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE AutoFixDB;
 
 -- Paso 1: Servicio primero — depende de Vehiculo y de TipoServicio
 DROP TABLE IF EXISTS Servicio;

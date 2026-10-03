@@ -1,9 +1,11 @@
 -- Tema:        Ejercicio 2 - Etapa 4
--- Descripción: Insertar 200 servicios distribuidas en vehículos 1-150
---              Vehículos 151-170 NO tienen órdenes (útil para LEFT/RIGHT JOIN)
+-- Descripción: Insertar 200 servicios distribuidos en vehículos 1-140
+--              Vehículos 141-170 (y 61, 70, 94, 103, 127, 136) NO tienen órdenes (útil para LEFT/RIGHT JOIN)
 --              Servicios: 1=Afinación, 2=Cambio de aceite, 3=Frenos,
 --                         4=Suspensión, 5=Diagnóstico, 6=Cambio de llantas
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE AutoFixDB;
 
 -- Órdenes 1-25
 INSERT INTO Servicio (idVehiculo, idTipoServicio, FechaIngreso, CostoServicio)

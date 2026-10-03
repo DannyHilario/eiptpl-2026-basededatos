@@ -1,6 +1,8 @@
 -- Tema:        Ejercicio 2 - Etapa 4
 -- Descripción: Crear tabla Cliente
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE AutoFixDB;
 
 CREATE TABLE Cliente (
     idCliente INT NOT NULL IDENTITY(1,1) PRIMARY KEY,

@@ -2,7 +2,9 @@
 -- Descripción: Insertar 170 vehículos para clientes 1-155
 --              Clientes 1-15 tienen 2 vehículos; clientes 16-155 tienen 1 vehículo
 --              Clientes 156-200 NO tienen vehículo (útil para LEFT/RIGHT JOIN)
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE AutoFixDB;
 
 -- Vehículos 1-30: clientes 1-15 con dos vehículos cada uno
 INSERT INTO Vehiculo (idCliente, Marca, Modelo, Anio, Activo)

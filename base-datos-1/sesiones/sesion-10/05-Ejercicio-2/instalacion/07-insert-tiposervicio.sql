@@ -1,6 +1,8 @@
 -- Tema:        Ejercicio 2 - Etapa 4
 -- Descripción: Insertar catálogo de tipos de servicio
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE AutoFixDB;
 
 INSERT INTO TipoServicio (Descripcion, Costo, Activo)
 VALUES ('Afinación', 850.00, 1),

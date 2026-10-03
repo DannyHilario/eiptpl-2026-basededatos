@@ -1,6 +1,8 @@
 -- Tema:        Ejercicio 2 - Etapa 4
 -- Descripción: Insertar 200 clientes (exportados de Alumno - Sesión 9)
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE AutoFixDB;
 
 -- Clientes 1-25 (origen: Técnica 1 - Sistemas Computacionales)
 INSERT INTO Cliente (PrimerApellido, SegundoApellido, Nombre, Telefono, Correo,
