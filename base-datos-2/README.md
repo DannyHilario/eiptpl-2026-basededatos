@@ -23,7 +23,8 @@ base-datos-2/
     ├── sesion-3/          # CineDB — variables y procedimientos almacenados
     ├── sesion-4/          # CineDB — validaciones y manejo de errores en SPs
     ├── sesion-5-6/        # CompuStoreDB — modelado, N:N, auditoría y constraints (dos sábados de trabajo)
-    └── sesion-7/          # HospitalDB — modelo base para Evidencias 1 y 2
+    ├── sesion-7/          # HospitalDB — modelo base para Evidencias 1 y 2
+    └── examen-medio-termino/  # SistemaBancarioBD — examen práctico (función, vista y SP por alumno)
 ```
 
 Se irá ampliando conforme avancen las sesiones del semestre.
@@ -38,6 +39,7 @@ Se irá ampliando conforme avancen las sesiones del semestre.
 | [Sesión 4](sesiones/sesion-4) | CineDB | Validaciones en procedimientos almacenados y patrón de manejo de errores con códigos de salida |
 | [Sesión 5-6](sesiones/sesion-5-6) | CompuStoreDB | Modelado desde cero (relación N:N con tabla puente, historial de precios), campos de auditoría, baja lógica, constraints (`PK`, `FK`, `UNIQUE`, `CHECK`, `DEFAULT`), CRUD completo con SPs, funciones, vistas y datos demo |
 | [Sesión 7](sesiones/sesion-7) | HospitalDB | Modelo base para Evidencias 1 y 2 (vistas/funciones y procedimientos almacenados, uno distinto por alumno) — tablas, constraints y datos iniciales instalados |
+| [Examen de Medio Término](sesiones/examen-medio-termino) | SistemaBancarioBD | Examen práctico en línea: cada alumno crea una función, una vista y un procedimiento almacenado sobre un modelo bancario (sucursales, clientes, tarjetas de crédito y movimientos) — [instrucciones y ejercicios](sesiones/examen-medio-termino/entregables/descripcion-examen.md) |
 
 ---
 
