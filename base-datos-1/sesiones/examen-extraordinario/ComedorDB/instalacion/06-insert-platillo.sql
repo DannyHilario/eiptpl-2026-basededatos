@@ -1,6 +1,8 @@
 -- Tema:        ComedorDB - 2da Oportunidad de Base de Datos I
 -- Descripción: Insertar 10 platillos del comedor subsidiado
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE ComedorDB;
 
 INSERT INTO Platillo (Nombre, Descripcion, Precio)
 VALUES ('Pozole rojo', 'Caldo de maíz cacahuazintle con carne de cerdo y chile guajillo', 45.00),

@@ -1,6 +1,8 @@
 -- Tema:        ComedorDB - 2da Oportunidad de Base de Datos I
 -- Descripción: Insertar 25 empleados de prueba
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE ComedorDB;
 
 -- Departamento: Producción (idEmpleado 1-5)
 INSERT INTO Empleado (PrimerApellido, SegundoApellido, Nombre, Departamento, CURP,

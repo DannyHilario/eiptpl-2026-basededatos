@@ -1,6 +1,8 @@
 -- Tema:        ComedorDB - 2da Oportunidad de Base de Datos I
 -- Descripción: Crear tabla Empleado
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE ComedorDB;
 
 CREATE TABLE Empleado (
     idEmpleado INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
@@ -12,4 +14,4 @@ CREATE TABLE Empleado (
     Sexo CHAR(1) NOT NULL,
     FechaNacimiento DATE NOT NULL,
     CONSTRAINT chk_Empleado_Sexo CHECK (Sexo IN ('M', 'F'))
-)
+);

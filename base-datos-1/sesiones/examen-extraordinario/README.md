@@ -14,11 +14,13 @@
 
 Versión navegable del diagrama: [`assets/diagrama-er.html`](assets/diagrama-er.html).
 
+3 tablas — cada una con su ficha de diccionario de datos en [`ComedorDB/docs/tablas`](ComedorDB/docs/tablas):
+
 | Tabla | Descripción | Registros |
 |-------|-------------|-----------|
-| `Empleado` | Catálogo de empleados por departamento | 25 |
-| `Platillo` | Catálogo de platillos con precio vigente | 10 |
-| `Servicio` | Hechos: consumo de un platillo por un empleado en una fecha | 54 |
+| [`Empleado`](ComedorDB/docs/tablas/Empleado.md) | Catálogo de empleados por departamento | 25 |
+| [`Platillo`](ComedorDB/docs/tablas/Platillo.md) | Catálogo de platillos con precio vigente | 10 |
+| [`Servicio`](ComedorDB/docs/tablas/Servicio.md) | Hechos: consumo de un platillo por un empleado en una fecha | 54 |
 
 ### Departamentos representados
 
@@ -39,22 +41,60 @@ Producción, Administración, Recursos Humanos, Finanzas, Mantenimiento, Logíst
 | 9 | Chile relleno | $44.00 |
 | 10 | Frijoles charros | $28.00 |
 
+### Datos para practicar
+
+- Los empleados 23, 24 y 25 no tienen ningún servicio registrado (útil para `LEFT JOIN`).
+- 19 de los 54 servicios tienen un precio cobrado distinto del precio vigente del platillo: algunos platillos costaron distinto en abril que en mayo de 2026.
+
+## Constraints agregados
+
+- `PRIMARY KEY` con `IDENTITY(1,1)` en todas las tablas.
+- `FOREIGN KEY` nombradas (`fk_<Tabla>_<TablaReferenciada>`) en `Servicio`.
+- `CHECK` en `Empleado.Sexo` (`IN ('M', 'F')`), y en `Platillo.Precio` y `Servicio.Precio` (`> 0`).
+
+## Limitaciones conocidas del modelo
+
+- **Un platillo por día:** es una regla del negocio, pero el modelo no la impide (no hay un `UNIQUE (idEmpleado, FechaServicio)`). Los datos iniciales sí la cumplen.
+
 ## Instalación
 
-Ejecuta los scripts en orden desde SSMS con **ComedorDB** seleccionada en el dropdown (excepto el primero, que crea la base de datos):
+Cada script (excepto el primero, que crea la base de datos) empieza con `USE ComedorDB;`, así que se ejecuta sobre ComedorDB aunque tengas seleccionada otra base en el dropdown de SSMS.
 
-```
-01-create-database.sql
-02-create-table-empleado.sql
-03-create-table-platillo.sql
-04-create-table-servicio.sql
-05-insert-empleado.sql
-06-insert-platillo.sql
-07-insert-servicio.sql
-```
+Dos opciones:
+
+- **Rápida:** abrir [`ComedorDB/instalar-completo.sql`](ComedorDB/instalar-completo.sql) en SSMS y ejecutarlo completo (F5). Crea la base de datos, las 3 tablas y los datos iniciales en un solo paso.
+- **Paso a paso:** ejecutar los scripts de [`ComedorDB/instalacion`](ComedorDB/instalacion) en este orden:
+
+| # | Archivo | Descripción |
+|---|---------|-------------|
+| 1 | `instalacion/01-create-database.sql` | Crea la base de datos `ComedorDB` |
+| 2 | `instalacion/02-create-table-empleado.sql` | Tabla `Empleado` |
+| 3 | `instalacion/03-create-table-platillo.sql` | Tabla `Platillo` |
+| 4 | `instalacion/04-create-table-servicio.sql` | Tabla `Servicio` (FK → Empleado, Platillo) |
+| 5 | `instalacion/05-insert-empleado.sql` | 25 empleados en 8 departamentos |
+| 6 | `instalacion/06-insert-platillo.sql` | 10 platillos con precio vigente |
+| 7 | `instalacion/07-insert-servicio.sql` | 54 servicios de abril y mayo de 2026 (empleados 1–22) |
+
+`instalar-completo.sql` se genera concatenando los archivos de `instalacion/` en orden alfabético; si se modifica algún script de `instalacion/`, hay que regenerarlo.
 
 ## Reversa
 
+### Paso R1 — Eliminar las tablas
+
+| Orden | Tabla | Motivo |
+|-------|-------|--------|
+| 1° | `Servicio` | Depende de `Empleado` y de `Platillo`; debe ir primero |
+| 2° | `Platillo` | Sin dependientes tras eliminar `Servicio` |
+| 3° | `Empleado` | Sin dependientes tras eliminar `Servicio` |
+
 ```
-reversa/01-drop-database.sql
+ComedorDB/reversa/01-drop-tables.sql
+```
+
+### Paso R2 — Eliminar la base de datos
+
+> **Antes de ejecutar este script**, selecciona otra base de datos en el dropdown (por ejemplo: `master`). No puedes eliminar una base de datos a la que estás conectado.
+
+```
+ComedorDB/reversa/02-drop-database.sql
 ```

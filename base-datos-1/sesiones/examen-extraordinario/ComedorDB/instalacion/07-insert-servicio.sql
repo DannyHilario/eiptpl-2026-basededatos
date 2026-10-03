@@ -3,7 +3,9 @@
 --              empleados 23-25 no tienen ningún servicio registrado)
 --              Nota: el Precio refleja el cobro del día; algunos platillos
 --              tuvieron precio distinto en abril vs mayo de 2026.
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE ComedorDB;
 
 -- Servicios del 7 al 9 de abril de 2026
 INSERT INTO Servicio (idEmpleado, idPlatillo, FechaServicio, Precio)
