@@ -43,7 +43,7 @@ Crea una función escalar llamada exactamente `ufn_totalCargosTarjeta` que recib
 | Tarjeta | Sus movimientos | Resultado esperado |
 |---|---|---|
 | 31 | 6 cargos y 1 pago | **253199.68** (el pago de 3,199.68 no se suma) |
-| 1 | 2 cargos y 2 abonos | **3331.69** |
+| 1 | 3 cargos y 1 abono | **3331.69** |
 | 7 | No tiene movimientos | **0.00** |
 | 9999 | No existe | **0.00** |
 
