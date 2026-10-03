@@ -16,4 +16,4 @@ SELECT	idAlumno as ClaveAlumno,
 		Edad,
 		Sexo
 FROM Alumno
-WHERE Edad = 21 AND Sexo = 'H';
+WHERE Edad = 21 AND Sexo = 'M';

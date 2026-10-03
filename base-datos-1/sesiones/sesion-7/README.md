@@ -41,8 +41,6 @@ Cada tabla tiene su ficha de diccionario de datos:
 - `UNIQUE` en `Huesped.Correo`, `TipoHabitacion.TipoHabitacion` y `Habitacion.NumeroHabitacion`.
 - `CHECK` en `TipoHabitacion.PrecioPorNoche` (`> 0`), `Reservacion.NumeroNoches` (`> 0`) y `Reservacion.PrecioAlMomento` (`> 0`).
 
-> **Nota sobre `Alumno.Sexo`:** en el Ejercicio 1 se capturó con `'H'` (hombre) y `'M'` (mujer), sin `CHECK`. Los modelos posteriores del curso usan `'M'` / `'F'` con un `CHECK`.
-
 ---
 
 ## Prerequisito

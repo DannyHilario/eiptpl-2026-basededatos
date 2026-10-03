@@ -16,7 +16,7 @@ Alumnos del curso (Ejercicio 1: primera tabla creada con DDL, sin relaciones).
 | `Edad` | `INT` | **Sí** | — | Edad en años (opcional). Es un dato derivado de `FechaNacimiento`: se guarda para practicar consultas, pero puede quedar desactualizado |
 | `CorreoElectronico` | `VARCHAR(100)` | **Sí** | — | Correo electrónico (opcional) |
 | `Ciudad` | `VARCHAR(50)` | **Sí** | — | Ciudad de residencia (opcional) |
-| `Sexo` | `CHAR(1)` | No | — | `'H'` (hombre) o `'M'` (mujer). Ojo: los modelos posteriores del curso usan `'M'`/`'F'` con un `CHECK`; aquí no hay `CHECK` |
+| `Sexo` | `CHAR(1)` | No | — | `'M'` (masculino) o `'F'` (femenino), igual que en los modelos posteriores del curso; aquí todavía sin `CHECK` |
 
 ## Constraints y por qué existen
 

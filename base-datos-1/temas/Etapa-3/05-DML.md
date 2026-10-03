@@ -39,7 +39,7 @@ Agrega uno o más registros a una tabla.
 INSERT INTO Alumno (PrimerApellido, SegundoApellido, Nombre, FechaNacimiento, Edad,
                     CorreoElectronico, Ciudad, Sexo)
 VALUES ('Méndez', 'García', 'Carlos', '2003-07-15', 22,
-        'carlos.mendez@cursodb.com', 'Monterrey', 'H');
+        'carlos.mendez@cursodb.com', 'Monterrey', 'M');
 ```
 
 Para insertar varios registros en una sola instrucción:
@@ -48,11 +48,11 @@ Para insertar varios registros en una sola instrucción:
 INSERT INTO Alumno (PrimerApellido, SegundoApellido, Nombre, FechaNacimiento, Edad,
                     CorreoElectronico, Ciudad, Sexo)
 VALUES ('Torres', 'López', 'Ana', '2005-04-22', 20,
-        'ana.torres@cursodb.com', 'Guadalajara', 'M'),
+        'ana.torres@cursodb.com', 'Guadalajara', 'F'),
        ('Ramos', 'Vázquez', 'Luis', '2002-11-08', 23,
-        'luis.ramos@cursodb.com', 'Monterrey', 'H'),
+        'luis.ramos@cursodb.com', 'Monterrey', 'M'),
        ('Pérez', 'Sánchez', 'María', '2004-09-30', 21,
-        'maria.perez@cursodb.com', 'Ciudad de México', 'M');
+        'maria.perez@cursodb.com', 'Ciudad de México', 'F');
 ```
 
 Puntos importantes:

@@ -47,7 +47,7 @@ CREATE TABLE Alumno (
     idAlumno INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
     Nombre VARCHAR(100) NOT NULL,
     Edad INT CHECK (Edad >= 15 AND Edad <= 100),
-    Sexo CHAR(1) CHECK (Sexo IN ('H', 'M'))
+    Sexo CHAR(1) CHECK (Sexo IN ('M', 'F'))
 );
 ```
 
