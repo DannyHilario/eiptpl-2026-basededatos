@@ -1,6 +1,8 @@
 -- Tema:        CineDB - Sesión Final
 -- Descripción: Crear tabla Pelicula
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE CineDB;
 
 CREATE TABLE Pelicula (
     idPelicula INT NOT NULL IDENTITY(1,1) PRIMARY KEY,

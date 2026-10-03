@@ -1,6 +1,8 @@
 -- Tema:        CineDB - Sesión Final
 -- Descripción: Insertar 100 boletos vendidos en mayo y junio 2026
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE CineDB;
 
 -- Clientes que compraron (mayo):   1,2,3,5,7,9,11,13,15,17,19  (11 de 20)
 -- Clientes sin compras (mayo):     4,6,8,10,12,14,16,18,20
@@ -210,3 +212,7 @@ VALUES (48, 39, '2026-06-24', '18:00'),
        (54, 39, '2026-06-26', '12:00'),
        (75, 39, '2026-06-26', '19:00'),
        (90, 39, '2026-06-28', '17:00')
+
+-- Sincroniza Funcion.CantidadVendida con los boletos vendidos de cada función
+UPDATE Funcion
+SET CantidadVendida = (SELECT COUNT(*) FROM Boleto B WHERE B.idFuncion = Funcion.idFuncion);

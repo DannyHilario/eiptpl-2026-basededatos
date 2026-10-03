@@ -1,5 +1,5 @@
 -- Tema:        CineDB - Sesión Final
 -- Descripción: Crear base de datos CineDB
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
 
 CREATE DATABASE CineDB;

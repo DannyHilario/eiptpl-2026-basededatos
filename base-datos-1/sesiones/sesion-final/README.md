@@ -149,6 +149,19 @@ Table Boleto {
 
 Versión navegable del diagrama: [`assets/diagrama-er.html`](assets/diagrama-er.html).
 
+8 tablas — cada una con su ficha de diccionario de datos en [`CineDB/docs/tablas`](CineDB/docs/tablas):
+
+| Tabla | Descripción |
+|-------|-------------|
+| [`TipoSala`](CineDB/docs/tablas/TipoSala.md) | Catálogo de tipos de sala (2D, 3D, IMAX, VIP) con el precio base del boleto |
+| [`Clasificacion`](CineDB/docs/tablas/Clasificacion.md) | Catálogo de clasificaciones por edad (AA, A, B, C) |
+| [`Genero`](CineDB/docs/tablas/Genero.md) | Catálogo de géneros cinematográficos |
+| [`Cliente`](CineDB/docs/tablas/Cliente.md) | Catálogo de clientes registrados (compradores de boletos) |
+| [`Sala`](CineDB/docs/tablas/Sala.md) | Catálogo de salas físicas; cada una es de un `TipoSala` |
+| [`Pelicula`](CineDB/docs/tablas/Pelicula.md) | Catálogo de películas; cada una tiene una `Clasificacion` y un `Genero` |
+| [`Funcion`](CineDB/docs/tablas/Funcion.md) | Hecho — proyección de una `Pelicula` en una `Sala` en una fecha y hora, con el precio copiado del tipo de sala |
+| [`Boleto`](CineDB/docs/tablas/Boleto.md) | Hecho — boleto comprado por un `Cliente` para una `Funcion` |
+
 ---
 
 ## Limitaciones conocidas del modelo
@@ -167,14 +180,30 @@ Versión navegable del diagrama: [`assets/diagrama-er.html`](assets/diagrama-er.
 
 ---
 
+## Constraints agregados
+
+- `PRIMARY KEY` con `IDENTITY(1,1)` en todas las tablas.
+- `FOREIGN KEY` nombradas (`fk_<Tabla>_<TablaReferenciada>`) en todas las relaciones.
+- `UNIQUE` compuesto en `Funcion` (`idSala`, `Fecha`, `Hora`): una sala no puede tener dos funciones con la misma fecha y hora de inicio.
+- `DEFAULT 1` en todos los `Activo` y `DEFAULT 0` en `Funcion.CantidadVendida`.
+
+---
+
 ## Prerequisito
 
-Asegúrate de tener seleccionada la base de datos **CineDB** en el dropdown de SSMS antes de
-ejecutar cualquier script (excepto el primero, que crea la base de datos).
+Cada script (excepto el primero, que crea la base de datos) empieza con `USE CineDB;`, así que
+se ejecuta sobre CineDB aunque tengas seleccionada otra base en el dropdown de SSMS.
 
 ---
 
 ## Instalación
+
+Dos opciones:
+
+- **Rápida:** abrir [`CineDB/instalar-completo.sql`](CineDB/instalar-completo.sql) en SSMS y ejecutarlo completo (F5). Crea la base de datos, las 8 tablas y los datos iniciales en un solo paso.
+- **Paso a paso:** ejecutar los scripts de [`CineDB/instalacion`](CineDB/instalacion) en el orden de las tablas de abajo.
+
+`instalar-completo.sql` se genera concatenando los archivos de `instalacion/` en orden alfabético; si se modifica algún script de `instalacion/`, hay que regenerarlo.
 
 ### Paso 1 — Crear la base de datos
 
@@ -216,7 +245,7 @@ Ejecuta en el orden indicado para respetar las llaves foráneas.
 | 5 | `instalacion/14-insert-cliente.sql` | 40 clientes (exportados de Sesiones 9 y 10) |
 | 6 | `instalacion/15-insert-pelicula.sql` | 30 películas del catálogo 2023–2025 |
 | 7 | `instalacion/16-insert-funcion.sql` | 90 funciones en mayo y junio 2026 |
-| 8 | `instalacion/17-insert-boleto.sql` | 100 boletos vendidos entre clientes de mayo y junio |
+| 8 | `instalacion/17-insert-boleto.sql` | 100 boletos vendidos entre clientes de mayo y junio; al final sincroniza `Funcion.CantidadVendida` con los boletos de cada función |
 
 > El orden importa por las llaves foráneas: catálogos primero, luego salas y películas, luego funciones, luego boletos.
 

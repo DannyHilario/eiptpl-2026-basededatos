@@ -1,6 +1,8 @@
 -- Tema:        CineDB - Sesión Final
 -- Descripción: Insertar catálogo de clasificaciones
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE CineDB;
 
 INSERT INTO Clasificacion (Nombre, Descripcion, Activo)
 VALUES ('AA', 'Apta para todo público', 1),

@@ -1,6 +1,8 @@
 -- Tema:        CineDB - Sesión Final
 -- Descripción: Insertar catálogo de tipos de sala
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE CineDB;
 
 INSERT INTO TipoSala (Descripcion, Precio, Activo)
 VALUES ('2D', 90.00, 1),

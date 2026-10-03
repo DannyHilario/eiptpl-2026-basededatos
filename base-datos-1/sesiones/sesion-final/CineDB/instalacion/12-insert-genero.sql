@@ -1,6 +1,8 @@
 -- Tema:        CineDB - Sesión Final
 -- Descripción: Insertar 20 géneros cinematográficos
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE CineDB;
 
 INSERT INTO Genero (Nombre, Activo)
 VALUES ('Acción', 1),

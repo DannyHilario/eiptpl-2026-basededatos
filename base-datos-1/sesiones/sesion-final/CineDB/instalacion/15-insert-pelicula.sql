@@ -1,6 +1,8 @@
 -- Tema:        CineDB - Sesión Final
 -- Descripción: Insertar catálogo de 30 películas (2023-2025)
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE CineDB;
 
 -- idClasificacion: 1=AA  2=A  3=B  4=C
 -- idGenero:        1=Acción      2=Comedia      3=Drama       4=Terror

@@ -1,6 +1,8 @@
 -- Tema:        CineDB - Sesión Final
 -- Descripción: Insertar 40 clientes (exportados de Alumno - Sesiones 9 y 10)
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE CineDB;
 
 -- Clientes 1-3 (origen: Técnica 1 - Sistemas Computacionales)
 INSERT INTO Cliente (PrimerApellido, SegundoApellido, Nombre, Telefono, CorreoElectronico,

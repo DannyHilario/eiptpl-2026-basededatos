@@ -1,6 +1,8 @@
 -- Tema:        CineDB - Sesión Final
 -- Descripción: Insertar 18 salas físicas del cine
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE CineDB;
 
 -- idTipoSala: 1=2D  2=3D  3=IMAX  4=VIP
 INSERT INTO Sala (idTipoSala, Nombre, Capacidad, Activo)

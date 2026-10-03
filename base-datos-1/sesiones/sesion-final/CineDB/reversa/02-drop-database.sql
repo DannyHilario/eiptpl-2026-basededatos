@@ -1,5 +1,5 @@
 -- Tema:        Reversa CineDB - Sesión Final
 -- Descripción: Eliminar base de datos CineDB
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
 
 DROP DATABASE IF EXISTS CineDB;

@@ -1,6 +1,8 @@
 -- Tema:        CineDB - Sesión Final
 -- Descripción: Insertar 90 funciones — 3 por película, mayo y junio 2026
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE CineDB;
 
 -- idSala:     1=Sala 1 (2D,$90)    2=Sala 2 (2D,$90)    3=Sala 3 (2D,$90)
 --             4=Sala 4 (3D,$130)   5=Sala 5 (3D,$130)

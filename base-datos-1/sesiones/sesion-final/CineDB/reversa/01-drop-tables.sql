@@ -1,6 +1,8 @@
 -- Tema:        Reversa CineDB - Sesión Final
 -- Descripción: Eliminar tablas en orden inverso a las llaves foráneas
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
+
+USE CineDB;
 
 -- Paso 1: Boleto — depende de Funcion y de Cliente
 DROP TABLE IF EXISTS Boleto;
