@@ -1,6 +1,6 @@
 -- Tema:        CineDB - Sesión Final
 -- Descripción: Colección de consultas de repaso que cubren los temas del curso
--- Autor:       [Tu nombre]
+-- Autor:       Daniel Hilario
 
 -- ============================================================
 -- CONSULTA 01 — SELECT *
