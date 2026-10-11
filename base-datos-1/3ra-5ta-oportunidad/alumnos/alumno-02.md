@@ -13,7 +13,7 @@
 
 ## El negocio
 
-FitZone es un gimnasio que ofrece **clases grupales**, como Spinning, Yoga o Box. Cada clase tiene un nombre que no se repite, un **instructor**, un **cupo máximo** de personas y un **precio por clase**: el socio paga cada clase que toma. **Los precios cambian**: el 1 de abril de 2026 subieron los de varias clases. Aun así, el negocio necesita saber **cuánto se cobró cada vez que un socio tomó una clase**, con el precio que tenía la clase ese día.
+FitZone es un gimnasio que ofrece **clases grupales**, como Spinning, Yoga o Box. Cada clase tiene un nombre que no se repite, un **instructor**, un **cupo máximo** de personas y un **precio por clase**: el socio paga cada clase que toma. **Los precios cambian** de vez en cuando. Aun así, el negocio necesita saber **cuánto se cobró cada vez que un socio tomó una clase**, con el precio que tenía la clase ese día.
 
 Los **socios** se inscriben una sola vez, con su nombre, su correo electrónico y la fecha de inscripción. Al inscribirse, cada socio dice cuál es su **objetivo** en el gimnasio (por ejemplo, bajar de peso), para que los instructores sepan qué clases recomendarle. El correo identifica al socio en recepción: no puede haber dos socios con el mismo. Cuando un socio deja de venir, se le **da de baja**, pero no se borra, para conservar su historial de clases.
 
@@ -30,20 +30,18 @@ Estos datos **no los inventas**: son los que FitZone ya tiene. Tu base de datos 
 | Acondicionamiento físico |
 | Rehabilitación |
 
-**Clases grupales y precio por clase**
+**Clases grupales**
 
-El **1 de abril de 2026** subieron los precios de Spinning, Box, Pilates, CrossFit y Body Pump. Los de las demás clases no cambiaron.
-
-| Clase | Instructor | Cupo máximo | Precio actual (desde el 1 de abril de 2026) | Precio anterior (hasta el 31 de marzo de 2026) |
-|---|---|---|---|---|
-| Spinning | Ricardo Ávila | 20 | $90.00 | $80.00 |
-| Yoga | Mariana Leal | 15 | $80.00 | $80.00 |
-| Box | Óscar Treviño | 12 | $100.00 | $90.00 |
-| Pilates | Sofía Garza | 10 | $110.00 | $100.00 |
-| Zumba | Paola Ramírez | 25 | $70.00 | $70.00 |
-| CrossFit | Arturo Cavazos | 16 | $120.00 | $110.00 |
-| Body Pump | Ricardo Ávila | 20 | $90.00 | $85.00 |
-| Stretching | Mariana Leal | 12 | $60.00 | $60.00 |
+| Clase | Instructor | Cupo máximo | Precio por clase |
+|---|---|---|---|
+| Spinning | Ricardo Ávila | 20 | $90.00 |
+| Yoga | Mariana Leal | 15 | $80.00 |
+| Box | Óscar Treviño | 12 | $100.00 |
+| Pilates | Sofía Garza | 10 | $110.00 |
+| Zumba | Paola Ramírez | 25 | $70.00 |
+| CrossFit | Arturo Cavazos | 16 | $120.00 |
+| Body Pump | Ricardo Ávila | 20 | $90.00 |
+| Stretching | Mariana Leal | 12 | $60.00 |
 
 Todo lo demás (socios y clases tomadas) **lo inventas tú**, cumpliendo los mínimos de [Lo que debes construir](#lo-que-debes-construir).
 
@@ -78,13 +76,13 @@ Dos días después, Andrea toma Yoga: es otra asistencia, de la misma socia y de
 1. El **modelo relacional**, con al menos 4 tablas, que guarde toda la información de arriba y respete las reglas de negocio con restricciones (`PRIMARY KEY`, `FOREIGN KEY`, `UNIQUE`, `CHECK`, `DEFAULT`).
 2. El **paquete de instalación** y el **paquete de reversa** de `FitZoneDB`.
 3. **Datos iniciales:**
-   - **Lo que el negocio ya tiene definido**, exactamente como viene arriba: los 4 objetivos y las 8 clases con su **precio actual**.
+   - **Lo que el negocio ya tiene definido**, exactamente como viene arriba: los 4 objetivos y las 8 clases.
    - **Lo que tú inventas**, como mínimo: 10 socios y 20 asistencias, con
      - socios de al menos 3 objetivos distintos;
      - 2 socios que nunca hayan tomado una clase;
      - 2 clases que nunca se hayan tomado;
      - al menos 1 socio dado de baja;
-     - asistencias antes **y** después del 1 de abril de 2026, de clases cuyo precio cambió y de clases cuyo precio no cambió: cada asistencia se cobra con el precio que tenía la clase **en la fecha de la asistencia** (precio anterior hasta el 31 de marzo, precio actual desde el 1 de abril);
+     - cada asistencia con el precio con el que se cobró (en tus datos, el precio de la clase que viene arriba);
      - asistencias en marzo de 2026;
      - socios con correo `@gmail.com`.
 4. **Las 10 consultas** de abajo.
@@ -99,7 +97,7 @@ Dos días después, Andrea toma Yoga: es otra asistencia, de la misma socia y de
 | 4 | Lista las asistencias de marzo de 2026, ordenadas por fecha. |
 | 5 | Muestra las 5 clases con mayor cupo máximo. |
 | 6 | Muestra cada socio con el nombre de su objetivo. |
-| 7 | Muestra las asistencias que se cobraron con un precio distinto al precio actual de su clase, con el precio cobrado y el precio actual. |
+| 7 | Muestra cada asistencia con el nombre de la clase, el precio cobrado y el precio actual de la clase. |
 | 8 | Muestra cada asistencia con el nombre del socio, el nombre de la clase, su instructor y el precio cobrado. |
 | 9 | Lista los socios que nunca han tomado una clase. |
 | 10 | Lista las clases que nunca se han tomado. |

@@ -1,17 +1,16 @@
 -- Tema:        Evidencia Integral - Ejemplo resuelto LavaExpressDB
 -- Descripción: Insertar 24 pedidos de noviembre de 2025 a junio de 2026.
---              PrecioPorKilo es el precio con el que se cobró cada pedido: los pedidos
---              anteriores al 1 de marzo de 2026 conservan los precios de antes del aumento.
+--              PrecioPorKilo es el precio con el que se cobró cada pedido (se copia del servicio).
 -- Autor:       Daniel Hilario
 
 USE LavaExpressDB;
 
 INSERT INTO Pedido (idCliente, idTipoServicio, FechaPedido, Kilos, PrecioPorKilo)
-VALUES (1, 1, '2025-11-20', 4.90, 25.00),
-       (2, 3, '2025-12-01', 7.40, 32.00),
-       (3, 3, '2025-12-17', 10.80, 32.00),
-       (2, 2, '2026-01-24', 8.30, 40.00),
-       (1, 4, '2026-01-30', 4.80, 75.00),
+VALUES (1, 1, '2025-11-20', 4.90, 28.00),
+       (2, 3, '2025-12-01', 7.40, 35.00),
+       (3, 3, '2025-12-17', 10.80, 35.00),
+       (2, 2, '2026-01-24', 8.30, 45.00),
+       (1, 4, '2026-01-30', 4.80, 80.00),
        (2, 3, '2026-03-04', 2.50, 35.00),
        (10, 2, '2026-03-07', 7.90, 45.00),
        (5, 3, '2026-03-08', 3.00, 35.00),

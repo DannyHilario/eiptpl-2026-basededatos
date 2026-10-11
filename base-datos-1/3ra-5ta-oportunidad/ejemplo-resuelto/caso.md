@@ -16,7 +16,7 @@
 
 LavaExpress es una lavandería con varias **sucursales** en la ciudad. Cada sucursal tiene un nombre que no se repite y una dirección.
 
-Ofrece distintos **tipos de servicio**: Lavado, Lavado y planchado, Planchado, Tintorería y Edredones. Cada servicio se cobra **por kilo**, y cada uno tiene su propio precio por kilo. **Los precios cambian**: por ejemplo, el 1 de marzo de 2026 subieron todos. Aun así, el negocio necesita saber **cuánto se cobró en cada pedido**, con el precio que tenía el servicio el día del pedido.
+Ofrece distintos **tipos de servicio**: Lavado, Lavado y planchado, Planchado, Tintorería y Edredones. Cada servicio se cobra **por kilo**, y cada uno tiene su propio precio por kilo. **Los precios cambian** de vez en cuando. Aun así, el negocio necesita saber **cuánto se cobró en cada pedido**, con el precio que tenía el servicio el día del pedido.
 
 Los **clientes** se registran una sola vez, en la sucursal a la que llegan por primera vez, con su nombre y su teléfono. El teléfono identifica al cliente: no puede haber dos clientes con el mismo. Cuando un cliente pide que ya no le manden promociones, se le **da de baja**, pero no se borra, para conservar sus pedidos.
 
@@ -34,15 +34,13 @@ Estos datos **no los inventas**: son los que LavaExpress ya tiene. Tu base de da
 
 **Servicios y precios por kilo**
 
-El **1 de marzo de 2026** subieron todos los precios.
-
-| Servicio | Precio actual (desde el 1 de marzo de 2026) | Precio anterior (hasta el 28 de febrero de 2026) |
-|---|---|---|
-| Lavado | $28.00 | $25.00 |
-| Lavado y planchado | $45.00 | $40.00 |
-| Planchado | $35.00 | $32.00 |
-| Tintorería | $80.00 | $75.00 |
-| Edredones | $60.00 | $55.00 |
+| Servicio | Precio por kilo |
+|---|---|
+| Lavado | $28.00 |
+| Lavado y planchado | $45.00 |
+| Planchado | $35.00 |
+| Tintorería | $80.00 |
+| Edredones | $60.00 |
 
 Todo lo demás (clientes y pedidos) **lo inventas tú**, cumpliendo los mínimos de [Lo que debes construir](#lo-que-debes-construir).
 
@@ -79,11 +77,12 @@ La semana siguiente, Marcela deja un saco para Tintorería: es otro pedido, de l
 1. El **modelo relacional**, con al menos 4 tablas, que guarde toda la información de arriba y respete las reglas de negocio con restricciones (`PRIMARY KEY`, `FOREIGN KEY`, `UNIQUE`, `CHECK`, `DEFAULT`).
 2. El **paquete de instalación** y el **paquete de reversa** de `LavaExpressDB`.
 3. **Datos iniciales:**
-   - **Lo que el negocio ya tiene definido**, exactamente como viene arriba: las 3 sucursales y los 5 servicios con su **precio actual**.
+   - **Lo que el negocio ya tiene definido**, exactamente como viene arriba: las 3 sucursales y los 5 servicios con su precio por kilo.
    - **Lo que tú inventas**, como mínimo: 10 clientes y 20 pedidos, con
      - 2 clientes que nunca hayan hecho un pedido;
      - 1 servicio que nunca se haya solicitado;
-     - pedidos antes **y** después del 1 de marzo de 2026: cada pedido se cobra con el precio que tenía el servicio **en la fecha del pedido** (precio anterior hasta el 28 de febrero, precio actual desde el 1 de marzo);
+     - al menos 1 cliente dado de baja;
+     - cada pedido con el precio por kilo con el que se cobró (en tus datos, el precio del servicio que viene arriba);
      - pedidos en marzo de 2026;
      - clientes cuyo nombre comience con M.
 4. **Las 10 consultas** de abajo.
@@ -98,7 +97,7 @@ La semana siguiente, Marcela deja un saco para Tintorería: es otro pedido, de l
 | 4 | Lista los pedidos realizados en marzo de 2026, ordenados por fecha. |
 | 5 | Muestra los 5 pedidos con más kilos. |
 | 6 | Muestra cada cliente con el nombre de la sucursal donde se registró. |
-| 7 | Muestra los pedidos que se cobraron con un precio por kilo distinto al precio actual del servicio, con el precio cobrado y el precio actual. |
+| 7 | Muestra cada pedido con el tipo de servicio, el precio por kilo cobrado y el precio por kilo actual del servicio. |
 | 8 | Muestra cada pedido con el nombre del cliente, el tipo de servicio, los kilos y el precio por kilo cobrado. |
 | 9 | Lista los clientes que nunca han hecho un pedido. |
 | 10 | Lista los tipos de servicio que nunca se han solicitado. |

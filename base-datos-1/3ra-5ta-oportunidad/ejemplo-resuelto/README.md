@@ -45,8 +45,8 @@ La base de datos **LavaExpressDB** tiene 4 tablas: `Sucursal`, `Cliente`, `TipoS
 | 5 | `05-create-table-pedido.sql` | Crea la tabla `Pedido`, con llaves foráneas a `Cliente` y a `TipoServicio` |
 | 6 | `06-insert-sucursal.sql` | Inserta las 3 sucursales que define el caso |
 | 7 | `07-insert-cliente.sql` | Inserta 12 clientes (los clientes 11 y 12 no tienen pedidos) |
-| 8 | `08-insert-tipo-servicio.sql` | Inserta los 5 servicios que define el caso, con su precio actual (Edredones no tiene pedidos) |
-| 9 | `09-insert-pedido.sql` | Inserta 24 pedidos, de noviembre de 2025 a junio de 2026. Cada pedido lleva el precio vigente en su fecha: los 5 anteriores al 1 de marzo de 2026, el precio anterior |
+| 8 | `08-insert-tipo-servicio.sql` | Inserta los 5 servicios que define el caso, con su precio por kilo (Edredones no tiene pedidos) |
+| 9 | `09-insert-pedido.sql` | Inserta 24 pedidos, de noviembre de 2025 a junio de 2026, cada uno con el precio por kilo con el que se cobró |
 
 > Cada script, excepto el 1, empieza con `USE LavaExpressDB;`, así que puede ejecutarse sin importar qué base de datos esté seleccionada en SSMS.
 
@@ -95,7 +95,7 @@ Diez archivos, uno por consulta, con **solo el código** y un comentario con la 
 | [`04-consulta.sql`](LavaExpressDB/consultas/04-consulta.sql) | Pedidos de marzo de 2026 |
 | [`05-consulta.sql`](LavaExpressDB/consultas/05-consulta.sql) | Los 5 pedidos con más kilos |
 | [`06-consulta.sql`](LavaExpressDB/consultas/06-consulta.sql) | Cada cliente con su sucursal |
-| [`07-consulta.sql`](LavaExpressDB/consultas/07-consulta.sql) | Pedidos cobrados con un precio distinto al precio actual del servicio |
+| [`07-consulta.sql`](LavaExpressDB/consultas/07-consulta.sql) | Cada pedido con su servicio, el precio cobrado y el precio actual |
 | [`08-consulta.sql`](LavaExpressDB/consultas/08-consulta.sql) | Cada pedido con cliente, servicio, kilos y precio cobrado |
 | [`09-consulta.sql`](LavaExpressDB/consultas/09-consulta.sql) | Clientes que nunca han hecho un pedido |
 | [`10-consulta.sql`](LavaExpressDB/consultas/10-consulta.sql) | Tipos de servicio que nunca se han solicitado |
