@@ -37,6 +37,26 @@ En este curso trabajaremos con **T-SQL**, la extensión de SQL Server.
 
 ---
 
+## Los tres grupos de sentencias SQL
+
+Las sentencias de SQL se dividen en tres grupos, según lo que hacen:
+
+| Grupo | Nombre | Para qué sirve | Sentencias |
+|-------|--------|----------------|------------|
+| **DDL** | *Data Definition Language*, lenguaje de definición de datos | Crear, modificar y eliminar la **estructura**: bases de datos, tablas | `CREATE`, `ALTER`, `DROP` |
+| **DML** | *Data Manipulation Language*, lenguaje de manipulación de datos | Insertar, consultar, modificar y borrar los **datos** dentro de las tablas | `INSERT`, `SELECT`, `UPDATE`, `DELETE` |
+| **DCL** | *Data Control Language*, lenguaje de control de datos | Dar o quitar **permisos** a los usuarios | `GRANT`, `REVOKE` |
+
+Una forma sencilla de distinguirlos:
+
+- **DDL** trabaja con el **mueble**: crea el librero, le agrega una repisa, lo tira.
+- **DML** trabaja con lo que hay **dentro**: mete libros, los busca, los cambia de lugar, los saca.
+- **DCL** decide **quién** puede abrir el librero.
+
+En el curso se usan DDL (ver [DDL](../Etapa-3/01-DDL.md) y [Modificar y eliminar estructuras](../Etapa-3/05-ModificarEstructura.md)) y DML (ver [DML](../Etapa-3/02-DML.md)). DCL lo administra quien está a cargo del servidor; basta con saber qué es.
+
+---
+
 ## T-SQL vs PL/pgSQL: una comparación
 
 Para ilustrar cómo varían las extensiones, veamos algunas diferencias concretas entre T-SQL (SQL Server) y PL/pgSQL (PostgreSQL):

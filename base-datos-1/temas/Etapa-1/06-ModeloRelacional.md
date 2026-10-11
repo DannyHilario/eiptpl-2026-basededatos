@@ -4,7 +4,7 @@
 
 El modelo relacional organiza los datos en tablas separadas, cada una con una responsabilidad clara, y las conecta mediante llaves. Esta separación evita que la misma información se repita en múltiples lugares.
 
-Ya vimos en el tema de Constraints cómo `FOREIGN KEY` vincula dos tablas. En este tema entendemos el concepto más amplio: cómo diseñar ese vínculo y qué tipos de relaciones existen.
+En el [modelo Entidad-Relación](05-ModeloEntidadRelacion.md) dibujamos entidades y relaciones. El modelo relacional las convierte en **tablas** unidas por llaves. Cómo se escribe esa llave foránea en SQL Server se ve en [Constraints](../Etapa-3/04-Constraints.md).
 
 ---
 

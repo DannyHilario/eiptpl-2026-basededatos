@@ -15,48 +15,77 @@ Materiales, scripts y ejercicios del curso de **Base de Datos I** (BD-434), seme
 
 ```
 base-datos-1/
-├── temas/                        # Apuntes y material teórico por etapa
-│   ├── Etapa-3/                  # Temas 01–09: fundamentos de SQL
-│   └── Etapa-4/                  # Temas 01–04: consultas multitabla (JOINs)
+├── temas/                        # Material de estudio, por etapa del manual del curso
+│   ├── Etapa-1/                  # Diseño: conceptos, llaves, normalización, E-R, modelo relacional
+│   ├── Etapa-2/                  # Entorno: SQL Server, lenguaje SQL, tipos de datos
+│   ├── Etapa-3/                  # Transact-SQL: DDL, DML, constraints, consultas simples
+│   └── Etapa-4/                  # Consultas multitabla (JOINs)
 ├── sesiones/                     # Scripts SQL organizados por sesión
 │   ├── sesion-7/                 # CursoDB — ejercicios de DDL y DML
 │   ├── sesion-8/                 # ViajeYA — solución Evidencia 2, Ejercicio 3
 │   ├── sesion-9/                 # EscuelaDB — catálogo de técnicas y alumnos
 │   ├── sesion-10/                # AutoFixDB — taller mecánico con 4 tablas
-│   └── sesion-final/             # CineDB — repaso integral con 8 tablas
-└── evidencias/                   # Material de evaluación
-    ├── archivos-evidencia-1/     # Conjuntos de datos y ejemplo resuelto
-    ├── archivos-evidencia-2/     # Descripción y ejercicios por equipo
-    ├── archivos-evidencia-3/     # Base de datos RestauranteDB
-    └── archivos-pia/             # Descripción y ejercicios del PIA por equipo
+│   ├── sesion-final/             # CineDB — repaso integral con 8 tablas
+│   ├── examen-final/             # BancoDB — examen final
+│   └── examen-extraordinario/    # ComedorDB — 2da oportunidad
+├── evidencias/                   # Material de evaluación del semestre
+│   ├── archivos-evidencia-1/     # Conjuntos de datos y ejemplo resuelto
+│   ├── archivos-evidencia-2/     # Descripción y ejercicios por equipo
+│   ├── archivos-evidencia-3/     # Base de datos RestauranteDB
+│   └── archivos-pia/             # Descripción y ejercicios del PIA por equipo
+└── 3ra-5ta-oportunidad/          # Evidencia Integral: un caso de negocio por alumno
 ```
 
 ---
 
 ## Temas del curso
 
-### Etapa 3 — Fundamentos de SQL
+Los temas siguen las cuatro etapas del manual de Base de Datos I (PEMA 2022). Access se usa solo al inicio, como herramienta visual para entender la normalización; todo el trabajo práctico es en SQL Server.
+
+### Etapa 1 — Diseño de una base de datos relacional
 
 | # | Tema |
 |---|------|
-| 01 | Introducción a Microsoft SQL Server |
-| 02 | Introducción a Servidores |
-| 03 | Lenguaje SQL |
-| 04 | DDL — Definición de datos |
-| 05 | DML — Manipulación de datos |
-| 06 | Ejercicio 1 |
-| 07 | Constraints e integridad referencial |
-| 08 | Modelo Relacional |
-| 09 | Ejercicio 2 |
+| 01 | [Conceptos básicos](temas/Etapa-1/01-ConceptosBasicos.md) |
+| 02 | [Pasos para diseñar una base de datos](temas/Etapa-1/02-PasosDiseno.md) |
+| 03 | [Los tres tipos de llaves](temas/Etapa-1/03-TiposDeClaves.md) |
+| 04 | [Normalización](temas/Etapa-1/04-Normalizacion.md) |
+| 05 | [Modelo Entidad-Relación y cardinalidad](temas/Etapa-1/05-ModeloEntidadRelacion.md) |
+| 06 | [El modelo relacional](temas/Etapa-1/06-ModeloRelacional.md) |
+| 07 | [Del negocio al modelo](temas/Etapa-1/07-DelNegocioAlModelo.md) |
+| 08 | [Guía rápida de dbdiagram.io](temas/Etapa-1/08-dbdiagram.md) |
+| 09 | [Ejercicio de modelado (HotelVista)](temas/Etapa-1/09-Ejercicio-Modelado.md) |
 
-### Etapa 4 — Consultas Multitabla
+### Etapa 2 — Entorno de SQL Server
 
 | # | Tema |
 |---|------|
-| 01 | Diferencia entre consultas simples y combinadas |
-| 02 | INNER JOIN |
-| 03 | LEFT JOIN y RIGHT JOIN |
-| 04 | Ejercicio 1 (EscuelaDB) |
+| 01 | [Introducción a Microsoft SQL Server](temas/Etapa-2/01-IntroduccionMSSQL.md) |
+| 02 | [¿Qué es un servidor de base de datos?](temas/Etapa-2/02-IntroduccionServidores.md) |
+| 03 | [El lenguaje SQL (DDL, DML y DCL)](temas/Etapa-2/03-LenguajeSQL.md) |
+| 04 | [Tipos de datos en SQL Server](temas/Etapa-2/04-TiposDeDatos.md) |
+
+### Etapa 3 — Sentencias Transact-SQL
+
+| # | Tema |
+|---|------|
+| 01 | [DDL — Definición de datos](temas/Etapa-3/01-DDL.md) |
+| 02 | [DML — Manipulación de datos](temas/Etapa-3/02-DML.md) |
+| 03 | [Ejercicio 1 (tabla Alumno)](temas/Etapa-3/03-Ejercicio-1.md) |
+| 04 | [Constraints e integridad referencial](temas/Etapa-3/04-Constraints.md) |
+| 05 | [Modificar y eliminar estructuras: ALTER, TRUNCATE y DROP](temas/Etapa-3/05-ModificarEstructura.md) |
+| 06 | [Consultas simples](temas/Etapa-3/06-ConsultasSimples.md) |
+| 07 | [Paquete de instalación y paquete de reversa](temas/Etapa-3/07-InstalacionReversa.md) |
+
+### Etapa 4 — Consultas multitabla
+
+| # | Tema |
+|---|------|
+| 01 | [Consultas simples y combinadas](temas/Etapa-4/01-DiferenciaConsultas.md) |
+| 02 | [INNER JOIN](temas/Etapa-4/02-INNER-JOIN.md) |
+| 03 | [LEFT JOIN y RIGHT JOIN](temas/Etapa-4/03-LEFT-RIGHT-JOIN.md) |
+| 04 | [FULL JOIN](temas/Etapa-4/04-FULL-JOIN.md) |
+| 05 | [Ejercicio (EscuelaDB)](temas/Etapa-4/05-Ejercicio-1.md) |
 
 ### Sesión Final — Repaso Integral
 

@@ -60,6 +60,8 @@ CREATE TABLE Alumno (
 | `DATETIME` | Fecha y hora | `2026-03-07 14:30:00` |
 | `BIT` | Valor booleano (0 o 1) | `1` = verdadero, `0` = falso |
 
+Para la lista completa y cómo elegir el tipo correcto de cada columna, ver [Tipos de datos en SQL Server](../Etapa-2/04-TiposDeDatos.md).
+
 ---
 
 ## Restricciones básicas
