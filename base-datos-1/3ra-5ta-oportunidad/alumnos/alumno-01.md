@@ -13,11 +13,27 @@
 
 ## El negocio
 
-BiciRuta es un negocio de renta de bicicletas por hora en el centro de la ciudad. Maneja **tipos de bicicleta**: Urbana, Montaña y Eléctrica. Cada tipo tiene su propia **tarifa por hora**; por ejemplo, la Eléctrica cuesta más que la Urbana. **Las tarifas cambian** de vez en cuando, pero el negocio necesita saber **cuánto se cobró en cada renta**, con la tarifa que estaba vigente el día de la renta.
+BiciRuta es un negocio de renta de bicicletas por hora en el centro de la ciudad. Maneja **tipos de bicicleta**: Urbana, Montaña y Eléctrica. Cada tipo tiene su propia **tarifa por hora**; por ejemplo, la Eléctrica cuesta más que la Urbana. **Las tarifas cambian** de vez en cuando: el 1 de mayo de 2026 subieron las de dos tipos. Aun así, el negocio necesita saber **cuánto se cobró en cada renta**, con la tarifa que estaba vigente el día de la renta.
 
 Cada **bicicleta** es de un tipo, tiene un **número de serie** grabado en el cuadro y una **fecha de alta**, que es el día en que el negocio la compró. Cuando una bicicleta se descompone sin arreglo, se **da de baja**: no se borra, porque se quiere conservar su historial de rentas.
 
 Los **clientes** se registran una sola vez con su nombre, su teléfono y su correo electrónico.
+
+## Lo que el negocio ya tiene definido
+
+Estos datos **no los inventas**: son los que BiciRuta ya tiene. Tu base de datos debe guardarlos **exactamente así**, con los mismos nombres y valores.
+
+**Tipos de bicicleta y tarifas por hora**
+
+El **1 de mayo de 2026** subieron las tarifas de Urbana y Eléctrica. La de Montaña no cambió.
+
+| Tipo de bicicleta | Tarifa actual (desde el 1 de mayo de 2026) | Tarifa anterior (hasta el 30 de abril de 2026) |
+|---|---|---|
+| Urbana | $45.00 | $40.00 |
+| Montaña | $60.00 | $60.00 |
+| Eléctrica | $95.00 | $85.00 |
+
+Todo lo demás (bicicletas, clientes y rentas) **lo inventas tú**, cumpliendo los mínimos de [Lo que debes construir](#lo-que-debes-construir).
 
 ## Flujo de negocio
 
@@ -50,14 +66,15 @@ Al día siguiente, Luis renta una bicicleta Eléctrica: es otra renta, del mismo
 
 1. El **modelo relacional**, con al menos 4 tablas, que guarde toda la información de arriba y respete las reglas de negocio con restricciones (`PRIMARY KEY`, `FOREIGN KEY`, `UNIQUE`, `CHECK`, `DEFAULT`).
 2. El **paquete de instalación** y el **paquete de reversa** de `BiciRutaDB`.
-3. **Datos iniciales** con, como mínimo:
-   - 3 tipos de bicicleta, 10 bicicletas, 10 clientes y 20 rentas;
-   - 2 clientes que nunca hayan rentado;
-   - 2 bicicletas que nunca se hayan rentado;
-   - al menos 1 bicicleta dada de baja;
-   - rentas en marzo de 2026;
-   - clientes con correo `@gmail.com`;
-   - rentas cobradas con una tarifa distinta a la tarifa actual de su tipo de bicicleta (rentas de antes de un cambio de tarifa).
+3. **Datos iniciales:**
+   - **Lo que el negocio ya tiene definido**, exactamente como viene arriba: los 3 tipos de bicicleta con su **tarifa actual**.
+   - **Lo que tú inventas**, como mínimo: 10 bicicletas, 10 clientes y 20 rentas, con
+     - 2 clientes que nunca hayan rentado;
+     - 2 bicicletas que nunca se hayan rentado;
+     - al menos 1 bicicleta dada de baja;
+     - rentas antes **y** después del 1 de mayo de 2026, de los tres tipos de bicicleta: cada renta se cobra con la tarifa que tenía su tipo **en la fecha de la renta** (tarifa anterior hasta el 30 de abril, tarifa actual desde el 1 de mayo);
+     - rentas en marzo de 2026;
+     - clientes con correo `@gmail.com`.
 4. **Las 10 consultas** de abajo.
 
 ## Consultas
