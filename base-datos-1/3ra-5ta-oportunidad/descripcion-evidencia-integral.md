@@ -19,9 +19,6 @@ Cada caso describe un negocio: qué hace, cómo funciona una operación de princ
 |--------|------|
 | Alumno 1 | [BiciRuta — renta de bicicletas](alumnos/alumno-01.md) |
 | Alumno 2 | [FitZone — gimnasio](alumnos/alumno-02.md) |
-| Alumno 3 | [SalaRock — salas de ensayo](alumnos/alumno-03.md) |
-| Alumno 4 | [AsesorPro — asesorías escolares](alumnos/alumno-04.md) |
-| Alumno 5 | [RutaNorte — autobuses foráneos](alumnos/alumno-05.md) |
 
 ---
 
