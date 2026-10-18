@@ -22,7 +22,7 @@ Es común confundir la base de datos con el SGBD:
 
 | Concepto | Qué es | Ejemplo |
 |----------|--------|---------|
-| **Base de datos** | Los datos organizados | `LavaExpressDB`, con sus clientes y pedidos |
+| **Base de datos** | Los datos organizados | `HospitalDB`, con sus pacientes y consultas |
 | **SGBD** | El programa que la administra | Microsoft SQL Server, MySQL, PostgreSQL, Oracle, Access |
 
 En este curso el SGBD es **Microsoft SQL Server**.
