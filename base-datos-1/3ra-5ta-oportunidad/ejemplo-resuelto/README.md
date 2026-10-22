@@ -155,7 +155,7 @@ La base de datos **HospitalDB** tiene 10 tablas. Cinco son catálogos que el hos
 | 1 | `01-drop-tables.sql` | Elimina las tablas en orden inverso a las llaves foráneas: `DetalleReceta`, `Medicamento`, `Receta`, `EstatusReceta`, `Consulta`, `Consultorio`, `Paciente`, `MedicoEspecialidad`, `Medico` y `Especialidad` |
 | 2 | `02-drop-database.sql` | Elimina la base de datos `HospitalDB` |
 
-> Antes de ejecutar el script 2, selecciona **otra** base de datos en el dropdown de SSMS (por ejemplo, `master`): no se puede eliminar la base de datos a la que estás conectado.
+> El script 1 empieza con `USE HospitalDB;`, así que después de ejecutarlo la pestaña de SSMS queda dentro de `HospitalDB`. Antes de ejecutar el script 2, selecciona **otra** base de datos en el dropdown de SSMS (por ejemplo, `master`): no se puede eliminar la base de datos a la que estás conectado. Si aun así SQL Server dice que la base de datos está en uso, cierra las pestañas que trabajaban sobre `HospitalDB` y vuelve a intentarlo.
 
 ## 5. Decisiones de diseño
 

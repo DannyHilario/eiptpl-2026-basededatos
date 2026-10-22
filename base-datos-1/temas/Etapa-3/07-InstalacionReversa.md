@@ -109,7 +109,7 @@ DROP TABLE IF EXISTS Cliente;
 DROP DATABASE IF EXISTS TecnoShopDB;
 ```
 
-> Antes de ejecutar este script, selecciona **otra** base de datos en el menú desplegable de SSMS (por ejemplo, `master`): no se puede eliminar la base de datos a la que estás conectado.
+> El script `01-drop-tables.sql` empieza con `USE TecnoShopDB;`, así que después de ejecutarlo tu pestaña de SSMS queda **dentro** de `TecnoShopDB` (fíjate en el menú desplegable: cambia solo). Antes de ejecutar `02-drop-database.sql`, selecciona **otra** base de datos en ese menú (por ejemplo, `master`): no se puede eliminar la base de datos a la que estás conectado.
 
 ### Si dice que la base de datos está en uso
 
