@@ -154,7 +154,7 @@ El profesor ejecuta tus archivos **exactamente como los entregas**, sin corregir
 
 1. Ejecuta tu paquete de instalación completo, en orden, sobre un SQL Server donde **no** exista tu base de datos, y confirma que no aparece ningún error.
 2. Ejecuta cada uno de los 10 archivos de consultas y revisa que regrese lo que pide la pregunta.
-3. Ejecuta tu paquete de reversa y confirma que la base de datos desaparece.
+3. Ejecuta tu paquete de reversa y confirma que la base de datos desaparece. Si SQL Server dice que la base de datos está en uso, revisa [Si dice que la base de datos está en uso](../temas/Etapa-3/07-InstalacionReversa.md#si-dice-que-la-base-de-datos-está-en-uso).
 
 **Un script que no se ejecuta tal cual cuenta como no entregado.**
 

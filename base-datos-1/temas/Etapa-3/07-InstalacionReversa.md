@@ -111,6 +111,23 @@ DROP DATABASE IF EXISTS TecnoShopDB;
 
 > Antes de ejecutar este script, selecciona **otra** base de datos en el menú desplegable de SSMS (por ejemplo, `master`): no se puede eliminar la base de datos a la que estás conectado.
 
+### Si dice que la base de datos está en uso
+
+A veces, aunque ya seleccionaste `master`, SQL Server responde `Cannot drop database … because it is currently in use`. Pasa porque **SSMS abre conexiones por su cuenta**: además de la de tu pestaña de consulta, abre una para **IntelliSense** (el autocompletado mientras escribes) y otra por cada pestaña que tengas abierta. Si alguna de esas conexiones se quedó "dentro" de tu base de datos, SQL Server considera que la base está en uso.
+
+Para liberarla, en este orden:
+
+1. Cierra las pestañas de consulta que estaban trabajando sobre tu base de datos.
+2. Si sigue el error, en el **Object Explorer** haz clic derecho sobre el servidor y elige **Disconnect**; luego vuelve a conectarte, abre una pestaña nueva con `master` seleccionado y ejecuta otra vez el script.
+3. Si aun así no se puede, ejecuta esto desde una pestaña con `master` seleccionado. Cierra a la fuerza todas las conexiones a tu base y después la elimina:
+
+```sql
+ALTER DATABASE TecnoShopDB SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+DROP DATABASE IF EXISTS TecnoShopDB;
+```
+
+> La opción 3 es solo para tu propia computadora: corta las conexiones de **cualquier** persona que esté usando esa base de datos. Tu script de reversa entregado debe seguir siendo solo el `DROP DATABASE`.
+
 ---
 
 ## El plan de instalación y el plan de reversa
@@ -147,6 +164,6 @@ Si el paso 4 falla, la reversa dejó algo sin borrar.
 | `Foreign key '…' references invalid table '…'` | Se creó una tabla hija antes que su padre | Renumera los scripts: padres primero |
 | `The INSERT statement conflicted with the FOREIGN KEY constraint` | Se insertó en una tabla hija antes que en su padre, o con un id que no existe | Inserta primero en los padres y revisa los id |
 | `Could not drop object … referenced by a FOREIGN KEY constraint` | En la reversa, se eliminó un padre antes que su hija | Elimina primero las hijas |
-| `Cannot drop database … because it is currently in use` | Estás conectado a la base que quieres eliminar | Selecciona `master` antes del script |
+| `Cannot drop database … because it is currently in use` | Estás conectado a la base que quieres eliminar, o SSMS dejó una conexión abierta en ella (por ejemplo, la de IntelliSense) | Selecciona `master` antes del script; si sigue, ve [Si dice que la base de datos está en uso](#si-dice-que-la-base-de-datos-está-en-uso) |
 | `There is already an object named … in the database` | Se ejecutó la instalación dos veces sin la reversa | Ejecuta la reversa y vuelve a instalar |
 | El script crea la tabla en `master` | Faltó `USE` y estaba seleccionada otra base | Agrega `USE TuBaseDB;` al inicio |
