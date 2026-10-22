@@ -22,6 +22,12 @@ El estudio **no guarda datos de sus clientes**: solo registra qué tatuador hizo
 Si el negocio deja de usar un estilo o deja de ofrecer un tamaño de tatuaje, no se borran: se **dan de baja**, para conservar el historial de tatuajes.
 
 
+## Los hechos de este negocio
+
+En TatuArte, **el hecho es el tatuaje**: cada vez que un tatuador termina un trabajo en el estudio, sucede un tatuaje, en una fecha. Es la **tabla más importante** de tu modelo: tiene una fila por cada tatuaje, es la que más crece y es donde se guarda lo que realmente pasó (quién lo hizo, de qué tamaño, cuándo, cuántas horas tardó y cuánto se cobró).
+
+**Esta tabla la propones tú**: su nombre, sus columnas y sus llaves. No viene en "Lo que el negocio ya tiene definido", porque los hechos no se definen de antemano: suceden.
+
 ## Lo que el negocio ya tiene definido
 
 Estos datos **no los inventas**: son los que TatuArte ya tiene. Tu base de datos debe guardarlos **exactamente así**, con los mismos nombres y valores.

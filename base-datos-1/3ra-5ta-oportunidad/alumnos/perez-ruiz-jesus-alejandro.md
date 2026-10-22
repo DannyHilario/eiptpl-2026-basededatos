@@ -22,6 +22,12 @@ Cada vez que un alumno compra un paquete, se registra una **inscripción**. Un a
 Si el negocio deja de usar un motivo o deja de ofrecer un paquete de clases, no se borran: se **dan de baja**, para conservar el historial de inscripciones.
 
 
+## Los hechos de este negocio
+
+En VolanteSeguro, **el hecho es la inscripción**: cada vez que un alumno se inscribe a un paquete de clases, sucede una inscripción, en una fecha. Es la **tabla más importante** de tu modelo: tiene una fila por cada inscripción, es la que más crece y es donde se guarda lo que realmente pasó (qué alumno, a qué paquete, cuándo y cuánto se le cobró).
+
+**Esta tabla la propones tú**: su nombre, sus columnas y sus llaves. No viene en "Lo que el negocio ya tiene definido", porque los hechos no se definen de antemano: suceden.
+
 ## Lo que el negocio ya tiene definido
 
 Estos datos **no los inventas**: son los que VolanteSeguro ya tiene. Tu base de datos debe guardarlos **exactamente así**, con los mismos nombres y valores.

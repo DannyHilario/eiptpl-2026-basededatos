@@ -29,7 +29,7 @@ Algunos sustantivos son **entidades** (tendrán su propia tabla) y otros son **a
 
 ---
 
-## Paso 2. Distingue catálogos, entidades y operaciones
+## Paso 2. Distingue catálogos, entidades y hechos
 
 No todas las entidades son iguales:
 
@@ -37,9 +37,9 @@ No todas las entidades son iguales:
 |------|--------|------------------|---------------|
 | **Catálogo** | Una lista que el negocio define y casi no cambia | "maneja **tipos** de…", "ofrece **servicios**…" | `Tratamiento` |
 | **Entidad** | Personas o cosas que el negocio registra | "se registran", "tiene un número de…" | `Paciente`, `Dentista` |
-| **Operación** | Lo que **ocurre** en el negocio, cada vez, con una fecha | Un **verbo**: "se registra la cita", "se vende", "se renta" | `Cita` |
+| **Hechos** | Lo que **sucede** en el negocio, cada vez, con una fecha | Un **verbo**: "se registra la cita", "se vende", "se renta" | `Cita` |
 
-La operación es la tabla que más crece: hay una fila por cada vez que algo ocurre.
+Un **hecho** es algo que **sucede** en el negocio, en una fecha: una cita, una venta, una renta. La **tabla de hechos** tiene una fila por cada vez que algo sucede: es la que más crece y la **más importante** del modelo, porque guarda lo que realmente pasó. En otros libros también se le llama *operación* o *transacción*.
 
 ---
 
@@ -89,7 +89,7 @@ Si `Cita` solo guardara `idTratamiento`, el costo se tomaría siempre de `Tratam
 
 Por eso, **al registrar la cita se copia el costo vigente** en `Cita.CostoCobrado`. No es redundancia: son dos datos diferentes que hoy coinciden y mañana no.
 
-> **Regla:** cuando un dato puede cambiar (precio, tarifa, costo) y una operación depende del valor que tenía **en el momento en que ocurrió**, ese valor se copia en la tabla de la operación.
+> **Regla:** cuando un dato puede cambiar (precio, tarifa, costo) y un hecho depende del valor que tenía **en el momento en que sucedió**, ese valor se copia en la tabla de hechos.
 
 ---
 
@@ -117,7 +117,7 @@ Antes de escribir SQL, revisa:
 - [ ] Cada **regla** del negocio quedó como restricción.
 - [ ] Cada **pregunta** del negocio se puede responder con estas tablas.
 - [ ] Ninguna tabla repite información de otra (está en 3FN; ver [Normalización](04-Normalizacion.md)).
-- [ ] Los datos que cambian con el tiempo se copian en la operación.
+- [ ] Los datos que cambian con el tiempo se copian en la tabla de hechos.
 
 ---
 

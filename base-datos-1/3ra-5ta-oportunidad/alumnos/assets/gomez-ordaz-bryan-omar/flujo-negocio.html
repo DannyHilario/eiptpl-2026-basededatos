@@ -7,9 +7,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Geist', system-ui, sans-serif; background: #f5f5f5; color: #2d3142; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 3rem 2rem; }
+    body { font-family: 'Geist', system-ui, sans-serif; background: #1c1f2b; color: #e8eaf0; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 3rem 2rem; }
     .frame { max-width: 1120px; width: 100%; }
-    .eyebrow { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 0.66rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: #4f5d75; margin-bottom: 0.5rem; }
+    .eyebrow { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 0.66rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: #a6adc2; margin-bottom: 0.5rem; }
     h1 { font-family: 'Instrument Serif', serif; font-size: clamp(1.5rem, 2.4vw + 0.75rem, 2rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 1.5rem; }
     .scroll { overflow-x: auto; }
     svg { width: 100%; min-width: 1080px; display: block; }
@@ -24,62 +24,62 @@
       <title id="flujo-negocio-title">VeloKart · una carrera de principio a fin</title>
       <desc id="flujo-negocio-desc">Diagrama de carriles: el piloto se registra la primera vez con su estatura, se le asigna un kart activo, corre la carrera y al terminar se registra la carrera con la mejor vuelta y el precio vigente; abajo, la información que cada paso consulta o registra.</desc>
       <defs>
-        <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/></marker>
-        <marker id="arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#eb6c36"/></marker>
+        <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#a6adc2"/></marker>
+        <marker id="arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#f0895a"/></marker>
       </defs>
-      <rect width="100%" height="100%" fill="#f5f5f5"/>
-<line x1="40" y1="24" x2="1040" y2="24" stroke="rgba(45,49,66,0.22)" stroke-width="1"/>
-<line x1="40" y1="148" x2="1040" y2="148" stroke="rgba(45,49,66,0.1)" stroke-width="1"/>
-<line x1="40" y1="288" x2="1040" y2="288" stroke="rgba(45,49,66,0.22)" stroke-width="1"/>
-<line x1="172" y1="24" x2="172" y2="288" stroke="rgba(45,49,66,0.22)" stroke-width="1"/>
-<text x="56" y="82" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="start" letter-spacing="0.16em">EN LA</text>
-<text x="56" y="96" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="start" letter-spacing="0.16em">PISTA</text>
-<text x="56" y="214" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="start" letter-spacing="0.16em">INFORMACIÓN</text>
-<text x="56" y="228" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="start" letter-spacing="0.16em">QUE SE USA</text>
-      <line x1="380" y1="88" x2="416" y2="88" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#arrow)"/>
-<line x1="600" y1="88" x2="636" y2="88" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#arrow)"/>
-<line x1="820" y1="88" x2="856" y2="88" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#arrow)"/>
-<line x1="288" y1="120" x2="288" y2="196" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#arrow)"/>
-<line x1="508" y1="196" x2="508" y2="120" stroke="#4f5d75" stroke-width="1.2" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
-<line x1="948" y1="120" x2="948" y2="196" stroke="#eb6c36" stroke-width="1.4" marker-end="url(#arrow-accent)"/>
-      <rect x="296" y="150" width="74" height="12" rx="2" fill="#f5f5f5"/>
-<text x="333" y="159" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.12em">SE REGISTRA</text>
-<rect x="516" y="150" width="74" height="12" rx="2" fill="#f5f5f5"/>
-<text x="553" y="159" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.12em">SE CONSULTA</text>
-<rect x="956" y="150" width="74" height="12" rx="2" fill="#f5f5f5"/>
-<text x="993" y="159" fill="#eb6c36" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.12em">SE REGISTRA</text>
-      <rect x="196" y="56" width="184" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
-<text x="288" y="84" fill="#2d3142" font-size="11" font-family="'Geist', sans-serif" text-anchor="middle" font-weight="600">1 · Registrar al piloto</text>
-<text x="288" y="100" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle">solo la primera vez</text>
-<rect x="416" y="56" width="184" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
-<text x="508" y="84" fill="#2d3142" font-size="11" font-family="'Geist', sans-serif" text-anchor="middle" font-weight="600">2 · Asignar kart</text>
-<text x="508" y="100" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle">solo karts activos</text>
-<rect x="636" y="56" width="184" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
-<text x="728" y="84" fill="#2d3142" font-size="11" font-family="'Geist', sans-serif" text-anchor="middle" font-weight="600">3 · Correr</text>
-<text x="728" y="100" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle">10 minutos en pista</text>
-<rect x="856" y="56" width="184" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
-<text x="948" y="84" fill="#2d3142" font-size="11" font-family="'Geist', sans-serif" text-anchor="middle" font-weight="600">4 · Registrar la carrera</text>
-<text x="948" y="100" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle">al terminar</text>
-<rect x="200" y="196" width="176" height="56" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
-<text x="288" y="220" fill="#2d3142" font-size="11" font-family="'Geist', sans-serif" text-anchor="middle" font-weight="600">Datos del piloto</text>
-<text x="288" y="236" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle">nombre · estatura · teléfono</text>
-<rect x="420" y="196" width="176" height="56" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
-<text x="508" y="220" fill="#2d3142" font-size="11" font-family="'Geist', sans-serif" text-anchor="middle" font-weight="600">Karts y tipos</text>
-<text x="508" y="236" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle">número · tipo · precio</text>
-<rect x="860" y="196" width="176" height="56" rx="6" fill="rgba(235,108,54,0.08)" stroke="#eb6c36" stroke-width="1"/>
-<text x="948" y="220" fill="#2d3142" font-size="11" font-family="'Geist', sans-serif" text-anchor="middle" font-weight="600">La carrera</text>
-<text x="948" y="236" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle">kart · piloto · fecha · vuelta</text>
-<text x="728" y="227" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.7">— no se registra —</text>
-      <line x1="40" y1="316" x2="1040" y2="316" stroke="rgba(45,49,66,0.10)" stroke-width="0.8"/>
-<text x="40" y="332" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace" text-anchor="start" letter-spacing="0.18em">LEYENDA</text>
-<rect x="40" y="344" width="14" height="10" rx="2" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
-<text x="60" y="352" fill="#4f5d75" font-size="8.5" font-family="'Geist', sans-serif" text-anchor="start">Paso del negocio / información</text>
-<line x1="196" y1="349" x2="224" y2="349" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#arrow)"/>
-<text x="232" y="352" fill="#4f5d75" font-size="8.5" font-family="'Geist', sans-serif" text-anchor="start">Siguiente paso / se registra información nueva</text>
-<line x1="456" y1="349" x2="484" y2="349" stroke="#4f5d75" stroke-width="1.2" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
-<text x="492" y="352" fill="#4f5d75" font-size="8.5" font-family="'Geist', sans-serif" text-anchor="start">Se consulta información que ya existe</text>
-<rect x="672" y="344" width="14" height="10" rx="2" fill="rgba(235,108,54,0.08)" stroke="#eb6c36" stroke-width="1"/>
-<text x="692" y="352" fill="#4f5d75" font-size="8.5" font-family="'Geist', sans-serif" text-anchor="start">El registro principal de la operación</text>
+      <rect width="100%" height="100%" fill="#1c1f2b"/>
+<line x1="40" y1="24" x2="1040" y2="24" stroke="rgba(232,234,240,0.22)" stroke-width="1"/>
+<line x1="40" y1="148" x2="1040" y2="148" stroke="rgba(232,234,240,0.1)" stroke-width="1"/>
+<line x1="40" y1="288" x2="1040" y2="288" stroke="rgba(232,234,240,0.22)" stroke-width="1"/>
+<line x1="172" y1="24" x2="172" y2="288" stroke="rgba(232,234,240,0.22)" stroke-width="1"/>
+<text x="56" y="82" fill="#a6adc2" font-size="9" font-family="'Geist Mono', monospace" text-anchor="start" letter-spacing="0.16em">EN LA</text>
+<text x="56" y="96" fill="#a6adc2" font-size="9" font-family="'Geist Mono', monospace" text-anchor="start" letter-spacing="0.16em">PISTA</text>
+<text x="56" y="214" fill="#a6adc2" font-size="9" font-family="'Geist Mono', monospace" text-anchor="start" letter-spacing="0.16em">INFORMACIÓN</text>
+<text x="56" y="228" fill="#a6adc2" font-size="9" font-family="'Geist Mono', monospace" text-anchor="start" letter-spacing="0.16em">QUE SE USA</text>
+      <line x1="380" y1="88" x2="416" y2="88" stroke="#a6adc2" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="600" y1="88" x2="636" y2="88" stroke="#a6adc2" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="820" y1="88" x2="856" y2="88" stroke="#a6adc2" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="288" y1="120" x2="288" y2="196" stroke="#a6adc2" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="508" y1="196" x2="508" y2="120" stroke="#a6adc2" stroke-width="1.2" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+<line x1="948" y1="120" x2="948" y2="196" stroke="#f0895a" stroke-width="1.4" marker-end="url(#arrow-accent)"/>
+      <rect x="296" y="150" width="74" height="12" rx="2" fill="#1c1f2b"/>
+<text x="333" y="159" fill="#a6adc2" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.12em">SE REGISTRA</text>
+<rect x="516" y="150" width="74" height="12" rx="2" fill="#1c1f2b"/>
+<text x="553" y="159" fill="#a6adc2" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.12em">SE CONSULTA</text>
+<rect x="956" y="150" width="74" height="12" rx="2" fill="#1c1f2b"/>
+<text x="993" y="159" fill="#f0895a" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.12em">SE REGISTRA</text>
+      <rect x="196" y="56" width="184" height="64" rx="6" fill="#262a38" stroke="#e8eaf0" stroke-width="1"/>
+<text x="288" y="84" fill="#e8eaf0" font-size="11" font-family="'Geist', sans-serif" text-anchor="middle" font-weight="600">1 · Registrar al piloto</text>
+<text x="288" y="100" fill="#a6adc2" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle">solo la primera vez</text>
+<rect x="416" y="56" width="184" height="64" rx="6" fill="#262a38" stroke="#e8eaf0" stroke-width="1"/>
+<text x="508" y="84" fill="#e8eaf0" font-size="11" font-family="'Geist', sans-serif" text-anchor="middle" font-weight="600">2 · Asignar kart</text>
+<text x="508" y="100" fill="#a6adc2" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle">solo karts activos</text>
+<rect x="636" y="56" width="184" height="64" rx="6" fill="#262a38" stroke="#e8eaf0" stroke-width="1"/>
+<text x="728" y="84" fill="#e8eaf0" font-size="11" font-family="'Geist', sans-serif" text-anchor="middle" font-weight="600">3 · Correr</text>
+<text x="728" y="100" fill="#a6adc2" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle">10 minutos en pista</text>
+<rect x="856" y="56" width="184" height="64" rx="6" fill="#262a38" stroke="#e8eaf0" stroke-width="1"/>
+<text x="948" y="84" fill="#e8eaf0" font-size="11" font-family="'Geist', sans-serif" text-anchor="middle" font-weight="600">4 · Registrar la carrera</text>
+<text x="948" y="100" fill="#a6adc2" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle">al terminar</text>
+<rect x="200" y="196" width="176" height="56" rx="6" fill="#262a38" stroke="#e8eaf0" stroke-width="1"/>
+<text x="288" y="220" fill="#e8eaf0" font-size="11" font-family="'Geist', sans-serif" text-anchor="middle" font-weight="600">Datos del piloto</text>
+<text x="288" y="236" fill="#a6adc2" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle">nombre · estatura · teléfono</text>
+<rect x="420" y="196" width="176" height="56" rx="6" fill="#262a38" stroke="#e8eaf0" stroke-width="1"/>
+<text x="508" y="220" fill="#e8eaf0" font-size="11" font-family="'Geist', sans-serif" text-anchor="middle" font-weight="600">Karts y tipos</text>
+<text x="508" y="236" fill="#a6adc2" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle">número · tipo · precio</text>
+<rect x="860" y="196" width="176" height="56" rx="6" fill="rgba(240,137,90,0.16)" stroke="#f0895a" stroke-width="1"/>
+<text x="948" y="220" fill="#e8eaf0" font-size="11" font-family="'Geist', sans-serif" text-anchor="middle" font-weight="600">La carrera</text>
+<text x="948" y="236" fill="#a6adc2" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle">kart · piloto · fecha · vuelta</text>
+<text x="728" y="227" fill="#a6adc2" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" opacity="0.7">— no se registra —</text>
+      <line x1="40" y1="316" x2="1040" y2="316" stroke="rgba(232,234,240,0.10)" stroke-width="0.8"/>
+<text x="40" y="332" fill="#a6adc2" font-size="8" font-family="'Geist Mono', monospace" text-anchor="start" letter-spacing="0.18em">LEYENDA</text>
+<rect x="40" y="344" width="14" height="10" rx="2" fill="#262a38" stroke="#e8eaf0" stroke-width="1"/>
+<text x="60" y="352" fill="#a6adc2" font-size="8.5" font-family="'Geist', sans-serif" text-anchor="start">Paso del negocio / información</text>
+<line x1="196" y1="349" x2="224" y2="349" stroke="#a6adc2" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="232" y="352" fill="#a6adc2" font-size="8.5" font-family="'Geist', sans-serif" text-anchor="start">Siguiente paso / se registra información nueva</text>
+<line x1="456" y1="349" x2="484" y2="349" stroke="#a6adc2" stroke-width="1.2" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+<text x="492" y="352" fill="#a6adc2" font-size="8.5" font-family="'Geist', sans-serif" text-anchor="start">Se consulta información que ya existe</text>
+<rect x="672" y="344" width="14" height="10" rx="2" fill="rgba(240,137,90,0.16)" stroke="#f0895a" stroke-width="1"/>
+<text x="692" y="352" fill="#a6adc2" font-size="8.5" font-family="'Geist', sans-serif" text-anchor="start">El hecho: lo que sucede</text>
     </svg>
     </div>
   </div>

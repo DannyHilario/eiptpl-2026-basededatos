@@ -22,6 +22,12 @@ En una consulta efectuada, el médico puede generar **una receta** (como máximo
 
 Nada se borra: si un médico deja el hospital, si una especialidad o un consultorio dejan de usarse, si un estatus ya no se usa, si un medicamento sale del mercado o si un paciente pide su baja, se **da de baja**, para conservar el historial de consultas y recetas.
 
+## Los hechos de este negocio
+
+En el hospital suceden **dos hechos**: **la consulta**, cada vez que un paciente es atendido por un médico en un consultorio, en una fecha y hora; y **la receta**, que el médico genera al terminar una consulta, con los medicamentos que receta. Son las **tablas más importantes** del modelo: tienen una fila por cada consulta y por cada receta, son las que más crecen y es donde se guarda lo que realmente pasó (quién atendió a quién, dónde, cuándo, qué se recetó y en qué cantidades).
+
+**Estas tablas las propones tú**: sus nombres, sus columnas y sus llaves. No vienen en "Lo que el negocio ya tiene definido", porque los hechos no se definen de antemano: suceden.
+
 ## Lo que el negocio ya tiene definido
 
 Estos datos **no los inventas**: son los que el hospital ya tiene. Tu base de datos debe guardarlos **exactamente así**, con los mismos nombres y valores.

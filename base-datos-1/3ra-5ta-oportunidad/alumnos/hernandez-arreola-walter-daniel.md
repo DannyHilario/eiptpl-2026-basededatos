@@ -22,6 +22,12 @@ En cada reservación, el turista aparta lugar para **de 1 a 10 personas** (él y
 Si el negocio deja de usar un país o deja de ofrecer un recorrido, no se borran: se **dan de baja**, para conservar el historial de reservaciones.
 
 
+## Los hechos de este negocio
+
+En RecorreMTY, **el hecho es la reservación**: cada vez que un turista reserva un recorrido, sucede una reservación, en una fecha. Es la **tabla más importante** de tu modelo: tiene una fila por cada reservación, es la que más crece y es donde se guarda lo que realmente pasó (quién reservó, qué recorrido, para qué fecha, cuántas personas y con qué precio por persona se le cobró).
+
+**Esta tabla la propones tú**: su nombre, sus columnas y sus llaves. No viene en "Lo que el negocio ya tiene definido", porque los hechos no se definen de antemano: suceden.
+
 ## Lo que el negocio ya tiene definido
 
 Estos datos **no los inventas**: son los que RecorreMTY ya tiene. Tu base de datos debe guardarlos **exactamente así**, con los mismos nombres y valores.

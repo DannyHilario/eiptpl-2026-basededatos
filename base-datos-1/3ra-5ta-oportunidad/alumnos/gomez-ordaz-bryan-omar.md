@@ -24,6 +24,12 @@ Al terminar cada carrera, el cronómetro de la pista marca la **mejor vuelta** d
 Si el negocio deja de manejar un tipo de kart, tampoco lo borra: lo **da de baja**. Lo mismo pasa con los pilotos: si un piloto ya no regresa, se lo da de baja en lugar de borrarlo. Así se conserva el historial de carreras.
 
 
+## Los hechos de este negocio
+
+En VeloKart, **el hecho es la carrera**: cada vez que un piloto corre en un kart, sucede una carrera, en una fecha. Es la **tabla más importante** de tu modelo: tiene una fila por cada carrera, es la que más crece y es donde se guarda lo que realmente pasó (quién corrió, en qué kart, cuándo, cuál fue su mejor vuelta y cuánto se le cobró).
+
+**Esta tabla la propones tú**: su nombre, sus columnas y sus llaves. No viene en "Lo que el negocio ya tiene definido", porque los hechos no se definen de antemano: suceden.
+
 ## Lo que el negocio ya tiene definido
 
 Estos datos **no los inventas**: son los que VeloKart ya tiene. Tu base de datos debe guardarlos **exactamente así**, con los mismos nombres y valores.

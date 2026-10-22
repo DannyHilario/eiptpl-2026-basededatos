@@ -181,7 +181,7 @@ DROP TABLE IF EXISTS Categoria;
 
 `IF EXISTS` evita el error si la tabla ya no existe, así que el script se puede ejecutar más de una vez.
 
-> **Cómo saber el orden:** primero se elimina la tabla de la que **nadie depende**. En un modelo típico, primero la tabla de la operación (ventas, citas, pedidos), que tiene llaves foráneas hacia todas las demás; al final, los catálogos.
+> **Cómo saber el orden:** primero se elimina la tabla de la que **nadie depende**. En un modelo típico, primero la tabla de hechos (ventas, citas, pedidos), que tiene llaves foráneas hacia todas las demás; al final, los catálogos.
 
 ---
 

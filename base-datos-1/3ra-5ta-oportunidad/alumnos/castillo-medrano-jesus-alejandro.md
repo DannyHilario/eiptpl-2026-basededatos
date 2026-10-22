@@ -19,6 +19,11 @@ Los **escaladores** se registran una sola vez con su nombre, su correo electrón
 
 Si el negocio deja de usar un nivel de experiencia o deja de ofrecer un muro, no se borran: se **dan de baja**, para conservar el historial de accesos.
 
+## Los hechos de este negocio
+
+En Vertical, **el hecho es el acceso**: cada vez que un escalador usa un muro, sucede un acceso, en una fecha. Es la **tabla más importante** de tu modelo: tiene una fila por cada acceso, es la que más crece y es donde se guarda lo que realmente pasó (quién escaló, en qué muro, cuándo, cuántas rutas completó y cuánto se le cobró).
+
+**Esta tabla la propones tú**: su nombre, sus columnas y sus llaves. No viene en "Lo que el negocio ya tiene definido", porque los hechos no se definen de antemano: suceden.
 
 ## Lo que el negocio ya tiene definido
 

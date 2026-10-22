@@ -22,6 +22,12 @@ En cada partida entran **de 2 a 6 jugadores**.
 Si el negocio deja de usar un medio o deja de ofrecer una sala de escape, no se borran: se **dan de baja**, para conservar el historial de partidas.
 
 
+## Los hechos de este negocio
+
+En EnigmaRoom, **el hecho es la partida**: cada vez que un grupo juega en una sala, sucede una partida, en una fecha. Es la **tabla más importante** de tu modelo: tiene una fila por cada partida, es la que más crece y es donde se guarda lo que realmente pasó (quién reservó, en qué sala, cuándo, cuántos jugadores y cuánto se le cobró).
+
+**Esta tabla la propones tú**: su nombre, sus columnas y sus llaves. No viene en "Lo que el negocio ya tiene definido", porque los hechos no se definen de antemano: suceden.
+
 ## Lo que el negocio ya tiene definido
 
 Estos datos **no los inventas**: son los que EnigmaRoom ya tiene. Tu base de datos debe guardarlos **exactamente así**, con los mismos nombres y valores.

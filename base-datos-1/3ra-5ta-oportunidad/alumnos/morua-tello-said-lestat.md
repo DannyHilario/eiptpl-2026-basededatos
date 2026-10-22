@@ -22,6 +22,12 @@ En cada pedido, el cliente pide **un producto** y **de 1 a 50 paquetes** de ese 
 Si el negocio deja de usar un giro o deja de ofrecer un producto, no se borran: se **dan de baja**, para conservar el historial de pedidos.
 
 
+## Los hechos de este negocio
+
+En ImprimeYa, **el hecho es el pedido**: cada vez que un cliente encarga un producto, sucede un pedido, en una fecha. Es la **tabla más importante** de tu modelo: tiene una fila por cada pedido, es la que más crece y es donde se guarda lo que realmente pasó (qué cliente, qué producto, cuándo, cuántos paquetes y con qué precio por paquete se le cobró).
+
+**Esta tabla la propones tú**: su nombre, sus columnas y sus llaves. No viene en "Lo que el negocio ya tiene definido", porque los hechos no se definen de antemano: suceden.
+
 ## Lo que el negocio ya tiene definido
 
 Estos datos **no los inventas**: son los que ImprimeYa ya tiene. Tu base de datos debe guardarlos **exactamente así**, con los mismos nombres y valores.

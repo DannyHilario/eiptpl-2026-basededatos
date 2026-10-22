@@ -22,6 +22,12 @@ Las **bandas** se registran una sola vez con su nombre, el número de integrante
 Si el negocio deja de manejar un tipo de sala, tampoco lo borra: lo **da de baja**. Lo mismo pasa con las bandas: si una banda ya no regresa, se la da de baja en lugar de borrarla. Así se conserva el historial de ensayos.
 
 
+## Los hechos de este negocio
+
+En SalaRock, **el hecho es el ensayo**: cada vez que una banda ensaya en una sala, sucede un ensayo, en una fecha. Es la **tabla más importante** de tu modelo: tiene una fila por cada ensayo, es la que más crece y es donde se guarda lo que realmente pasó (qué banda, en qué sala, cuándo, cuántas horas y con qué tarifa se le cobró).
+
+**Esta tabla la propones tú**: su nombre, sus columnas y sus llaves. No viene en "Lo que el negocio ya tiene definido", porque los hechos no se definen de antemano: suceden.
+
 ## Lo que el negocio ya tiene definido
 
 Estos datos **no los inventas**: son los que SalaRock ya tiene. Tu base de datos debe guardarlos **exactamente así**, con los mismos nombres y valores.

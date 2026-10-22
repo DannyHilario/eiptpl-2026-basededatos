@@ -22,6 +22,12 @@ Cada autobús tiene **40 asientos**, numerados del 1 al 40.
 Si el negocio deja de usar un tipo de pasajero o deja de ofrecer una ruta, no se borran: se **dan de baja**, para conservar el historial de boletos.
 
 
+## Los hechos de este negocio
+
+En RutaNorte, **el hecho es el boleto**: cada vez que un pasajero compra un viaje en una ruta, se vende un boleto, en una fecha. Es la **tabla más importante** de tu modelo: tiene una fila por cada boleto, es la que más crece y es donde se guarda lo que realmente pasó (quién viaja, en qué ruta, en qué fecha, en qué asiento y cuánto se le cobró).
+
+**Esta tabla la propones tú**: su nombre, sus columnas y sus llaves. No viene en "Lo que el negocio ya tiene definido", porque los hechos no se definen de antemano: suceden.
+
 ## Lo que el negocio ya tiene definido
 
 Estos datos **no los inventas**: son los que RutaNorte ya tiene. Tu base de datos debe guardarlos **exactamente así**, con los mismos nombres y valores.

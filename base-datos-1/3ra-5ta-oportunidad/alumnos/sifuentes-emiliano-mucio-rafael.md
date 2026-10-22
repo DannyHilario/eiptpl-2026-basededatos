@@ -22,6 +22,12 @@ En cada mudanza trabajan **de 1 a 6 cargadores**, según lo que haya que mover. 
 Si el negocio deja de usar un tipo de vivienda o deja de ofrecer un paquete de mudanza, no se borran: se **dan de baja**, para conservar el historial de mudanzas.
 
 
+## Los hechos de este negocio
+
+En MudaFacil, **el hecho es la mudanza**: cada vez que un cliente contrata un paquete para cambiarse de casa, sucede una mudanza, en una fecha. Es la **tabla más importante** de tu modelo: tiene una fila por cada mudanza, es la que más crece y es donde se guarda lo que realmente pasó (qué cliente, qué paquete, para qué fecha, cuántos cargadores y cuánto se le cobró).
+
+**Esta tabla la propones tú**: su nombre, sus columnas y sus llaves. No viene en "Lo que el negocio ya tiene definido", porque los hechos no se definen de antemano: suceden.
+
 ## Lo que el negocio ya tiene definido
 
 Estos datos **no los inventas**: son los que MudaFacil ya tiene. Tu base de datos debe guardarlos **exactamente así**, con los mismos nombres y valores.

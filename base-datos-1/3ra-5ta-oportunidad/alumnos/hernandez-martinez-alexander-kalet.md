@@ -24,6 +24,12 @@ En cada evento se anota cuántos **invitados** van a asistir. Por reglamento de 
 Si el negocio deja de manejar un tipo de quinta, tampoco lo borra: lo **da de baja**. Lo mismo pasa con los clientes: si un cliente ya no regresa, se lo da de baja en lugar de borrarlo. Así se conserva el historial de eventos.
 
 
+## Los hechos de este negocio
+
+En QuintaSol, **el hecho es el evento**: cada vez que un cliente renta una quinta para una fiesta, sucede un evento, en una fecha. Es la **tabla más importante** de tu modelo: tiene una fila por cada evento, es la que más crece y es donde se guarda lo que realmente pasó (quién la rentó, qué quinta, para qué fecha, cuántos invitados y cuánto se le cobró).
+
+**Esta tabla la propones tú**: su nombre, sus columnas y sus llaves. No viene en "Lo que el negocio ya tiene definido", porque los hechos no se definen de antemano: suceden.
+
 ## Lo que el negocio ya tiene definido
 
 Estos datos **no los inventas**: son los que QuintaSol ya tiene. Tu base de datos debe guardarlos **exactamente así**, con los mismos nombres y valores.

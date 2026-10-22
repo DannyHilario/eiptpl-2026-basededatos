@@ -24,6 +24,12 @@ En cada juego se pagan **de 1 a 5 líneas**.
 Si el negocio deja de manejar un tipo de pista, tampoco lo borra: lo **da de baja**. Lo mismo pasa con los clientes: si un cliente ya no regresa, se lo da de baja en lugar de borrarlo. Así se conserva el historial de juegos.
 
 
+## Los hechos de este negocio
+
+En StrikeMax, **el hecho es el juego**: cada vez que un cliente juega en una pista, sucede un juego, en una fecha. Es la **tabla más importante** de tu modelo: tiene una fila por cada juego, es la que más crece y es donde se guarda lo que realmente pasó (qué cliente, en qué pista, cuándo, cuántas líneas y con qué tarifa por línea se le cobró).
+
+**Esta tabla la propones tú**: su nombre, sus columnas y sus llaves. No viene en "Lo que el negocio ya tiene definido", porque los hechos no se definen de antemano: suceden.
+
 ## Lo que el negocio ya tiene definido
 
 Estos datos **no los inventas**: son los que StrikeMax ya tiene. Tu base de datos debe guardarlos **exactamente así**, con los mismos nombres y valores.

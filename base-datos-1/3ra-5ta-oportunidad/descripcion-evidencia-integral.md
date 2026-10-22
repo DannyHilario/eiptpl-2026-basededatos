@@ -17,7 +17,7 @@ De manera **individual**, diseñarás e implementarás en Microsoft SQL Server l
 
 ## Tu caso
 
-Cada caso describe un negocio: qué hace, cómo funciona una operación de principio a fin (flujo de negocio), sus reglas y las 10 preguntas que el dueño quiere responder con la base de datos. **El caso no te dice qué tablas crear:** deducir el modelo a partir del negocio es parte de la evidencia.
+Cada caso describe un negocio: qué hace, cómo funciona una operación de principio a fin (flujo de negocio), sus reglas y las 10 preguntas que el dueño quiere responder con la base de datos. **El caso no te dice qué tablas crear:** deducir el modelo a partir del negocio es parte de la evidencia. Lo que sí te dice, en la sección **"Los hechos de este negocio"**, es cuál es el hecho: lo que sucede en el negocio cada vez, con una fecha. Su tabla es la más importante de tu modelo y la diseñas tú (ver [Del negocio al modelo](../temas/Etapa-1/07-DelNegocioAlModelo.md)).
 
 | Alumno | Caso |
 |--------|------|
@@ -52,13 +52,13 @@ Cada caso describe un negocio: qué hace, cómo funciona una operación de princ
 ## Lo que debes construir
 
 1. **El modelo relacional** del negocio, con al menos **4 tablas**, que guarde toda la información del caso y respete sus reglas de negocio mediante restricciones: `PRIMARY KEY`, `FOREIGN KEY`, `UNIQUE`, `CHECK` y `DEFAULT`.
-   > **Datos que cambian con el tiempo.** Cuando un dato puede cambiar (un precio, una tarifa, un costo) y una operación del negocio depende del valor que tenía **en el momento en que ocurrió**, ese valor se **copia** en la tabla de la operación. Por ejemplo, si una venta guardara solo la referencia al producto, al subir el precio del producto todas las ventas anteriores "costarían" más de lo que se cobró. Tu caso tiene al menos un dato así. **Este principio se revisa en la evidencia.**
+   > **Datos que cambian con el tiempo.** Cuando un dato puede cambiar (un precio, una tarifa, un costo) y un hecho del negocio depende del valor que tenía **en el momento en que sucedió**, ese valor se **copia** en la tabla de hechos. Por ejemplo, si una venta guardara solo la referencia al producto, al subir el precio del producto todas las ventas anteriores "costarían" más de lo que se cobró. Tu caso tiene al menos un dato así. **Este principio se revisa en la evidencia.**
 
 2. **El paquete de instalación**: los scripts que crean la base de datos, sus tablas y sus datos iniciales.
 3. **El paquete de reversa**: los scripts que eliminan por completo lo instalado.
 4. **Los datos iniciales**, de dos tipos:
    - **Lo que el negocio ya tiene definido** (por ejemplo, sus sucursales o sus servicios y precios): viene en tu caso y se inserta **exactamente como viene**, sin cambiar nombres ni valores.
-   - **Lo que tú inventas** (por ejemplo, clientes y operaciones): datos ficticios con las cantidades mínimas que pide tu caso.
+   - **Lo que tú inventas** (por ejemplo, clientes y hechos): datos ficticios con las cantidades mínimas que pide tu caso.
 
    En conjunto, deben permitir que **cada una de las 10 consultas regrese al menos una fila**.
 5. **Las 10 consultas** de tu caso.
@@ -175,7 +175,7 @@ La Evidencia Integral se califica sobre **100 puntos**. Cada criterio se cumple 
 | A1 | El paquete se ejecuta completo, en orden y **tal cual**, sin errores, y crea la base de datos de tu caso | 10 |
 | A2 | Cada tabla tiene su llave primaria y cada llave foránea está en la tabla correcta (del lado de "muchos") | 7 |
 | A3 | Las reglas de negocio de tu caso están implementadas como restricciones: `UNIQUE`, `CHECK` y `DEFAULT` | 8 |
-| A4 | La tabla de la operación copia el dato que puede cambiar (precio o tarifa) | 5 |
+| A4 | La tabla de hechos copia el dato que puede cambiar (precio o tarifa) | 5 |
 | A5 | Los datos que el negocio ya tiene definidos están exactamente como vienen en tu caso, y los que inventas cumplen los mínimos | 5 |
 
 ### B. Paquete de reversa (5 puntos)

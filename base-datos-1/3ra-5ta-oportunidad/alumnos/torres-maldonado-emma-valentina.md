@@ -22,6 +22,12 @@ En cada sesión salen **de 1 a 20 personas** en las fotos.
 Si el negocio deja de usar un tipo de cliente o deja de ofrecer un paquete de fotos, no se borran: se **dan de baja**, para conservar el historial de sesiones.
 
 
+## Los hechos de este negocio
+
+En ClickEstudio, **el hecho es la sesión**: cada vez que un cliente va al estudio a tomarse fotos, sucede una sesión, en una fecha. Es la **tabla más importante** de tu modelo: tiene una fila por cada sesión, es la que más crece y es donde se guarda lo que realmente pasó (qué cliente, qué paquete, cuándo, cuántas personas y cuánto se le cobró).
+
+**Esta tabla la propones tú**: su nombre, sus columnas y sus llaves. No viene en "Lo que el negocio ya tiene definido", porque los hechos no se definen de antemano: suceden.
+
 ## Lo que el negocio ya tiene definido
 
 Estos datos **no los inventas**: son los que ClickEstudio ya tiene. Tu base de datos debe guardarlos **exactamente así**, con los mismos nombres y valores.
