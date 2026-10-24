@@ -1,0 +1,47 @@
+-- Tema:        TiendaDB - Sesión 12 (Triggers)
+-- Descripción: Insertar 40 artículos (5 por clasificación) con su precio vigente
+-- Autor:       Daniel Hilario
+
+USE TiendaDB;
+
+INSERT INTO Articulo (idClasificacion, Nombre, PrecioUnitario)
+VALUES (1, 'Refresco de cola 600 ml', 23.00),
+       (1, 'Agua natural 1 L', 18.00),
+       (1, 'Agua mineral 600 ml', 22.00),
+       (1, 'Bebida hidratante 1 L', 44.00),
+       (1, 'Néctar de durazno 960 ml', 31.00),
+       (2, 'Papas fritas adobadas 42 g', 28.00),
+       (2, 'Totopos sabor queso 61 g', 28.00),
+       (2, 'Frituras de queso 48 g', 26.00),
+       (2, 'Cacahuate natural 150 g', 16.00),
+       (2, 'Galletas con chispas de chocolate 76 g', 23.50),
+       (3, 'Chocolate con leche y almendras 38 g', 30.00),
+       (3, 'Chocolate relleno de cacahuate 40 g', 32.00),
+       (3, 'Gomitas enchiladas 70 g', 27.00),
+       (3, 'Paleta de caramelo con chamoy 14 g', 4.00),
+       (3, 'Dulce de tamarindo enchilado 30 g', 16.00),
+       (4, 'Leche entera 1 L', 30.00),
+       (4, 'Leche deslactosada 1 L', 33.00),
+       (4, 'Yogurt bebible de fresa 220 g', 11.00),
+       (4, 'Queso panela 200 g', 45.00),
+       (4, 'Queso crema 200 g', 46.00),
+       (5, 'Pan blanco de caja 620 g', 52.00),
+       (5, 'Pan integral 620 g', 58.00),
+       (5, 'Donas 6 piezas', 27.00),
+       (5, 'Pan relleno de chocolate 62 g', 22.50),
+       (5, 'Tortillas de harina 15 piezas', 25.00),
+       (6, 'Sopa instantánea en vaso 64 g', 27.00),
+       (6, 'Atún en agua 130 g', 13.00),
+       (6, 'Arroz 900 g', 15.00),
+       (6, 'Frijoles refritos 430 g', 12.50),
+       (6, 'Café capuchino en sobre 20 g', 12.00),
+       (7, 'Detergente en polvo 1 kg', 45.00),
+       (7, 'Cloro 950 ml', 18.50),
+       (7, 'Limpiador multiusos 1 L', 47.00),
+       (7, 'Suavizante de telas 700 ml', 36.00),
+       (7, 'Papel higiénico 4 rollos', 35.00),
+       (8, 'Pasta dental 75 ml', 32.00),
+       (8, 'Jabón de tocador 120 g', 29.50),
+       (8, 'Shampoo 200 ml', 44.00),
+       (8, 'Desodorante en barra 50 g', 68.00),
+       (8, 'Pañuelos desechables 90 piezas', 32.50);
