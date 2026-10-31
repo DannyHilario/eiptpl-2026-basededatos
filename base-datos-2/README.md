@@ -75,13 +75,12 @@ Se ve en un orden distinto al del manual: las variables y el `IF` ya se adelanta
 
 | # | Tema |
 |---|------|
-| 01 | [T-SQL como lenguaje de programación: lotes, GO e IF EXISTS](temas/Etapa-4/01-ProgramacionTSQL.md) |
-| 02 | [CASE](temas/Etapa-4/02-Case.md) |
-| 03 | [Errores y TRY CATCH](temas/Etapa-4/03-Errores.md) |
-| 04 | [Errores de valor nulo](temas/Etapa-4/04-ValoresNulos.md) |
-| 05 | [Transacciones con TRY CATCH](temas/Etapa-4/05-Transacciones.md) |
+| 01 | [T-SQL como lenguaje de programación: IF EXISTS](temas/Etapa-4/01-ProgramacionTSQL.md) |
+| 02 | [Lotes y GO](temas/Etapa-4/02-Lotes.md) |
+| 03 | [CASE](temas/Etapa-4/03-Case.md) |
+| 04 | [Errores y TRY CATCH](temas/Etapa-4/04-Errores.md) |
+| 05 | [Errores de valor nulo](temas/Etapa-4/05-ValoresNulos.md) |
 | 06 | [Manejo de excepciones en procedimientos almacenados](temas/Etapa-4/06-ExcepcionesProcedimientos.md) |
-| 07 | [THROW](temas/Etapa-4/07-Throw.md) |
 
 ## Sesiones
 

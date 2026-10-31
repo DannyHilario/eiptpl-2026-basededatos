@@ -148,7 +148,7 @@ Las seis llamadas responden **con la misma forma**: un `ErrCodigo` y un `ErrMens
 ## Resumen
 
 - Una excepción es un error que no se previó en las validaciones.
-- Las validaciones van primero, con `IF` y códigos propios; la instrucción que modifica datos va dentro de `TRY`.
+- Las validaciones van primero, como *guard clauses*: un `IF` con su código propio y `RETURN`; la instrucción que modifica datos va dentro de `TRY`.
 - El `CATCH` convierte cualquier error inesperado en un `ErrCodigo` genérico (`999999`) con el número y el mensaje de SQL Server.
 - Así el procedimiento responde **siempre** igual, pase lo que pase.
 - Un `999999` que se repite seguido es una validación que falta.

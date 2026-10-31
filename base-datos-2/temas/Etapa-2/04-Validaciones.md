@@ -186,8 +186,8 @@ WHERE idCliente = 200
 |-------|---------|
 | Cada validación tiene su **propio código** | Quien llama al procedimiento sabe exactamente qué falló |
 | Los códigos se numeran en el orden en que se validan | Facilita leer el código y las pruebas |
-| Cada error termina con `RETURN` | Garantiza que no se modifica nada si algo falló |
-| El dato se guarda en una variable y se valida con `IS NULL` / `IS NOT NULL` | Es la convención del curso; no se usa `IF EXISTS (SELECT ...)` |
+| Cada error termina con `RETURN` | Garantiza que no se modifica nada si algo falló. A esta forma de validar y salir se le llama *guard clause* (cláusula de guarda): evita los `IF` anidados |
+| El dato se guarda en una variable y se valida con `IS NULL` / `IS NOT NULL` | Es la convención del curso, y además se obtiene el dato; `IF EXISTS (SELECT ...)` se permite, pero se evita |
 | El `SELECT` de validación va con `SELECT`, `FROM` y `WHERE` en líneas separadas | Legibilidad |
 | `IS NULL` cuando el dato **debe existir**; `IS NOT NULL` cuando **no debe existir** | Ver la tabla de abajo |
 

@@ -246,7 +246,7 @@ Se agregaron tres objetos sobre `Pedido`:
 |-----------|--------------|
 | **Varias filas en una sentencia** | Los triggers guardan `inserted` y `deleted` en variables, que solo tienen un valor. Un `UPDATE` que cambia el precio de 10 artículos registra uno solo en el histórico, y un `DELETE` que quita líneas de varios pedidos solo recalcula uno |
 | **El precio de la línea** | Lo trae el `INSERT`: ningún trigger verifica que sea el precio vigente del artículo |
-| **Las transiciones de estatus** | Nada impide un cambio de estatus inválido, como de Enviado a Creado. Para que un trigger **rechace** el cambio hace falta `THROW`, que es de la Etapa 4: ver [THROW](../../temas/Etapa-4/07-Throw.md) |
+| **Las transiciones de estatus** | Nada impide un cambio de estatus inválido, como de Enviado a Creado. Para que un trigger **rechace** el cambio haría falta lanzar un error propio, un tema que queda fuera del curso |
 
 ---
 

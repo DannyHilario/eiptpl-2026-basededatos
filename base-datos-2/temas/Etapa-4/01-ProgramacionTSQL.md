@@ -1,6 +1,6 @@
 # T-SQL como lenguaje de programación
 
-**Transact-SQL** (T-SQL) es el SQL de SQL Server más lo que lo convierte en un lenguaje de programación: variables, decisiones (`IF`, `CASE`), manejo de errores y transacciones. Con SQL "puro" se consulta y se modifica; con T-SQL además se **decide** qué hacer según lo que se encuentra.
+**Transact-SQL** (T-SQL) es el SQL de SQL Server más lo que lo convierte en un lenguaje de programación: variables, decisiones (`IF`, `CASE`) y manejo de errores. Con SQL "puro" se consulta y se modifica; con T-SQL además se **decide** qué hacer según lo que se encuentra.
 
 Los ejemplos usan **TiendaDB** con los [datos de ejemplo](README.md#base-de-datos-de-los-ejemplos) de la Etapa 4.
 
@@ -17,37 +17,7 @@ Buena parte del temario de esta etapa se adelantó, porque sin ella no se pueden
 | `IF` anidados | [IF anidados](../Etapa-2/03-VariablesIfElse.md#if-anidados) |
 | Validar con `IF @variable IS NULL` | [Validaciones y códigos de salida](../Etapa-2/04-Validaciones.md) |
 
-Este tema agrega lo que falta: cómo SQL Server ejecuta el código por **lotes** e `IF EXISTS`.
-
----
-
-## Lotes y GO
-
-Un **lote** es el conjunto de instrucciones que se envían juntas a SQL Server para ejecutarse. En SSMS, `GO` marca dónde termina un lote y empieza el siguiente.
-
-> `GO` **no** es una instrucción de T-SQL: es una indicación para SSMS de "manda lo que llevas". Por eso no lleva punto y coma ni se puede usar dentro de un procedimiento.
-
-Dos consecuencias importantes:
-
-**1. Una variable solo vive dentro de su lote.** Después de `GO`, ya no existe:
-
-```sql
-DECLARE @idCliente int = 7
-PRINT 'Antes de GO: ' + CONVERT(varchar(10), @idCliente)
-GO
-PRINT 'Después de GO: ' + CONVERT(varchar(10), @idCliente)
-GO
-```
-
-```
-Antes de GO: 7
-Msg 137, Level 15, State 2, Line 1
-Must declare the scalar variable "@idCliente".
-```
-
-El segundo lote ni siquiera empieza: SQL Server revisa el lote completo antes de ejecutarlo, encuentra una variable que no se declaró en ese lote y lo rechaza entero.
-
-**2. `CREATE PROCEDURE`, `CREATE FUNCTION` y `CREATE TRIGGER` deben ser la primera instrucción de su lote.** Por eso en un script van precedidos de `GO`, como en el [`instalar-completo.sql`](../../sesiones/sesion-12/TiendaDB/instalar-completo.sql) de TiendaDB.
+Este tema agrega lo que falta: `IF EXISTS`. Cómo SQL Server recibe y ejecuta el código está en su propio tema: [Lotes y GO](02-Lotes.md).
 
 ---
 
@@ -97,7 +67,7 @@ El cliente 7 tiene abierto el pedido 8
 | Además da el dato | No | Sí: el `idPedido`, que casi siempre se necesita después |
 | Se lee | En una línea, con una consulta dentro del `IF` | En pasos: consultar, guardar, decidir |
 
-Por eso, en los procedimientos del curso las validaciones se escriben con variable. `IF EXISTS` hay que reconocerlo, porque se encuentra en mucho código, pero no se usa en los ejercicios.
+Por eso, en los procedimientos del curso las validaciones se escriben con variable. `IF EXISTS` se permite, porque se encuentra en mucho código, pero se evita: se prefiere la variable.
 
 ---
 
@@ -110,15 +80,12 @@ Las instrucciones que deciden qué se ejecuta y en qué orden:
 | `BEGIN … END` | Agrupa varias instrucciones en un bloque | Desde la Etapa 2 |
 | `IF … ELSE` | Ejecuta un bloque u otro según una condición | [Etapa 2](../Etapa-2/03-VariablesIfElse.md#if--else) |
 | `RETURN` | Termina el procedimiento o el trigger en ese momento | [Etapa 2](../Etapa-2/04-Validaciones.md) y los triggers de la [sesión 12](../../sesiones/sesion-12) |
-| `CASE` | Elige un **valor** según una condición, dentro de una consulta | [Tema 02](02-Case.md) |
-| `TRY … CATCH` | Ejecuta un bloque y, si falla, otro | [Tema 03](03-Errores.md) |
+| `CASE` | Elige un **valor** según una condición, dentro de una consulta | [Tema 03](03-Case.md) |
+| `TRY … CATCH` | Ejecuta un bloque y, si falla, otro | [Tema 04](04-Errores.md) |
 
 ---
 
 ## Resumen
 
-- T-SQL es SQL más variables, decisiones, manejo de errores y transacciones.
-- Un lote se envía y se ejecuta junto; `GO` separa lotes en SSMS y no es T-SQL.
-- Una variable no sobrevive al `GO`.
-- `CREATE PROCEDURE`, `CREATE FUNCTION` y `CREATE TRIGGER` deben ser la primera instrucción de su lote.
-- `IF EXISTS (SELECT ...)` responde si una consulta regresa filas; en el curso se prefiere guardar el dato en una variable y validar con `IS NULL`, porque además se obtiene el dato.
+- T-SQL es SQL más variables, decisiones y manejo de errores.
+- `IF EXISTS (SELECT ...)` responde si una consulta regresa filas; se permite, pero en el curso se prefiere guardar el dato en una variable y validar con `IS NULL`, porque además se obtiene el dato.

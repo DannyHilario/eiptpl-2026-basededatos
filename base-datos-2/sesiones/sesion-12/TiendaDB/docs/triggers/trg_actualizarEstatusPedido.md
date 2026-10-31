@@ -48,7 +48,7 @@ La versión que se escribió en clase guardaba `inserted` en variables y registr
 ## Qué no hace
 
 - **No registra el primer estatus.** Un pedido nuevo no se *actualiza*, se inserta: el estatus Creado lo registra [`usp_crearPedido`](../procedimientos/usp_crearPedido.md).
-- **No valida la transición.** Si alguien regresa un pedido a un estatus anterior, el `UNIQUE` de la bitácora lo detiene solo cuando ese estatus ya estaba registrado. La regla completa (1 → 2, 2 → 3, 2 → 4) necesita que el trigger **rechace** el cambio con `THROW`: ver [THROW](../../../../../temas/Etapa-4/07-Throw.md).
+- **No valida la transición.** Si alguien regresa un pedido a un estatus anterior, el `UNIQUE` de la bitácora lo detiene solo cuando ese estatus ya estaba registrado. La regla completa (1 → 2, 2 → 3, 2 → 4) necesitaría que el trigger **rechace** el cambio lanzando un error propio, un tema que queda fuera del curso.
 
 ## Resultados (pruebas 15 a 17 y 19 de [`pruebas.sql`](../../pruebas.sql))
 

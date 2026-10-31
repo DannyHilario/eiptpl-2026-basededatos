@@ -259,7 +259,7 @@ END
 El cliente no existe
 ```
 
-> En el curso **no** se escribe `IF EXISTS (SELECT ...)` ni `IF NOT EXISTS (SELECT ...)`. Siempre se guarda el dato en una variable con `SELECT`, `FROM` y `WHERE` en líneas separadas, y se valida con `IF @variable IS NULL` o `IS NOT NULL`.
+> En el curso se **prefiere** guardar el dato en una variable con `SELECT`, `FROM` y `WHERE` en líneas separadas, y validar con `IF @variable IS NULL` o `IS NOT NULL`. `IF EXISTS (SELECT ...)` se permite ([Etapa 4](../Etapa-4/01-ProgramacionTSQL.md#if-exists)), pero se evita: con la variable además se obtiene el dato.
 
 ### IF anidados
 
@@ -301,6 +301,8 @@ END
 | 16 | El cliente tiene un vehículo |
 | 1 | El cliente tiene 2 vehículos |
 
+> Los `IF` anidados se permiten, pero se evitan: con varios niveles, la lógica se vuelve difícil de seguir. En los procedimientos se prefieren las **guard clauses** (cláusulas de guarda): se revisa una condición y, si no se cumple, se sale con `RETURN`. Así el código se lee de arriba abajo, sin anidar, como en las [validaciones](04-Validaciones.md). Hay casos en los que anidar sí es necesario.
+
 ---
 
 ## Resumen
@@ -310,4 +312,5 @@ END
 - Si el `SELECT` no encuentra filas, la variable conserva su valor: así se detecta que un dato no existe.
 - Una variable vive hasta el `GO` o hasta el `END` del procedimiento.
 - `IF`/`ELSE` elige qué bloque se ejecuta; en el curso siempre llevan `BEGIN ... END`.
-- Las validaciones se hacen con `IF @variable IS NULL`, no con `IF EXISTS (SELECT ...)`.
+- Las validaciones se hacen con `IF @variable IS NULL`; `IF EXISTS (SELECT ...)` se permite, pero se evita.
+- Se prefieren las *guard clauses* (validar y salir con `RETURN`) a los `IF` anidados.

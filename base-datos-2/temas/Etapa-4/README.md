@@ -4,30 +4,29 @@ Propuesta de cómo se ve la Etapa 4 en el curso. El temario oficial ([ContenidoT
 
 ## Por qué en otro orden
 
-El libro deja para el final todo lo que es "programar" en T-SQL: variables, `IF`, `CASE`, errores y transacciones. En la práctica, las variables y el `IF` se necesitan **antes**: un procedimiento almacenado con validaciones no se puede escribir sin ellos. Por eso ya se vieron en la [Etapa 2](../Etapa-2/03-VariablesIfElse.md).
+El libro deja para el final todo lo que es "programar" en T-SQL: variables, `IF`, `CASE` y errores. En la práctica, las variables y el `IF` se necesitan **antes**: un procedimiento almacenado con validaciones no se puede escribir sin ellos. Por eso ya se vieron en la [Etapa 2](../Etapa-2/03-VariablesIfElse.md).
 
-Lo que **sí** conviene dejar al final es el manejo de errores, las transacciones y `THROW`: tienen sentido cuando ya hay un procedimiento que modifica varias tablas o un trigger que tiene que rechazar un cambio. En TiendaDB ([sesión 12](../../sesiones/sesion-12)) aparecieron justamente esos problemas, y cada tema de esta etapa resuelve uno:
+Lo que **sí** conviene dejar al final es el manejo de errores: tiene sentido cuando ya hay un procedimiento que modifica datos. En TiendaDB ([sesión 12](../../sesiones/sesion-12)) aparecieron justamente esos problemas, y cada tema de esta etapa resuelve uno:
 
 | Problema de TiendaDB | Tema que lo resuelve |
 |----------------------|----------------------|
-| Al quitar la última línea de un pedido, `SUM` regresa `NULL` y el trigger falla | [04 · Errores de valor nulo](04-ValoresNulos.md) |
-| Si falla la tercera línea de un pedido, el pedido queda a medias | [05 · Transacciones](05-Transacciones.md) |
+| Al quitar la última línea de un pedido, `SUM` regresa `NULL` y el trigger falla | [05 · Errores de valor nulo](05-ValoresNulos.md) |
 | Agregar artículos a un pedido que ya se envió | [06 · Excepciones en procedimientos almacenados](06-ExcepcionesProcedimientos.md) |
-| Nada impide un cambio de estatus inválido, como de Enviado a Creado | [07 · THROW](07-Throw.md) |
 
 ## Temas
 
 | # | Tema | Temario oficial |
 |---|------|-----------------|
 | 01 | [T-SQL como lenguaje de programación](01-ProgramacionTSQL.md) | Descripción de Transact SQL para la programación · Declaración y asignación de variables · Control de flujo · `IF`, `IF-ELSE`, `IF EXISTS` · `IF` anidados |
-| 02 | [CASE](02-Case.md) | Estructura de control `CASE` · `CASE` con `ORDER BY` · `CASE` con `GROUP BY` · `UPDATE` con `CASE` · `INSERT` con `CASE` |
-| 03 | [Errores y TRY CATCH](03-Errores.md) | Gestión de errores en Transact SQL · Funciones `ERROR` |
-| 04 | [Errores de valor nulo](04-ValoresNulos.md) | Manejo de errores de valor nulo con `TRY CATCH` |
-| 05 | [Transacciones con TRY CATCH](05-Transacciones.md) | Transacciones con instrucción `TRY CATCH` |
+| 02 | [Lotes y GO](02-Lotes.md) | Descripción de Transact SQL para la programación (cómo se envía y ejecuta el código) |
+| 03 | [CASE](03-Case.md) | Estructura de control `CASE` · `CASE` con `ORDER BY` · `CASE` con `GROUP BY` · `UPDATE` con `CASE` · `INSERT` con `CASE` |
+| 04 | [Errores y TRY CATCH](04-Errores.md) | Gestión de errores en Transact SQL · Funciones `ERROR` |
+| 05 | [Errores de valor nulo](05-ValoresNulos.md) | Manejo de errores de valor nulo con `TRY CATCH` |
 | 06 | [Excepciones en procedimientos almacenados](06-ExcepcionesProcedimientos.md) | Manejo de excepciones en procedimientos almacenados |
-| 07 | [THROW](07-Throw.md) | `THROW` |
 
-El tema 01 es corto: las variables y el `IF` ya se vieron en la Etapa 2, y aquí solo se agrega lo que falta del temario (`IF EXISTS`, los lotes y `GO`).
+El tema 01 es corto: las variables y el `IF` ya se vieron en la Etapa 2, y aquí solo se agrega lo que falta del temario (`IF EXISTS`). Los lotes y `GO` tienen su propio tema, el 02, porque explican muchos errores que aparecen al ejecutar scripts.
+
+Del temario oficial **no** se cubren *Transacciones con instrucción SQL try catch* ni *THROW*: quedan fuera del curso.
 
 ## Base de datos de los ejemplos
 

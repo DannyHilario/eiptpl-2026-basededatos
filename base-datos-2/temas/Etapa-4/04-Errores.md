@@ -78,9 +78,9 @@ Sigue después de todo
 
 **La instrucción que falla se cancela, y el lote sigue con la siguiente.** "The statement has been terminated" significa justo eso: se canceló **esa** instrucción.
 
-Por eso un error no basta para detener un procedimiento. Si un procedimiento inserta un pedido y después sus líneas, y la tercera línea falla, el pedido y las primeras dos líneas **se quedan**. Eso se resuelve en [Transacciones](05-Transacciones.md).
+Por eso un error no basta para detener un procedimiento. Si un procedimiento inserta un pedido y después sus líneas, y la tercera línea falla, el pedido y las primeras dos líneas **se quedan**. Por eso, en un procedimiento, las validaciones van **antes** de modificar datos: si algo no se cumple, se sale con `RETURN` sin haber tocado nada ([Excepciones en procedimientos almacenados](06-ExcepcionesProcedimientos.md)).
 
-> No todos los errores se comportan igual. Un error de sintaxis o una variable no declarada (`Msg 102`, `Msg 137`) impiden que el lote **empiece**, como se vio en [T-SQL como lenguaje de programación](01-ProgramacionTSQL.md#lotes-y-go). Y un error dentro de un **trigger** cancela todo el lote, no solo la instrucción.
+> No todos los errores se comportan igual. Un error de sintaxis o una variable no declarada (`Msg 102`, `Msg 137`) impiden que el lote **empiece**, como se vio en [Lotes y GO](02-Lotes.md). Y un error dentro de un **trigger** cancela todo el lote, no solo la instrucción.
 
 ---
 

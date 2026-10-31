@@ -33,8 +33,6 @@ Cuando todo sale bien, además de `ErrCodigo` y `ErrMensaje` regresa la columna 
 
 El primer estatus lo registra **el procedimiento** porque el trigger de la bitácora, [`trg_actualizarEstatusPedido`](../triggers/trg_actualizarEstatusPedido.md), solo atiende `UPDATE`: un pedido nuevo no cambia de estatus, nace con él.
 
-> Si el segundo `INSERT` fallara, el pedido quedaría creado sin su registro en la bitácora. Para que se guarden los dos o ninguno hace falta una transacción ([Transacciones con TRY CATCH](../../../../../temas/Etapa-4/05-Transacciones.md)).
-
 ## Ejemplos
 
 ```sql

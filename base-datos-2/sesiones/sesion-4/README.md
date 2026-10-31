@@ -26,7 +26,7 @@ Esta sesión reutiliza CineDB tal como quedó instalada en Base de Datos I, más
 
 ## Contenido de estudio — patrón de manejo de errores con códigos de salida
 
-En lugar de usar `TRY CATCH`/`THROW` (que se ve más adelante en el curso), esta sesión valida "a mano" con `IF` y comunica el resultado al llamador mediante dos variables de salida:
+En lugar de usar `TRY CATCH` (que se ve más adelante en el curso), esta sesión valida "a mano" con `IF` y comunica el resultado al llamador mediante dos variables de salida:
 
 ```sql
 DECLARE @ErrCodigo varchar(10),
