@@ -1,11 +1,11 @@
 -- Tema:        TiendaDB - Sesión 12 (Triggers)
--- Descripción: Instalación completa (tablas, catálogos y triggers) en un solo script
+-- Descripción: Instalación completa (tablas, catálogos, procedimientos almacenados y triggers) en un solo script
 -- Autor:       Daniel Hilario
 
 --
 -- Generado concatenando los scripts de instalacion/ en orden de carpeta y archivo.
 -- Ejecútalo completo en SSMS (F5): cada script va separado con GO, porque
--- CREATE TRIGGER debe ser la primera sentencia de su lote.
+-- CREATE PROCEDURE y CREATE TRIGGER deben ser la primera sentencia de su lote.
 -- Pedido, DetallePedido, HistoricoPrecioArticulo y BitacoraEstatusPedido se crean vacías.
 
 -- ===== instalacion/00-create-database.sql =====
@@ -303,6 +303,189 @@ CREATE TABLE Pedido (
 );
 GO
 
+-- ===== instalacion/06-Pedido/02-usp-crear.sql =====
+-- Tema:        TiendaDB - Sesión 12 (Triggers)
+-- Descripción: Crear un pedido en estatus Creado y registrar su primer estatus en la bitácora,
+--              con validaciones y códigos de salida
+-- Autor:       Daniel Hilario
+
+USE TiendaDB;
+GO
+
+CREATE PROCEDURE usp_crearPedido
+	@p_idCliente int,
+	@p_DireccionEntrega varchar(200),
+	@p_CostoEnvio decimal(10,2)
+AS
+BEGIN
+
+	DECLARE @ErrCodigo varchar(10),
+			@ErrMensaje varchar(200),
+
+			@idClienteExistente int,
+			@idPedido int
+
+	-- Validación 1: el cliente debe existir y estar activo
+
+	SELECT
+		@idClienteExistente = idCliente
+	FROM Cliente
+	WHERE idCliente = @p_idCliente
+		AND Activo = 1
+
+	IF @idClienteExistente IS NULL BEGIN
+
+		SELECT 	@ErrCodigo = '000001',
+				@ErrMensaje = 'El cliente no existe o no está activo'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- Validación 2: la dirección de entrega no puede venir vacía
+
+	IF @p_DireccionEntrega IS NULL OR LTRIM(RTRIM(@p_DireccionEntrega)) = '' BEGIN
+
+		SELECT 	@ErrCodigo = '000002',
+				@ErrMensaje = 'La dirección de entrega es obligatoria'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- Validación 3: el costo de envío no puede ser negativo
+
+	IF @p_CostoEnvio IS NULL OR @p_CostoEnvio < 0 BEGIN
+
+		SELECT 	@ErrCodigo = '000003',
+				@ErrMensaje = 'El costo de envío no puede ser negativo'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- El pedido nace en estatus Creado, sin líneas y con total 0 (los DEFAULT de la tabla)
+
+	INSERT INTO Pedido (idCliente, DireccionEntrega, CostoEnvio)
+	VALUES (@p_idCliente, @p_DireccionEntrega, @p_CostoEnvio)
+
+	SELECT @idPedido = SCOPE_IDENTITY()
+
+	-- Primer estatus en la bitácora
+
+	INSERT INTO BitacoraEstatusPedido (idPedido, idEstatusPedido)
+	VALUES (@idPedido, 1)
+
+	SELECT 	@ErrCodigo = '000000',
+			@ErrMensaje = 'Pedido creado'
+
+	SELECT	@ErrCodigo as ErrCodigo,
+			@ErrMensaje as ErrMensaje,
+			@idPedido as idPedido
+
+END
+GO
+
+-- ===== instalacion/06-Pedido/03-usp-actualizar.sql =====
+-- Tema:        TiendaDB - Sesión 12 (Triggers)
+-- Descripción: Actualizar la dirección de entrega y el costo de envío de un pedido en estatus Creado,
+--              con validaciones y códigos de salida
+-- Autor:       Daniel Hilario
+
+USE TiendaDB;
+GO
+
+CREATE PROCEDURE usp_actualizarPedido
+	@p_idPedido int,
+	@p_DireccionEntrega varchar(200),
+	@p_CostoEnvio decimal(10,2)
+AS
+BEGIN
+
+	DECLARE @ErrCodigo varchar(10),
+			@ErrMensaje varchar(200),
+
+			@idEstatusPedido int
+
+	-- Validación 1: el pedido debe existir
+
+	SELECT
+		@idEstatusPedido = idEstatusPedido
+	FROM Pedido
+	WHERE idPedido = @p_idPedido
+
+	IF @idEstatusPedido IS NULL BEGIN
+
+		SELECT 	@ErrCodigo = '000001',
+				@ErrMensaje = 'El pedido no existe'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- Validación 2: solo se modifica un pedido en estatus Creado
+
+	IF @idEstatusPedido <> 1 BEGIN
+
+		SELECT 	@ErrCodigo = '000002',
+				@ErrMensaje = 'Solo se puede modificar un pedido en estatus Creado'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- Validación 3: la dirección de entrega no puede venir vacía
+
+	IF @p_DireccionEntrega IS NULL OR LTRIM(RTRIM(@p_DireccionEntrega)) = '' BEGIN
+
+		SELECT 	@ErrCodigo = '000003',
+				@ErrMensaje = 'La dirección de entrega es obligatoria'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	-- Validación 4: el costo de envío no puede ser negativo
+
+	IF @p_CostoEnvio IS NULL OR @p_CostoEnvio < 0 BEGIN
+
+		SELECT 	@ErrCodigo = '000004',
+				@ErrMensaje = 'El costo de envío no puede ser negativo'
+
+		SELECT	@ErrCodigo as ErrCodigo,
+				@ErrMensaje as ErrMensaje
+
+		RETURN
+	END
+
+	UPDATE Pedido
+	SET
+		DireccionEntrega = @p_DireccionEntrega,
+		CostoEnvio = @p_CostoEnvio,
+		FechaUltimaModificacion = GETDATE()
+	WHERE idPedido = @p_idPedido
+
+	SELECT 	@ErrCodigo = '000000',
+			@ErrMensaje = 'Pedido actualizado'
+
+	SELECT	@ErrCodigo as ErrCodigo,
+			@ErrMensaje as ErrMensaje
+
+END
+GO
+
 -- ===== instalacion/07-DetallePedido/01-create-table.sql =====
 -- Tema:        TiendaDB - Sesión 12 (Triggers)
 -- Descripción: Crear tabla DetallePedido
@@ -511,4 +694,32 @@ CREATE TABLE BitacoraEstatusPedido (
     CONSTRAINT fk_BitacoraEstatusPedido_EstatusPedido FOREIGN KEY (idEstatusPedido) REFERENCES EstatusPedido(idEstatusPedido),
     CONSTRAINT uq_BitacoraEstatusPedido_Pedido_Estatus UNIQUE (idPedido, idEstatusPedido)
 );
+GO
+
+-- ===== instalacion/08-BitacoraEstatusPedido/02-trg-actualizar-estatus-pedido.sql =====
+-- Tema:        TiendaDB - Sesión 12 (Triggers)
+-- Descripción: Trigger AFTER UPDATE sobre Pedido: registra en BitacoraEstatusPedido el estatus nuevo
+--              de cada pedido cuyo estatus cambió. Los UPDATE que no cambian el estatus (como el
+--              recálculo de la cabecera que hacen los triggers de DetallePedido) no registran nada
+-- Autor:       Daniel Hilario
+
+USE TiendaDB;
+GO
+
+CREATE TRIGGER trg_actualizarEstatusPedido
+ON Pedido
+AFTER UPDATE
+AS
+BEGIN
+
+	-- inserted tiene el estatus nuevo y deleted el anterior: solo se registran
+	-- los pedidos en los que son distintos, sin importar cuántos cambió el UPDATE
+
+	INSERT INTO BitacoraEstatusPedido (idPedido, idEstatusPedido, FechaCambio, FechaCreacion, FechaUltimaModificacion)
+	SELECT I.idPedido, I.idEstatusPedido, GETDATE(), GETDATE(), GETDATE()
+	FROM inserted I
+	INNER JOIN deleted D ON D.idPedido = I.idPedido
+	WHERE I.idEstatusPedido <> D.idEstatusPedido
+
+END
 GO

@@ -33,7 +33,10 @@ Un pedido **nunca regresa** a un estatus anterior, así que pasa por cada estatu
 
 ## Quién la llena
 
-Por ahora se registra **a mano** después de crear el pedido (ver [`pruebas.sql`](../../pruebas.sql)). Que la llene un trigger sobre `Pedido` está en [lo que falta](../../../README.md#7-lo-que-falta) de la sesión.
+| Momento | Quién registra |
+|---------|----------------|
+| Se crea el pedido (estatus Creado) | [`usp_crearPedido`](../procedimientos/usp_crearPedido.md) |
+| Cambia el estatus del pedido | El trigger [`trg_actualizarEstatusPedido`](../triggers/trg_actualizarEstatusPedido.md), con cualquier `UPDATE` que cambie `idEstatusPedido` |
 
 ## Relacionada con
 

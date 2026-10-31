@@ -184,3 +184,77 @@ WHERE idDetallePedido = 999;
 SELECT idPedido, CantidadArticulos, Total, FechaUltimaModificacion
 FROM Pedido;
 -- Esperado: igual que en la prueba 11, con la misma FechaUltimaModificacion
+
+-- =====================================================================
+-- Parte 5. Procedimientos almacenados y bitácora (usp_crearPedido, usp_actualizarPedido
+-- y trg_actualizarEstatusPedido)
+-- =====================================================================
+
+-- Prueba 13: usp_crearPedido crea el pedido 3 del cliente 5 y registra su estatus Creado en la bitácora.
+-- Regresa ErrCodigo 000000 y el idPedido
+EXEC usp_crearPedido 5, 'Calzada Madero 1200, Col. Centro, CP 64000', 35.00;
+
+SELECT idPedido, idCliente, idEstatusPedido, CantidadArticulos, Total
+FROM Pedido
+WHERE idPedido = 3;
+
+SELECT idPedido, idEstatusPedido
+FROM BitacoraEstatusPedido
+WHERE idPedido = 3;
+-- Esperado: pedido 3, cliente 5, estatus 1, 0 líneas, Total 0.00; bitácora: (3, 1)
+
+-- Prueba 14: las validaciones de usp_crearPedido
+EXEC usp_crearPedido 999, 'Calzada Madero 1200', 35.00;     -- 000001: el cliente no existe
+EXEC usp_crearPedido 5, '   ', 35.00;                       -- 000002: dirección vacía
+EXEC usp_crearPedido 5, 'Calzada Madero 1200', -10.00;      -- 000003: envío negativo
+
+-- Prueba 15: usp_actualizarPedido cambia la dirección y el envío del pedido 3.
+-- El UPDATE dispara trg_actualizarEstatusPedido, pero como el estatus no cambió, no registra nada
+EXEC usp_actualizarPedido 3, 'Calzada Madero 1250, Col. Centro, CP 64000', 0.00;
+
+SELECT idPedido, DireccionEntrega, CostoEnvio
+FROM Pedido
+WHERE idPedido = 3;
+
+SELECT idPedido, idEstatusPedido
+FROM BitacoraEstatusPedido
+WHERE idPedido = 3;
+-- Esperado: 000000; nueva dirección y envío 0.00; la bitácora sigue con una sola fila (3, 1)
+
+-- Prueba 16: agregar una línea al pedido 3. El trigger de DetallePedido actualiza la cabecera
+-- con un UPDATE a Pedido; tampoco cambia el estatus, así que la bitácora no se toca
+INSERT INTO DetallePedido (idPedido, idArticulo, Cantidad, PrecioUnitario, FechaCreacion, FechaUltimaModificacion)
+SELECT 3, idArticulo, 2, PrecioUnitario, GETDATE(), GETDATE()
+FROM Articulo
+WHERE idArticulo = 16;
+
+SELECT idPedido, CantidadArticulos, Total
+FROM Pedido
+WHERE idPedido = 3;
+-- Esperado: 1 línea, Total 60.00 (2 x 30.00); la bitácora sigue con una sola fila para el pedido 3
+
+-- Prueba 17: el pedido 3 pasa a Enviado. Ahora sí cambia el estatus: el trigger lo registra
+UPDATE Pedido
+SET idEstatusPedido = 2
+WHERE idPedido = 3;
+
+SELECT idPedido, idEstatusPedido
+FROM BitacoraEstatusPedido
+WHERE idPedido = 3;
+-- Esperado: (3, 1) y (3, 2)
+
+-- Prueba 18: un pedido Enviado ya no se modifica
+EXEC usp_actualizarPedido 3, 'Otra dirección', 0.00;        -- 000002: el pedido no está en Creado
+EXEC usp_actualizarPedido 999, 'Otra dirección', 0.00;      -- 000001: el pedido no existe
+
+-- Prueba 19: un solo UPDATE cambia el estatus de varios pedidos.
+-- El trigger trabaja con todas las filas de inserted y deleted: registra un renglón por pedido
+UPDATE Pedido
+SET idEstatusPedido = 2
+WHERE idPedido IN (1, 2);
+
+SELECT idPedido, idEstatusPedido
+FROM BitacoraEstatusPedido
+WHERE idEstatusPedido = 2
+ORDER BY idPedido;
+-- Esperado: (1, 2), (2, 2) y (3, 2)

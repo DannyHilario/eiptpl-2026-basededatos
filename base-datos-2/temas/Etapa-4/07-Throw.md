@@ -117,9 +117,27 @@ Cómo se lee la condición:
 
 Si un pedido cumple las tres, su cambio no está en la lista de permitidos. Como se cuentan **todas** las filas de `inserted`, el trigger funciona aunque un solo `UPDATE` cambie muchos pedidos.
 
+### Primero valida, después registra
+
+`Pedido` ya tiene otro trigger `AFTER UPDATE`: [`trg_actualizarEstatusPedido`](../../sesiones/sesion-12/TiendaDB/docs/triggers/trg_actualizarEstatusPedido.md), que registra cada cambio de estatus en la bitácora. Cuando hay **varios triggers para el mismo evento**, SQL Server no garantiza en qué orden los ejecuta. Si la bitácora corre primero, al regresar un pedido a un estatus por el que ya pasó, el error que aparece es el de la bitácora (`Msg 2627`, por su `UNIQUE`) y no el de la regla de negocio.
+
+Por eso, después de crear el trigger, se le indica a SQL Server que la validación vaya **primero**:
+
+```sql
+EXEC sp_settriggerorder @triggername = 'trg_validarEstatusPedido', @order = 'First', @stmttype = 'UPDATE';
+```
+
+| Parámetro | Significa |
+|-----------|-----------|
+| `@triggername` | El trigger |
+| `@order` | `'First'` (primero), `'Last'` (último) o `'None'` (sin orden) |
+| `@stmttype` | El evento: `'INSERT'`, `'UPDATE'` o `'DELETE'` |
+
+Así, la regla rechaza el cambio antes de que la bitácora intente registrarlo, y el mensaje es el correcto. Cuando el cambio sí es válido, el trigger de validación no hace nada y la bitácora lo registra.
+
 ### Qué pasa al lanzar el error
 
-El trigger corre **dentro de la transacción** del `UPDATE` ([Transacciones](05-Transacciones.md#los-triggers-van-dentro-de-la-transacción)). Al lanzar el error, SQL Server **deshace el `UPDATE`** completo y termina el lote.
+El trigger corre **dentro de la transacción** del `UPDATE` ([Transacciones](05-Transacciones.md#los-triggers-van-dentro-de-la-transacción)). Al lanzar el error, SQL Server **deshace el `UPDATE`** completo, incluido lo que hayan hecho los demás triggers, y termina el lote. En la bitácora solo quedan los cambios válidos.
 
 | Prueba | Antes | Resultado |
 |--------|-------|-----------|

@@ -49,6 +49,15 @@ Scripts: [`instalacion/06-Pedido/`](../../instalacion/06-Pedido)
 
 Cada pedido guarda la dirección a la que se envió. Si estuviera en `Cliente`, al mudarse el cliente todos sus pedidos anteriores aparecerían enviados a la dirección nueva.
 
+## Objetos programados
+
+| Objeto | Qué hace con el pedido |
+|--------|------------------------|
+| [`usp_crearPedido`](../procedimientos/usp_crearPedido.md) | Lo crea en estatus Creado y registra ese estatus en la bitácora |
+| [`usp_actualizarPedido`](../procedimientos/usp_actualizarPedido.md) | Cambia su dirección y su costo de envío mientras está en Creado |
+| [`trg_actualizarEstatusPedido`](../triggers/trg_actualizarEstatusPedido.md) | Registra en la bitácora cada cambio de estatus |
+| Los triggers de [`DetallePedido`](DetallePedido.md) | Mantienen `CantidadArticulos` y `Total` |
+
 ## Relacionada con
 
 - [`Cliente`](Cliente.md) — por `idCliente` (N:1).

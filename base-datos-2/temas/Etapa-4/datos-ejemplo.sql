@@ -2,6 +2,7 @@
 -- Descripción: Pedidos de ejemplo en TiendaDB para los temas de la Etapa 4: 8 pedidos de octubre de 2026
 --              en los cuatro estatus, con sus líneas y su bitácora. Ejecutar completo (F5) sobre una
 --              instalación limpia de TiendaDB; los triggers de DetallePedido calculan las cabeceras
+--              y trg_actualizarEstatusPedido registra cada cambio de estatus
 -- Autor:       Daniel Hilario
 
 USE TiendaDB;
@@ -32,15 +33,19 @@ UPDATE Pedido
 SET idEstatusPedido = 2
 WHERE idPedido = 1;
 
-INSERT INTO BitacoraEstatusPedido (idPedido, idEstatusPedido, FechaCambio)
-VALUES (1, 2, '2026-10-05 11:15');
+-- trg_actualizarEstatusPedido ya registró el cambio; se ajusta a la fecha del ejemplo
+UPDATE BitacoraEstatusPedido
+SET FechaCambio = '2026-10-05 11:15'
+WHERE idPedido = 1 AND idEstatusPedido = 2;
 
 UPDATE Pedido
 SET idEstatusPedido = 4
 WHERE idPedido = 1;
 
-INSERT INTO BitacoraEstatusPedido (idPedido, idEstatusPedido, FechaCambio)
-VALUES (1, 4, '2026-10-05 12:15');
+-- trg_actualizarEstatusPedido ya registró el cambio; se ajusta a la fecha del ejemplo
+UPDATE BitacoraEstatusPedido
+SET FechaCambio = '2026-10-05 12:15'
+WHERE idPedido = 1 AND idEstatusPedido = 4;
 
 -- Pedido 2
 INSERT INTO Pedido (idCliente, FechaPedido, DireccionEntrega, CostoEnvio)
@@ -68,15 +73,19 @@ UPDATE Pedido
 SET idEstatusPedido = 2
 WHERE idPedido = 2;
 
-INSERT INTO BitacoraEstatusPedido (idPedido, idEstatusPedido, FechaCambio)
-VALUES (2, 2, '2026-10-06 19:40');
+-- trg_actualizarEstatusPedido ya registró el cambio; se ajusta a la fecha del ejemplo
+UPDATE BitacoraEstatusPedido
+SET FechaCambio = '2026-10-06 19:40'
+WHERE idPedido = 2 AND idEstatusPedido = 2;
 
 UPDATE Pedido
 SET idEstatusPedido = 4
 WHERE idPedido = 2;
 
-INSERT INTO BitacoraEstatusPedido (idPedido, idEstatusPedido, FechaCambio)
-VALUES (2, 4, '2026-10-06 20:40');
+-- trg_actualizarEstatusPedido ya registró el cambio; se ajusta a la fecha del ejemplo
+UPDATE BitacoraEstatusPedido
+SET FechaCambio = '2026-10-06 20:40'
+WHERE idPedido = 2 AND idEstatusPedido = 4;
 
 -- Pedido 3
 INSERT INTO Pedido (idCliente, FechaPedido, DireccionEntrega, CostoEnvio)
@@ -104,8 +113,10 @@ UPDATE Pedido
 SET idEstatusPedido = 2
 WHERE idPedido = 3;
 
-INSERT INTO BitacoraEstatusPedido (idPedido, idEstatusPedido, FechaCambio)
-VALUES (3, 2, '2026-10-08 13:05');
+-- trg_actualizarEstatusPedido ya registró el cambio; se ajusta a la fecha del ejemplo
+UPDATE BitacoraEstatusPedido
+SET FechaCambio = '2026-10-08 13:05'
+WHERE idPedido = 3 AND idEstatusPedido = 2;
 
 -- Pedido 4
 INSERT INTO Pedido (idCliente, FechaPedido, DireccionEntrega, CostoEnvio)
@@ -123,15 +134,19 @@ UPDATE Pedido
 SET idEstatusPedido = 2
 WHERE idPedido = 4;
 
-INSERT INTO BitacoraEstatusPedido (idPedido, idEstatusPedido, FechaCambio)
-VALUES (4, 2, '2026-10-09 21:30');
+-- trg_actualizarEstatusPedido ya registró el cambio; se ajusta a la fecha del ejemplo
+UPDATE BitacoraEstatusPedido
+SET FechaCambio = '2026-10-09 21:30'
+WHERE idPedido = 4 AND idEstatusPedido = 2;
 
 UPDATE Pedido
 SET idEstatusPedido = 3
 WHERE idPedido = 4;
 
-INSERT INTO BitacoraEstatusPedido (idPedido, idEstatusPedido, FechaCambio)
-VALUES (4, 3, '2026-10-09 22:30');
+-- trg_actualizarEstatusPedido ya registró el cambio; se ajusta a la fecha del ejemplo
+UPDATE BitacoraEstatusPedido
+SET FechaCambio = '2026-10-09 22:30'
+WHERE idPedido = 4 AND idEstatusPedido = 3;
 
 -- Pedido 5
 INSERT INTO Pedido (idCliente, FechaPedido, DireccionEntrega, CostoEnvio)
@@ -198,15 +213,19 @@ UPDATE Pedido
 SET idEstatusPedido = 2
 WHERE idPedido = 7;
 
-INSERT INTO BitacoraEstatusPedido (idPedido, idEstatusPedido, FechaCambio)
-VALUES (7, 2, '2026-10-15 14:35');
+-- trg_actualizarEstatusPedido ya registró el cambio; se ajusta a la fecha del ejemplo
+UPDATE BitacoraEstatusPedido
+SET FechaCambio = '2026-10-15 14:35'
+WHERE idPedido = 7 AND idEstatusPedido = 2;
 
 UPDATE Pedido
 SET idEstatusPedido = 4
 WHERE idPedido = 7;
 
-INSERT INTO BitacoraEstatusPedido (idPedido, idEstatusPedido, FechaCambio)
-VALUES (7, 4, '2026-10-15 15:35');
+-- trg_actualizarEstatusPedido ya registró el cambio; se ajusta a la fecha del ejemplo
+UPDATE BitacoraEstatusPedido
+SET FechaCambio = '2026-10-15 15:35'
+WHERE idPedido = 7 AND idEstatusPedido = 4;
 
 -- Pedido 8
 INSERT INTO Pedido (idCliente, FechaPedido, DireccionEntrega, CostoEnvio)
