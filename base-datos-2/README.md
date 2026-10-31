@@ -38,7 +38,7 @@ Se irá ampliando conforme avancen las sesiones del semestre.
 
 ## Temas del curso
 
-Los temas siguen las etapas del manual de Base de Datos II (PEMA 2022) — ver [ContenidoTematico.md](ContenidoTematico.md). Todos los ejemplos usan **AutoFixDB**, que se instala desde la [sesión 11](sesiones/sesion-11/AutoFixDB), y se ejecutaron en SQL Server con sus datos.
+Los temas siguen las etapas del manual de Base de Datos II (PEMA 2022) — ver [ContenidoTematico.md](ContenidoTematico.md). Los ejemplos de las etapas 1 a 3 usan **AutoFixDB**, que se instala desde la [sesión 11](sesiones/sesion-11/AutoFixDB); los de la etapa 4 usan **TiendaDB**, de la [sesión 12](sesiones/sesion-12/TiendaDB), con sus [datos de ejemplo](temas/Etapa-4/README.md#base-de-datos-de-los-ejemplos). Todos se ejecutaron en SQL Server.
 
 ### Etapa 1 — Vistas
 
@@ -69,6 +69,20 @@ Los temas siguen las etapas del manual de Base de Datos II (PEMA 2022) — ver [
 | 03 | [Las tablas inserted y deleted](temas/Etapa-3/03-InsertedDeleted.md) |
 | 04 | [Activación y desactivación de triggers](temas/Etapa-3/04-ActivarDesactivar.md) |
 
+### Etapa 4 — Introducción a la programación Transact-SQL
+
+Se ve en un orden distinto al del manual: las variables y el `IF` ya se adelantaron a la Etapa 2, y aquí cada tema resuelve un problema que apareció en TiendaDB. La explicación del orden está en la [propuesta de la Etapa 4](temas/Etapa-4/README.md).
+
+| # | Tema |
+|---|------|
+| 01 | [T-SQL como lenguaje de programación: lotes, GO e IF EXISTS](temas/Etapa-4/01-ProgramacionTSQL.md) |
+| 02 | [CASE](temas/Etapa-4/02-Case.md) |
+| 03 | [Errores y TRY CATCH](temas/Etapa-4/03-Errores.md) |
+| 04 | [Errores de valor nulo](temas/Etapa-4/04-ValoresNulos.md) |
+| 05 | [Transacciones con TRY CATCH](temas/Etapa-4/05-Transacciones.md) |
+| 06 | [Manejo de excepciones en procedimientos almacenados](temas/Etapa-4/06-ExcepcionesProcedimientos.md) |
+| 07 | [THROW](temas/Etapa-4/07-Throw.md) |
+
 ## Sesiones
 
 | Sesión | Base de datos | Descripción |
@@ -81,6 +95,7 @@ Los temas siguen las etapas del manual de Base de Datos II (PEMA 2022) — ver [
 | [Sesión 7](sesiones/sesion-7) | HospitalDB | Modelo base para Evidencias 1 y 2 (vistas/funciones y procedimientos almacenados, uno distinto por alumno) — tablas, constraints y datos iniciales instalados |
 | [Examen de Medio Término](sesiones/examen-medio-termino) | SistemaBancarioBD | Examen práctico en línea: cada alumno crea una función, una vista y un procedimiento almacenado sobre un modelo bancario (sucursales, clientes, tarjetas de crédito y movimientos) — [instrucciones y ejercicios](sesiones/examen-medio-termino/entregables/descripcion-examen.md) |
 | [Sesión 11](sesiones/sesion-11) | AutoFixDB | Triggers (`AFTER`, `INSTEAD OF`, tablas `inserted` y `deleted`, activación y desactivación) — AutoFixDB de Base de Datos I ampliada con un procedimiento almacenado, una tabla de auditoría y dos triggers |
+| [Sesión 12](sesiones/sesion-12) | TiendaDB | Triggers sobre un modelo cabecera-detalle construido desde cero en clase: pedidos de una tienda de conveniencia, histórico de precios y cabecera del pedido calculada por triggers |
 
 ---
 

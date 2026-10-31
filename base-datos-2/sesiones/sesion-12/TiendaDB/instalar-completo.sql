@@ -1,11 +1,12 @@
 -- Tema:        TiendaDB - Sesión 12 (Triggers)
--- Descripción: Instalación completa (tablas y catálogos) en un solo script
+-- Descripción: Instalación completa (tablas, catálogos y triggers) en un solo script
 -- Autor:       Daniel Hilario
 
 --
 -- Generado concatenando los scripts de instalacion/ en orden de carpeta y archivo.
--- Ejecútalo completo en SSMS (F5). Pedido, DetallePedido, HistoricoPrecioArticulo y
--- BitacoraEstatusPedido se crean vacías.
+-- Ejecútalo completo en SSMS (F5): cada script va separado con GO, porque
+-- CREATE TRIGGER debe ser la primera sentencia de su lote.
+-- Pedido, DetallePedido, HistoricoPrecioArticulo y BitacoraEstatusPedido se crean vacías.
 
 -- ===== instalacion/00-create-database.sql =====
 -- Tema:        TiendaDB - Sesión 12 (Triggers)
@@ -221,6 +222,61 @@ CREATE TABLE HistoricoPrecioArticulo (
 );
 GO
 
+-- ===== instalacion/05-HistoricoPrecioArticulo/02-trg-insertar-historico-precio.sql =====
+-- Tema:        TiendaDB - Sesión 12 (Triggers)
+-- Descripción: Trigger AFTER UPDATE sobre Articulo: cuando cambia el precio de un artículo,
+--              registra el precio anterior y el nuevo en HistoricoPrecioArticulo (versión de clase)
+-- Autor:       Daniel Hilario
+
+USE TiendaDB;
+GO
+
+CREATE TRIGGER trg_insertarHistoricoPrecioArticulo
+ON Articulo
+AFTER UPDATE
+AS
+BEGIN
+	
+	DECLARE 
+		@PrecioAnterior decimal(10,2),
+		@PrecioNuevo decimal (10,2),
+		@idArticulo int
+		
+	-- Obtener el precio anterior (a eliminar)
+		
+	SELECT
+		@PrecioAnterior = PrecioUnitario,
+		@idArticulo = idArticulo
+	FROM deleted
+		
+	-- Obtener el precio actual (a insertar)
+				
+	SELECT
+		@PrecioNuevo = PrecioUnitario
+	FROM inserted
+		
+	IF @PrecioAnterior = @PrecioNuevo BEGIN -- Si el precio es el mismo, nos salimos porque no tiene caso el registro
+		RETURN
+	END
+	
+	IF @PrecioAnterior IS NULL OR @PrecioNuevo IS NULL BEGIN
+		RETURN
+	END
+	
+	
+	INSERT INTO HistoricoPrecioArticulo (idArticulo, PrecioAnterior, PrecioNuevo, FechaCambio, FechaCreacion, FechaUltimaModificacion)
+	VALUES (
+		@idArticulo,
+		@PrecioAnterior,
+		@PrecioNuevo,
+		GETDATE(),
+		GETDATE(),
+		GETDATE()
+	)
+	
+END
+GO
+
 -- ===== instalacion/06-Pedido/01-create-table.sql =====
 -- Tema:        TiendaDB - Sesión 12 (Triggers)
 -- Descripción: Crear tabla Pedido
@@ -268,6 +324,173 @@ CREATE TABLE DetallePedido (
     CONSTRAINT chk_DetallePedido_PrecioUnitario CHECK (PrecioUnitario > 0),
     CONSTRAINT uq_DetallePedido_Pedido_Articulo UNIQUE (idPedido, idArticulo)
 );
+GO
+
+-- ===== instalacion/07-DetallePedido/02-trg-insertar-detalle-pedido.sql =====
+-- Tema:        TiendaDB - Sesión 12 (Triggers)
+-- Descripción: Trigger AFTER INSERT sobre DetallePedido: recalcula la cabecera del pedido
+--              (CantidadArticulos y Total) cada vez que se le agrega una línea (versión de clase)
+-- Autor:       Daniel Hilario
+
+USE TiendaDB;
+GO
+
+CREATE TRIGGER trg_insertarDetallePedido
+ON DetallePedido
+AFTER INSERT
+AS
+BEGIN
+	
+	DECLARE 
+		@idPedido int,
+		@idArticulo int,
+		@Total decimal(12,2),
+		@CantidadArticulos int
+		
+	SELECT
+		@idPedido = idPedido
+	FROM inserted
+	
+	SELECT
+		@CantidadArticulos = COUNT(idDetallePedido),
+		@Total = SUM(PrecioUnitario * Cantidad)
+	FROM DetallePedido
+	WHERE idPedido = @idPedido
+	
+	UPDATE Pedido
+	SET
+		CantidadArticulos = @CantidadArticulos,
+		Total = @Total,
+		FechaUltimaModificacion = GETDATE()
+	WHERE idPedido = @idPedido
+END
+GO
+
+-- ===== instalacion/07-DetallePedido/03-trg-actualizar-detalle-pedido.sql =====
+-- Tema:        TiendaDB - Sesión 12 (Triggers)
+-- Descripción: Trigger AFTER UPDATE sobre DetallePedido: recalcula la cabecera del pedido
+--              (CantidadArticulos y Total) cuando se modifica una línea; si la línea se movió
+--              a otro pedido, recalcula también el pedido del que salió
+-- Autor:       Daniel Hilario
+
+USE TiendaDB;
+GO
+
+CREATE TRIGGER trg_actualizarDetallePedido
+ON DetallePedido
+AFTER UPDATE
+AS
+BEGIN
+
+	DECLARE
+		@idPedido int,
+		@idPedidoAnterior int,
+		@CantidadArticulos int,
+		@Total decimal(12,2)
+
+	-- El pedido de la línea como quedó (inserted) y como estaba (deleted)
+
+	SELECT
+		@idPedido = idPedido
+	FROM inserted
+
+	SELECT
+		@idPedidoAnterior = idPedido
+	FROM deleted
+
+	-- Si el UPDATE no encontró ninguna línea, no hay nada que recalcular
+
+	IF @idPedido IS NULL BEGIN
+		RETURN
+	END
+
+	-- Recalcular la cabecera del pedido de la línea
+
+	SELECT
+		@CantidadArticulos = COUNT(idDetallePedido),
+		@Total = ISNULL(SUM(PrecioUnitario * Cantidad), 0)
+	FROM DetallePedido
+	WHERE idPedido = @idPedido
+
+	UPDATE Pedido
+	SET
+		CantidadArticulos = @CantidadArticulos,
+		Total = @Total,
+		FechaUltimaModificacion = GETDATE()
+	WHERE idPedido = @idPedido
+
+	-- Si la línea se cambió de pedido, el pedido del que salió también cambió
+
+	IF @idPedidoAnterior <> @idPedido BEGIN
+
+		SELECT
+			@CantidadArticulos = COUNT(idDetallePedido),
+			@Total = ISNULL(SUM(PrecioUnitario * Cantidad), 0)
+		FROM DetallePedido
+		WHERE idPedido = @idPedidoAnterior
+
+		UPDATE Pedido
+		SET
+			CantidadArticulos = @CantidadArticulos,
+			Total = @Total,
+			FechaUltimaModificacion = GETDATE()
+		WHERE idPedido = @idPedidoAnterior
+
+	END
+
+END
+GO
+
+-- ===== instalacion/07-DetallePedido/04-trg-eliminar-detalle-pedido.sql =====
+-- Tema:        TiendaDB - Sesión 12 (Triggers)
+-- Descripción: Trigger AFTER DELETE sobre DetallePedido: recalcula la cabecera del pedido
+--              (CantidadArticulos y Total) cuando se le quita una línea
+-- Autor:       Daniel Hilario
+
+USE TiendaDB;
+GO
+
+CREATE TRIGGER trg_eliminarDetallePedido
+ON DetallePedido
+AFTER DELETE
+AS
+BEGIN
+
+	DECLARE
+		@idPedido int,
+		@CantidadArticulos int,
+		@Total decimal(12,2)
+
+	-- En un DELETE, la línea eliminada solo está en deleted
+
+	SELECT
+		@idPedido = idPedido
+	FROM deleted
+
+	-- Si el DELETE no encontró ninguna línea, no hay nada que recalcular
+
+	IF @idPedido IS NULL BEGIN
+		RETURN
+	END
+
+	-- Recalcular con las líneas que le quedan al pedido.
+	-- Si era la última, SUM regresa NULL: ISNULL lo convierte en 0,
+	-- porque Pedido.Total no acepta NULL
+
+	SELECT
+		@CantidadArticulos = COUNT(idDetallePedido),
+		@Total = ISNULL(SUM(PrecioUnitario * Cantidad), 0)
+	FROM DetallePedido
+	WHERE idPedido = @idPedido
+
+	UPDATE Pedido
+	SET
+		CantidadArticulos = @CantidadArticulos,
+		Total = @Total,
+		FechaUltimaModificacion = GETDATE()
+	WHERE idPedido = @idPedido
+
+END
 GO
 
 -- ===== instalacion/08-BitacoraEstatusPedido/01-create-table.sql =====
