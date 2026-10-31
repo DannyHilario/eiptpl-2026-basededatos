@@ -37,7 +37,7 @@ Todos esos `UPDATE` disparan este trigger. Sin la comparación, registraría otr
 
 ## De la versión de clase a esta versión
 
-La versión que se escribió en clase guardaba `inserted` en variables y registraba **con cualquier `UPDATE`**:
+En la [sesión 13](../../../../sesion-13/README.md#1-el-trigger-de-la-bitácora-de-estatus) el trigger se escribió en dos pasos. La primera versión guardaba `inserted` en variables y registraba **con cualquier `UPDATE`**; la segunda ya comparaba contra `deleted` y salía con `RETURN` si no había filas, pero seguía con variables:
 
 | Problema en la versión de clase | Corrección |
 |---------------------------------|------------|

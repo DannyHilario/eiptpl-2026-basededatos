@@ -30,10 +30,9 @@ Sábado 24 de octubre de 2026.
 | 3 | `trg_insertarDetallePedido` | [`07-DetallePedido/02-trg-insertar-detalle-pedido.sql`](TiendaDB/instalacion/07-DetallePedido/02-trg-insertar-detalle-pedido.sql) | `AFTER INSERT` sobre `DetallePedido`: recalcula el número de líneas y el total del pedido |
 | 4 | `trg_actualizarDetallePedido` *(después de clase)* | [`07-DetallePedido/03-trg-actualizar-detalle-pedido.sql`](TiendaDB/instalacion/07-DetallePedido/03-trg-actualizar-detalle-pedido.sql) | `AFTER UPDATE` sobre `DetallePedido`: recalcula la cabecera cuando se modifica una línea |
 | 5 | `trg_eliminarDetallePedido` *(después de clase)* | [`07-DetallePedido/04-trg-eliminar-detalle-pedido.sql`](TiendaDB/instalacion/07-DetallePedido/04-trg-eliminar-detalle-pedido.sql) | `AFTER DELETE` sobre `DetallePedido`: recalcula la cabecera cuando se quita una línea |
-| 6 | `trg_actualizarEstatusPedido` *(31 de octubre)* | [`08-BitacoraEstatusPedido/02-trg-actualizar-estatus-pedido.sql`](TiendaDB/instalacion/08-BitacoraEstatusPedido/02-trg-actualizar-estatus-pedido.sql) | `AFTER UPDATE` sobre `Pedido`: registra en la bitácora cada cambio de estatus |
-| 7 | `usp_crearPedido` *(31 de octubre)* | [`06-Pedido/02-usp-crear.sql`](TiendaDB/instalacion/06-Pedido/02-usp-crear.sql) | Crea un pedido en estatus Creado y registra ese estatus en la bitácora |
-| 8 | `usp_actualizarPedido` *(31 de octubre)* | [`06-Pedido/03-usp-actualizar.sql`](TiendaDB/instalacion/06-Pedido/03-usp-actualizar.sql) | Cambia la dirección y el costo de envío de un pedido en estatus Creado |
-| 9 | Pruebas | [`pruebas.sql`](TiendaDB/pruebas.sql) | El flujo de la clase, los triggers de después de clase, los procedimientos y la bitácora, paso a paso, con los resultados esperados |
+| 6 | Pruebas | [`pruebas.sql`](TiendaDB/pruebas.sql) | El flujo de la clase y los triggers de después de clase, paso a paso, con los resultados esperados (pruebas 1 a 12) |
+
+> En la [sesión 13](../sesion-13) se agregaron a TiendaDB la bitácora de estatus por trigger y los procedimientos para crear y modificar pedidos (pruebas 13 a 19).
 
 ## Prerequisito
 
@@ -141,7 +140,7 @@ Hay tres funciones parecidas, y con triggers solo una es segura:
 | `@@IDENTITY` | El último `IDENTITY` de la sesión, **incluidos los triggers** | ❌ Si un trigger de `Pedido` inserta en otra tabla con `IDENTITY` (por ejemplo, en la bitácora), regresaría **ese** id |
 | `IDENT_CURRENT('Pedido')` | El último `IDENTITY` de la tabla, **de cualquier usuario** | ❌ Si otra persona inserta un pedido al mismo tiempo, regresa el suyo |
 
-En clase, el primer estatus se registró **a mano** en la bitácora. Desde el 31 de octubre lo registra `usp_crearPedido` (ver [la bitácora y los procedimientos del pedido](#7-el-31-de-octubre-la-bitácora-y-los-procedimientos-del-pedido)).
+En clase, el primer estatus se registró **a mano** en la bitácora. Desde la [sesión 13](../sesion-13) lo registra `usp_crearPedido`.
 
 ### 4. Agregar artículos: primero sin trigger
 
@@ -230,17 +229,7 @@ Tres detalles que no aparecían con el `INSERT`:
 - **Una línea que cambia de pedido.** Si un `UPDATE` cambia el `idPedido` de una línea, cambian **dos** cabeceras: la del pedido al que llegó (`inserted`) y la del pedido del que salió (`deleted`).
 - **Sentencias que no encuentran nada.** Un `UPDATE` o `DELETE` cuyo `WHERE` no encuentra líneas también dispara el trigger; con las tablas vacías, la variable queda en `NULL` y el trigger sale con `RETURN`.
 
-### 7. El 31 de octubre: la bitácora y los procedimientos del pedido
-
-Se agregaron tres objetos sobre `Pedido`:
-
-| Objeto | Qué hace |
-|--------|----------|
-| [`trg_actualizarEstatusPedido`](TiendaDB/docs/triggers/trg_actualizarEstatusPedido.md) | Registra en la bitácora cada cambio de estatus. Compara el estatus de `inserted` contra el de `deleted` y solo registra si cambió: los `UPDATE` que hacen los triggers de `DetallePedido` al recalcular la cabecera no cambian el estatus, y sin esa comparación el `UNIQUE` de la bitácora los rechazaría y se desharía la operación sobre la línea |
-| [`usp_crearPedido`](TiendaDB/docs/procedimientos/usp_crearPedido.md) | Crea el pedido y registra su primer estatus. El trigger no puede hacerlo porque solo atiende `UPDATE`, y un pedido nuevo se inserta |
-| [`usp_actualizarPedido`](TiendaDB/docs/procedimientos/usp_actualizarPedido.md) | Cambia la dirección y el envío solo mientras el pedido está en Creado |
-
-### 8. Lo que falta
+### 7. Lo que falta
 
 | Pendiente | Qué pasa hoy |
 |-----------|--------------|

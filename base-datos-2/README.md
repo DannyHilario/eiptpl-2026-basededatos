@@ -95,6 +95,7 @@ Se ve en un orden distinto al del manual: las variables y el `IF` ya se adelanta
 | [Examen de Medio Término](sesiones/examen-medio-termino) | SistemaBancarioBD | Examen práctico en línea: cada alumno crea una función, una vista y un procedimiento almacenado sobre un modelo bancario (sucursales, clientes, tarjetas de crédito y movimientos) — [instrucciones y ejercicios](sesiones/examen-medio-termino/entregables/descripcion-examen.md) |
 | [Sesión 11](sesiones/sesion-11) | AutoFixDB | Triggers (`AFTER`, `INSTEAD OF`, tablas `inserted` y `deleted`, activación y desactivación) — AutoFixDB de Base de Datos I ampliada con un procedimiento almacenado, una tabla de auditoría y dos triggers |
 | [Sesión 12](sesiones/sesion-12) | TiendaDB | Triggers sobre un modelo cabecera-detalle construido desde cero en clase: pedidos de una tienda de conveniencia, histórico de precios y cabecera del pedido calculada por triggers |
+| [Sesión 13](sesiones/sesion-13) | TiendaDB | Bitácora de estatus del pedido por trigger (comparar `inserted` contra `deleted`) y procedimientos para crear y modificar pedidos |
 
 ---
 
