@@ -21,15 +21,16 @@ base-datos-2/
 │   ├── Etapa-1/           # Vistas: cláusulas, funciones, operadores y vistas
 │   ├── Etapa-2/           # Procedimientos almacenados: variables, IF/ELSE y validaciones
 │   └── Etapa-3/           # Funciones definidas por el usuario y triggers
-└── sesiones/
-    ├── sesion-1/          # RestauranteDB (Comanda) — funciones de agregado
-    ├── sesion-2/          # CineDB — funciones escalares y vistas
-    ├── sesion-3/          # CineDB — variables y procedimientos almacenados
-    ├── sesion-4/          # CineDB — validaciones y manejo de errores en SPs
-    ├── sesion-5-6/        # CompuStoreDB — modelado, N:N, auditoría y constraints (dos sábados de trabajo)
-    ├── sesion-7/          # HospitalDB — modelo base para Evidencias 1 y 2
-    ├── examen-medio-termino/  # SistemaBancarioBD — examen práctico (función, vista y SP por alumno)
-    └── sesion-11/         # AutoFixDB (versión BD2) — triggers
+├── sesiones/
+│   ├── sesion-1/          # RestauranteDB (Comanda) — funciones de agregado
+│   ├── sesion-2/          # CineDB — funciones escalares y vistas
+│   ├── sesion-3/          # CineDB — variables y procedimientos almacenados
+│   ├── sesion-4/          # CineDB — validaciones y manejo de errores en SPs
+│   ├── sesion-5-6/        # CompuStoreDB — modelado, N:N, auditoría y constraints (dos sábados de trabajo)
+│   ├── sesion-7/          # HospitalDB — modelo base para Evidencias 1 y 2
+│   ├── examen-medio-termino/  # SistemaBancarioBD — examen práctico (función, vista y SP por alumno)
+│   └── sesion-11/         # AutoFixDB (versión BD2) — triggers
+└── pia/                   # Producto Integrador de Aprendizaje: descripción y un caso por alumno
 ```
 
 Se irá ampliando conforme avancen las sesiones del semestre.
@@ -96,6 +97,12 @@ Se ve en un orden distinto al del manual: las variables y el `IF` ya se adelanta
 | [Sesión 11](sesiones/sesion-11) | AutoFixDB | Triggers (`AFTER`, `INSTEAD OF`, tablas `inserted` y `deleted`, activación y desactivación) — AutoFixDB de Base de Datos I ampliada con un procedimiento almacenado, una tabla de auditoría y dos triggers |
 | [Sesión 12](sesiones/sesion-12) | TiendaDB | Triggers sobre un modelo cabecera-detalle construido desde cero en clase: pedidos de una tienda de conveniencia, histórico de precios y cabecera del pedido calculada por triggers |
 | [Sesión 13](sesiones/sesion-13) | TiendaDB | Bitácora de estatus del pedido por trigger (comparar `inserted` contra `deleted`) y procedimientos para crear y modificar pedidos |
+
+---
+
+## Producto Integrador de Aprendizaje (PIA)
+
+Individual: cada alumno construye la base de datos completa de su propio caso de negocio, con el histórico de precios y 11 objetos programados (procedimientos almacenados, funciones, vistas y un trigger). Entrega el sábado 14 de noviembre de 2026, 10:00 p.m., en NEXUS — ver la [descripción del PIA](pia/descripcion-pia.md) y busca tu caso en la tabla.
 
 ---
 
