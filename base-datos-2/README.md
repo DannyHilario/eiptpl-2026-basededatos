@@ -77,11 +77,10 @@ Se ve en un orden distinto al del manual: las variables y el `IF` ya se adelanta
 | # | Tema |
 |---|------|
 | 01 | [T-SQL como lenguaje de programación: IF EXISTS](temas/Etapa-4/01-ProgramacionTSQL.md) |
-| 02 | [Lotes y GO](temas/Etapa-4/02-Lotes.md) |
-| 03 | [CASE](temas/Etapa-4/03-Case.md) |
-| 04 | [Errores y TRY CATCH](temas/Etapa-4/04-Errores.md) |
-| 05 | [Errores de valor nulo](temas/Etapa-4/05-ValoresNulos.md) |
-| 06 | [Manejo de excepciones en procedimientos almacenados](temas/Etapa-4/06-ExcepcionesProcedimientos.md) |
+| 02 | [CASE](temas/Etapa-4/02-Case.md) |
+| 03 | [Errores y TRY CATCH](temas/Etapa-4/03-Errores.md) |
+| 04 | [Errores de valor nulo](temas/Etapa-4/04-ValoresNulos.md) |
+| 05 | [Manejo de excepciones en procedimientos almacenados](temas/Etapa-4/05-ExcepcionesProcedimientos.md) |
 
 ## Sesiones
 
@@ -97,6 +96,7 @@ Se ve en un orden distinto al del manual: las variables y el `IF` ya se adelanta
 | [Sesión 11](sesiones/sesion-11) | AutoFixDB | Triggers (`AFTER`, `INSTEAD OF`, tablas `inserted` y `deleted`, activación y desactivación) — AutoFixDB de Base de Datos I ampliada con un procedimiento almacenado, una tabla de auditoría y dos triggers |
 | [Sesión 12](sesiones/sesion-12) | TiendaDB | Triggers sobre un modelo cabecera-detalle construido desde cero en clase: pedidos de una tienda de conveniencia, histórico de precios y cabecera del pedido calculada por triggers |
 | [Sesión 13](sesiones/sesion-13) | TiendaDB | Bitácora de estatus del pedido por trigger (comparar `inserted` contra `deleted`) y procedimientos para crear y modificar pedidos |
+| [Sesión 14](sesiones/sesion-14) | CompuStoreDB | Manejo de excepciones en procedimientos almacenados: casos que se escapan a las validaciones, antes y después de agregar `TRY CATCH` |
 
 ---
 
