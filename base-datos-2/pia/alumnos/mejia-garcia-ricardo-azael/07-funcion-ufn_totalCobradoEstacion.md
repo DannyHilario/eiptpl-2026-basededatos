@@ -21,7 +21,7 @@ Lo cobrado con una estación es la **suma de lo cobrado** en todas sus sesiones:
 | La estación existe pero no tiene sesiones | `0.00` |
 | La estación no existe | `NULL` |
 
-Cuidado con el segundo caso: `SUM` sobre cero filas regresa `NULL`, no `0` ([Errores de valor nulo](../../../temas/Etapa-4/05-ValoresNulos.md)).
+Cuidado con el segundo caso: `SUM` sobre cero filas regresa `NULL`, no `0` ([Errores de valor nulo](../../../temas/Etapa-4/04-ValoresNulos.md)).
 
 ## Tu tarea
 

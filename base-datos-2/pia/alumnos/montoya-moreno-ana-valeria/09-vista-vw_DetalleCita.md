@@ -23,7 +23,7 @@ Cada cita guarda el **precio cobrado**, y el servicio tiene su **precio actual**
 
 ## Tu tarea
 
-Crea una vista llamada exactamente `vw_DetalleCita` que muestre **todas** las citas con las columnas de abajo. Decide el `CambioPrecio` con `CASE` ([CASE](../../../temas/Etapa-4/03-Case.md)).
+Crea una vista llamada exactamente `vw_DetalleCita` que muestre **todas** las citas con las columnas de abajo. Decide el `CambioPrecio` con `CASE` ([CASE](../../../temas/Etapa-4/02-Case.md)).
 
 **Columnas**, en este orden y con estos nombres:
 

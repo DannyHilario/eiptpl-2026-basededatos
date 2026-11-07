@@ -21,7 +21,7 @@ Lo cobrado con una quinta es la **suma del precio cobrado** de todas sus eventos
 | La quinta existe pero no tiene eventos | `0.00` |
 | La quinta no existe | `NULL` |
 
-Cuidado con el segundo caso: `SUM` sobre cero filas regresa `NULL`, no `0` ([Errores de valor nulo](../../../temas/Etapa-4/05-ValoresNulos.md)).
+Cuidado con el segundo caso: `SUM` sobre cero filas regresa `NULL`, no `0` ([Errores de valor nulo](../../../temas/Etapa-4/04-ValoresNulos.md)).
 
 ## Tu tarea
 

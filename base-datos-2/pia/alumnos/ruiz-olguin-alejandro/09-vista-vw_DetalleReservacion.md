@@ -23,7 +23,7 @@ Cada reservación guarda el **precio cobrado**, y el recorrido tiene su **precio
 
 ## Tu tarea
 
-Crea una vista llamada exactamente `vw_DetalleReservacion` que muestre **todas** las reservaciones con las columnas de abajo. Decide el `CambioPrecio` con `CASE` ([CASE](../../../temas/Etapa-4/03-Case.md)).
+Crea una vista llamada exactamente `vw_DetalleReservacion` que muestre **todas** las reservaciones con las columnas de abajo. Decide el `CambioPrecio` con `CASE` ([CASE](../../../temas/Etapa-4/02-Case.md)).
 
 **Columnas**, en este orden y con estos nombres:
 

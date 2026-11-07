@@ -148,9 +148,9 @@ Conversion failed when converting the varchar value 'Total: ' to data type int.
 
 Se corrige con `CONVERT(varchar(10), @Total)`. Y si una variable vale `NULL`, todo el texto queda en `NULL`: `PRINT` no imprime nada.
 
-### Alcance: una variable vive dentro de su lote
+### Alcance: hasta dónde existe una variable
 
-Una variable existe desde su `DECLARE` hasta el final del **lote** (hasta el siguiente `GO`) o, dentro de un procedimiento, hasta su `END`.
+Una variable existe desde su `DECLARE` hasta el siguiente `GO` (o el final de lo que ejecutas) o, dentro de un procedimiento, hasta su `END`.
 
 ```sql
 DECLARE @Marca varchar(50) = 'Nissan'

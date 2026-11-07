@@ -19,7 +19,7 @@ key in object 'dbo.DetallePedido'. The duplicate key value is (5, 2).
 | `Msg` | El **número** del error: identifica qué tipo de error es | `2627`: llave única repetida |
 | `Level` | La **severidad**, de 0 a 25 | `14`: error del usuario |
 | `State` | Un dato interno de dónde se generó; ayuda al soporte de SQL Server | `1` |
-| `Line` | La línea **del lote** donde ocurrió | `3` |
+| `Line` | La línea donde ocurrió, contada desde el inicio de lo que ejecutaste | `3` |
 | Mensaje | La explicación | La llave repetida es `(5, 2)` |
 
 | Severidad | Significa |
@@ -41,15 +41,15 @@ Los errores que aparecen al trabajar con TiendaDB son de severidad 11 a 16:
 
 ---
 
-## Qué pasa con el resto del lote
+## Qué pasa con el resto del script
 
-Estos cinco errores de datos, en un mismo lote:
+Estos cinco errores de datos, en un mismo script:
 
 ```sql
 INSERT INTO DetallePedido (idPedido, idArticulo, Cantidad, PrecioUnitario)
 VALUES (5, 2, 1, 18.00)                                        -- artículo repetido
 
-PRINT 'El lote sigue después del error de llave única'
+PRINT 'El script sigue después del error de llave única'
 
 INSERT INTO DetallePedido (idPedido, idArticulo, Cantidad, PrecioUnitario)
 VALUES (5, 3, 0, 22.00)                                        -- cantidad 0
@@ -68,7 +68,7 @@ PRINT 'Sigue después de todo'
 ```
 Msg 2627, Level 14 ... The duplicate key value is (5, 2).
 The statement has been terminated.
-El lote sigue después del error de llave única
+El script sigue después del error de llave única
 Msg 547, Level 16 ... conflicted with the CHECK constraint "chk_DetallePedido_Cantidad".
 Msg 547, Level 16 ... conflicted with the FOREIGN KEY constraint "fk_Pedido_Cliente".
 Msg 515, Level 16 ... Cannot insert the value NULL into column 'DireccionEntrega'.
@@ -76,11 +76,11 @@ Msg 8134, Level 16 ... Divide by zero error encountered.
 Sigue después de todo
 ```
 
-**La instrucción que falla se cancela, y el lote sigue con la siguiente.** "The statement has been terminated" significa justo eso: se canceló **esa** instrucción.
+**La instrucción que falla se cancela, y el script sigue con la siguiente.** "The statement has been terminated" significa justo eso: se canceló **esa** instrucción.
 
-Por eso un error no basta para detener un procedimiento. Si un procedimiento inserta un pedido y después sus líneas, y la tercera línea falla, el pedido y las primeras dos líneas **se quedan**. Por eso, en un procedimiento, las validaciones van **antes** de modificar datos: si algo no se cumple, se sale con `RETURN` sin haber tocado nada ([Excepciones en procedimientos almacenados](06-ExcepcionesProcedimientos.md)).
+Por eso un error no basta para detener un procedimiento. Si un procedimiento inserta un pedido y después sus líneas, y la tercera línea falla, el pedido y las primeras dos líneas **se quedan**. Por eso, en un procedimiento, las validaciones van **antes** de modificar datos: si algo no se cumple, se sale con `RETURN` sin haber tocado nada ([Excepciones en procedimientos almacenados](05-ExcepcionesProcedimientos.md)).
 
-> No todos los errores se comportan igual. Un error de sintaxis o una variable no declarada (`Msg 102`, `Msg 137`) impiden que el lote **empiece**, como se vio en [Lotes y GO](02-Lotes.md). Y un error dentro de un **trigger** cancela todo el lote, no solo la instrucción.
+> No todos los errores se comportan igual. Un error de sintaxis o una variable no declarada (`Msg 102`, `Msg 137`) impiden que el script **empiece**: no se ejecuta ninguna instrucción. Y un error dentro de un **trigger** cancela todo el script, no solo la instrucción.
 
 ---
 
@@ -112,7 +112,7 @@ Dentro del `CATCH` se puede saber **qué** error ocurrió:
 | `ERROR_SEVERITY()` | La severidad (`Level`) |
 | `ERROR_STATE()` | El estado (`State`) |
 | `ERROR_LINE()` | La línea donde ocurrió |
-| `ERROR_PROCEDURE()` | El procedimiento o trigger donde ocurrió; `NULL` si fue en el lote |
+| `ERROR_PROCEDURE()` | El procedimiento o trigger donde ocurrió; `NULL` si fue fuera de ellos |
 
 ```sql
 BEGIN TRY
@@ -144,19 +144,19 @@ SELECT ERROR_NUMBER() AS FueraDelCatch
 | NULL |
 
 - El `PRINT` no se ejecutó: el `INSERT` falló y el control pasó al `CATCH`.
-- `ERROR_PROCEDURE()` es `NULL` porque el error ocurrió en el lote, no dentro de un procedimiento.
+- `ERROR_PROCEDURE()` es `NULL` porque el error ocurrió en el script, no dentro de un procedimiento.
 - **Fuera del `CATCH`, las funciones `ERROR` regresan `NULL`.** Solo funcionan dentro de él.
 
 ### Lo que TRY CATCH no atrapa
 
-Los errores que impiden que el lote **empiece** (sintaxis, variables no declaradas) no llegan al `CATCH`, porque el `TRY` nunca se ejecuta. `TRY … CATCH` atrapa los errores que ocurren **al ejecutar**: datos inválidos, restricciones, divisiones entre cero.
+Los errores que impiden que el script **empiece** (sintaxis, variables no declaradas) no llegan al `CATCH`, porque el `TRY` nunca se ejecuta. `TRY … CATCH` atrapa los errores que ocurren **al ejecutar**: datos inválidos, restricciones, divisiones entre cero.
 
 ---
 
 ## Resumen
 
 - Un error tiene número (`Msg`), severidad (`Level`), estado (`State`), línea y mensaje. Los de severidad 11 a 16 los puede corregir el usuario.
-- Por omisión, la instrucción que falla se cancela y **el lote sigue**. Un error no detiene un procedimiento por sí solo.
+- Por omisión, la instrucción que falla se cancela y **el script sigue**. Un error no detiene un procedimiento por sí solo.
 - `BEGIN TRY … END TRY BEGIN CATCH … END CATCH`: si algo del `TRY` falla, se salta al `CATCH`.
 - Dentro del `CATCH`, las funciones `ERROR_NUMBER()`, `ERROR_MESSAGE()`, `ERROR_LINE()`, `ERROR_PROCEDURE()`, `ERROR_SEVERITY()` y `ERROR_STATE()` dicen qué falló. Fuera del `CATCH` regresan `NULL`.
-- `TRY … CATCH` no atrapa errores de sintaxis: esos impiden que el lote empiece.
+- `TRY … CATCH` no atrapa errores de sintaxis: esos impiden que el script empiece.

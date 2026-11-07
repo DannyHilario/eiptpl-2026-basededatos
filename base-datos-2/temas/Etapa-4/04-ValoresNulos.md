@@ -2,7 +2,7 @@
 
 `NULL` significa "no hay valor". No es cero ni texto vacío: es la **ausencia** de dato. Por sí mismo no es un error, pero se cuela en los cálculos sin avisar y termina en un error cuando se intenta guardar en una columna que no lo acepta. Este tema muestra de dónde sale, cómo atrapar el error con `TRY … CATCH` y, sobre todo, cómo evitarlo.
 
-Los ejemplos usan **TiendaDB** con los [datos de ejemplo](README.md#base-de-datos-de-los-ejemplos) de la Etapa 4. Parte de [Errores y TRY CATCH](04-Errores.md).
+Los ejemplos usan **TiendaDB** con los [datos de ejemplo](README.md#base-de-datos-de-los-ejemplos) de la Etapa 4. Parte de [Errores y TRY CATCH](03-Errores.md).
 
 ---
 

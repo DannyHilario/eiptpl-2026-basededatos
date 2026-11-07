@@ -288,7 +288,7 @@ ORDER BY name
 | ufn_serviciosVehiculo | SQL_INLINE_TABLE_VALUED_FUNCTION |
 | ufn_totalGastadoCliente | SQL_SCALAR_FUNCTION |
 
-Como `CREATE VIEW` y `CREATE PROCEDURE`, **`CREATE FUNCTION` debe ser la única sentencia de su lote**: en un script lleva un `GO` antes y otro después.
+Como `CREATE VIEW` y `CREATE PROCEDURE`, **`CREATE FUNCTION` debe ser la primera sentencia de lo que ejecutas**: en un script lleva un `GO` antes y otro después.
 
 ---
 

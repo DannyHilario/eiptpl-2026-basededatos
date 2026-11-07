@@ -40,7 +40,7 @@ ALTER TABLE NombreTabla ENABLE TRIGGER trg_nombre;
 
 Las dos formas (`DISABLE TRIGGER ... ON` y `ALTER TABLE ... DISABLE TRIGGER`) hacen lo mismo.
 
-> **El punto y coma es obligatorio antes de `DISABLE TRIGGER` y `ENABLE TRIGGER`.** Si en el mismo lote hay otra instrucción antes, esa instrucción debe terminar con `;`. Si no, SQL Server no reconoce dónde empieza el `DISABLE` y marca un error de sintaxis aunque la instrucción esté bien escrita:
+> **El punto y coma es obligatorio antes de `DISABLE TRIGGER` y `ENABLE TRIGGER`.** Si en lo que ejecutas hay otra instrucción antes, esa instrucción debe terminar con `;`. Si no, SQL Server no reconoce dónde empieza el `DISABLE` y marca un error de sintaxis aunque la instrucción esté bien escrita:
 >
 > ```sql
 > SELECT COUNT(*) FROM Cliente

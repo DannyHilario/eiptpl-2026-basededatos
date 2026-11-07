@@ -21,7 +21,7 @@ Lo cobrado con una clase es la **suma del precio cobrado** de todas sus asistenc
 | La clase existe pero no tiene asistencias | `0.00` |
 | La clase no existe | `NULL` |
 
-Cuidado con el segundo caso: `SUM` sobre cero filas regresa `NULL`, no `0` ([Errores de valor nulo](../../../temas/Etapa-4/05-ValoresNulos.md)).
+Cuidado con el segundo caso: `SUM` sobre cero filas regresa `NULL`, no `0` ([Errores de valor nulo](../../../temas/Etapa-4/04-ValoresNulos.md)).
 
 ## Tu tarea
 

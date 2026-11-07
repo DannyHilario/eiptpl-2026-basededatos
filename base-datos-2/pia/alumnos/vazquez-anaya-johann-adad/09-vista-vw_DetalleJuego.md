@@ -23,7 +23,7 @@ Cada juego guarda el **precio cobrado**, y el tipo de pista tiene su **precio ac
 
 ## Tu tarea
 
-Crea una vista llamada exactamente `vw_DetalleJuego` que muestre **todos** los juegos con las columnas de abajo. Decide el `CambioPrecio` con `CASE` ([CASE](../../../temas/Etapa-4/03-Case.md)).
+Crea una vista llamada exactamente `vw_DetalleJuego` que muestre **todos** los juegos con las columnas de abajo. Decide el `CambioPrecio` con `CASE` ([CASE](../../../temas/Etapa-4/02-Case.md)).
 
 **Columnas**, en este orden y con estos nombres:
 

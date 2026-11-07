@@ -25,7 +25,7 @@ Se busca al miembro por su **correo electrónico**. Un miembro dado de baja tamb
 
 ## Tu tarea
 
-Crea una función escalar llamada exactamente `ufn_nivelMiembro` que regrese el nivel según la tabla de arriba. Para elegirlo puedes usar `IF` / `ELSE` o `CASE` ([CASE](../../../temas/Etapa-4/03-Case.md)).
+Crea una función escalar llamada exactamente `ufn_nivelMiembro` que regrese el nivel según la tabla de arriba. Para elegirlo puedes usar `IF` / `ELSE` o `CASE` ([CASE](../../../temas/Etapa-4/02-Case.md)).
 
 ## Firma de la función
 

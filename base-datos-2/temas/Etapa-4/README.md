@@ -10,21 +10,20 @@ Lo que **sí** conviene dejar al final es el manejo de errores: tiene sentido cu
 
 | Problema de TiendaDB | Tema que lo resuelve |
 |----------------------|----------------------|
-| Al quitar la última línea de un pedido, `SUM` regresa `NULL` y el trigger falla | [05 · Errores de valor nulo](05-ValoresNulos.md) |
-| Agregar artículos a un pedido que ya se envió | [06 · Excepciones en procedimientos almacenados](06-ExcepcionesProcedimientos.md) |
+| Al quitar la última línea de un pedido, `SUM` regresa `NULL` y el trigger falla | [04 · Errores de valor nulo](04-ValoresNulos.md) |
+| Agregar artículos a un pedido que ya se envió | [05 · Excepciones en procedimientos almacenados](05-ExcepcionesProcedimientos.md) |
 
 ## Temas
 
 | # | Tema | Temario oficial |
 |---|------|-----------------|
 | 01 | [T-SQL como lenguaje de programación](01-ProgramacionTSQL.md) | Descripción de Transact SQL para la programación · Declaración y asignación de variables · Control de flujo · `IF`, `IF-ELSE`, `IF EXISTS` · `IF` anidados |
-| 02 | [Lotes y GO](02-Lotes.md) | Descripción de Transact SQL para la programación (cómo se envía y ejecuta el código) |
-| 03 | [CASE](03-Case.md) | Estructura de control `CASE` · `CASE` con `ORDER BY` · `CASE` con `GROUP BY` · `UPDATE` con `CASE` · `INSERT` con `CASE` |
-| 04 | [Errores y TRY CATCH](04-Errores.md) | Gestión de errores en Transact SQL · Funciones `ERROR` |
-| 05 | [Errores de valor nulo](05-ValoresNulos.md) | Manejo de errores de valor nulo con `TRY CATCH` |
-| 06 | [Excepciones en procedimientos almacenados](06-ExcepcionesProcedimientos.md) | Manejo de excepciones en procedimientos almacenados |
+| 02 | [CASE](02-Case.md) | Estructura de control `CASE` · `CASE` con `ORDER BY` · `CASE` con `GROUP BY` · `UPDATE` con `CASE` · `INSERT` con `CASE` |
+| 03 | [Errores y TRY CATCH](03-Errores.md) | Gestión de errores en Transact SQL · Funciones `ERROR` |
+| 04 | [Errores de valor nulo](04-ValoresNulos.md) | Manejo de errores de valor nulo con `TRY CATCH` |
+| 05 | [Excepciones en procedimientos almacenados](05-ExcepcionesProcedimientos.md) | Manejo de excepciones en procedimientos almacenados |
 
-El tema 01 es corto: las variables y el `IF` ya se vieron en la Etapa 2, y aquí solo se agrega lo que falta del temario (`IF EXISTS`). Los lotes y `GO` tienen su propio tema, el 02, porque explican muchos errores que aparecen al ejecutar scripts.
+El tema 01 es corto: las variables y el `IF` ya se vieron en la Etapa 2, y aquí solo se agrega lo que falta del temario (`IF EXISTS`).
 
 Del temario oficial **no** se cubren *Transacciones con instrucción SQL try catch* ni *THROW*: quedan fuera del curso.
 

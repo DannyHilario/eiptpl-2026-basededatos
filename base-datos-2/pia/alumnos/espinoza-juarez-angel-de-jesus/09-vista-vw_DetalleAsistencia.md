@@ -23,7 +23,7 @@ Cada asistencia guarda el **precio cobrado**, y la clase tiene su **precio actua
 
 ## Tu tarea
 
-Crea una vista llamada exactamente `vw_DetalleAsistencia` que muestre **todas** las asistencias con las columnas de abajo. Decide el `CambioPrecio` con `CASE` ([CASE](../../../temas/Etapa-4/03-Case.md)).
+Crea una vista llamada exactamente `vw_DetalleAsistencia` que muestre **todas** las asistencias con las columnas de abajo. Decide el `CambioPrecio` con `CASE` ([CASE](../../../temas/Etapa-4/02-Case.md)).
 
 **Columnas**, en este orden y con estos nombres:
 

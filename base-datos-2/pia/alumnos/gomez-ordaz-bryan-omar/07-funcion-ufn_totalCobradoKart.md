@@ -23,7 +23,7 @@ Hay tres situaciones distintas, y la función debe distinguirlas:
 | El kart existe pero nunca se ha usado | `0.00`: no se ha cobrado nada |
 | El kart no existe | `NULL`: no hay nada que sumar |
 
-Cuidado con el segundo caso: `SUM` sobre cero filas regresa `NULL`, no `0` ([Errores de valor nulo](../../../temas/Etapa-4/05-ValoresNulos.md)).
+Cuidado con el segundo caso: `SUM` sobre cero filas regresa `NULL`, no `0` ([Errores de valor nulo](../../../temas/Etapa-4/04-ValoresNulos.md)).
 
 ## Tu tarea
 

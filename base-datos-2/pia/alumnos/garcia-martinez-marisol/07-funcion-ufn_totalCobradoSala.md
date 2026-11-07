@@ -21,7 +21,7 @@ Lo cobrado con una sala es la **suma de lo cobrado** en todas sus ensayos: en ca
 | La sala existe pero no tiene ensayos | `0.00` |
 | La sala no existe | `NULL` |
 
-Cuidado con el segundo caso: `SUM` sobre cero filas regresa `NULL`, no `0` ([Errores de valor nulo](../../../temas/Etapa-4/05-ValoresNulos.md)).
+Cuidado con el segundo caso: `SUM` sobre cero filas regresa `NULL`, no `0` ([Errores de valor nulo](../../../temas/Etapa-4/04-ValoresNulos.md)).
 
 ## Tu tarea
 

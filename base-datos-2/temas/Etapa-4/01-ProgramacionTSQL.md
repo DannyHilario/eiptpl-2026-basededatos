@@ -17,7 +17,7 @@ Buena parte del temario de esta etapa se adelantó, porque sin ella no se pueden
 | `IF` anidados | [IF anidados](../Etapa-2/03-VariablesIfElse.md#if-anidados) |
 | Validar con `IF @variable IS NULL` | [Validaciones y códigos de salida](../Etapa-2/04-Validaciones.md) |
 
-Este tema agrega lo que falta: `IF EXISTS`. Cómo SQL Server recibe y ejecuta el código está en su propio tema: [Lotes y GO](02-Lotes.md).
+Este tema agrega lo que falta: `IF EXISTS`.
 
 ---
 
@@ -80,8 +80,8 @@ Las instrucciones que deciden qué se ejecuta y en qué orden:
 | `BEGIN … END` | Agrupa varias instrucciones en un bloque | Desde la Etapa 2 |
 | `IF … ELSE` | Ejecuta un bloque u otro según una condición | [Etapa 2](../Etapa-2/03-VariablesIfElse.md#if--else) |
 | `RETURN` | Termina el procedimiento o el trigger en ese momento | [Etapa 2](../Etapa-2/04-Validaciones.md) y los triggers de la [sesión 12](../../sesiones/sesion-12) |
-| `CASE` | Elige un **valor** según una condición, dentro de una consulta | [Tema 03](03-Case.md) |
-| `TRY … CATCH` | Ejecuta un bloque y, si falla, otro | [Tema 04](04-Errores.md) |
+| `CASE` | Elige un **valor** según una condición, dentro de una consulta | [Tema 02](02-Case.md) |
+| `TRY … CATCH` | Ejecuta un bloque y, si falla, otro | [Tema 03](03-Errores.md) |
 
 ---
 

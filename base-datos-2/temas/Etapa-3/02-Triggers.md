@@ -76,7 +76,7 @@ END
 | `INSERT, UPDATE, DELETE` | Los eventos que lo disparan: uno, dos o los tres, separados por comas |
 | `BEGIN ... END` | El cuerpo |
 
-Igual que `CREATE PROCEDURE`, **`CREATE TRIGGER` debe ser la única sentencia de su lote**: en un script lleva un `GO` antes y otro después.
+Igual que `CREATE PROCEDURE`, **`CREATE TRIGGER` debe ser la primera sentencia de lo que ejecutas**: en un script lleva un `GO` antes y otro después.
 
 ---
 
@@ -302,4 +302,4 @@ Un trigger no debe tener un `SELECT` que muestre datos: quien hizo el `INSERT` r
 - Se dispara **una vez por sentencia**: debe funcionar con 1, con muchas y con 0 filas.
 - Lo disparan todos los caminos: SSMS, aplicaciones, procedimientos almacenados y vistas.
 - Se usa para auditoría, historial, sincronización y reglas que deben cumplirse siempre; las validaciones con mensaje van en procedimientos.
-- `CREATE TRIGGER` va solo en su lote; se modifica con `ALTER TRIGGER` y se elimina con `DROP TRIGGER`.
+- `CREATE TRIGGER` va solo, con un `GO` antes y después; se modifica con `ALTER TRIGGER` y se elimina con `DROP TRIGGER`.

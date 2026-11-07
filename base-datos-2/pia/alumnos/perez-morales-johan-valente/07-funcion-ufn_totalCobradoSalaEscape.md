@@ -21,7 +21,7 @@ Lo cobrado con una sala de escape es la **suma del precio cobrado** de todas sus
 | La sala de escape existe pero no tiene partidas | `0.00` |
 | La sala de escape no existe | `NULL` |
 
-Cuidado con el segundo caso: `SUM` sobre cero filas regresa `NULL`, no `0` ([Errores de valor nulo](../../../temas/Etapa-4/05-ValoresNulos.md)).
+Cuidado con el segundo caso: `SUM` sobre cero filas regresa `NULL`, no `0` ([Errores de valor nulo](../../../temas/Etapa-4/04-ValoresNulos.md)).
 
 ## Tu tarea
 

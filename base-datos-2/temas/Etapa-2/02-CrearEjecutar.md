@@ -27,7 +27,7 @@ END
 | `AS` | Separa el encabezado del cuerpo |
 | `BEGIN ... END` | El cuerpo: las instrucciones que se ejecutan |
 
-Como `CREATE VIEW`, **`CREATE PROCEDURE` debe ser la única sentencia de su lote**: en un script, va un `GO` antes. Todo lo que sigue al `AS` hasta el siguiente `GO` forma parte del procedimiento.
+Como `CREATE VIEW`, **`CREATE PROCEDURE` debe ser la primera sentencia de lo que ejecutas**: en un script, va un `GO` antes. Todo lo que sigue al `AS` hasta el siguiente `GO` forma parte del procedimiento.
 
 ---
 
@@ -200,7 +200,7 @@ Para cambiar un procedimiento que ya existe se usa `ALTER PROCEDURE` (ver [Modif
 
 ### Olvidar el GO antes del CREATE
 
-Si antes del `CREATE PROCEDURE` hay otra sentencia en el mismo lote, SQL Server marca error: `'CREATE/ALTER PROCEDURE' must be the first statement in a query batch`.
+Si antes del `CREATE PROCEDURE` hay otra sentencia sin un `GO` de por medio, SQL Server marca error: `'CREATE/ALTER PROCEDURE' must be the first statement in a query batch`.
 
 ### Escribir pruebas debajo del procedimiento sin GO
 
@@ -232,4 +232,4 @@ Las pruebas van después de un `GO`, o se ejecutan seleccionándolas aparte.
 - Se ejecuta con `EXEC` (o `EXECUTE`), seguido de los valores de sus parámetros.
 - Los parámetros se declaran con `@p_Nombre tipo`; con `= valor` son opcionales y van al final.
 - Los valores se envían por posición o por nombre (`@p_Nombre = valor`).
-- `CREATE PROCEDURE` debe ser la primera sentencia de su lote: en un script, va un `GO` antes y otro después.
+- `CREATE PROCEDURE` debe ser la primera sentencia de lo que ejecutas: en un script, va un `GO` antes y otro después.

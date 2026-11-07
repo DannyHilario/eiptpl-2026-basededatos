@@ -21,7 +21,7 @@ Lo cobrado con un servicio es la **suma del precio cobrado** de todas sus citas,
 | El servicio existe pero no tiene citas | `0.00` |
 | El servicio no existe | `NULL` |
 
-Cuidado con el segundo caso: `SUM` sobre cero filas regresa `NULL`, no `0` ([Errores de valor nulo](../../../temas/Etapa-4/05-ValoresNulos.md)).
+Cuidado con el segundo caso: `SUM` sobre cero filas regresa `NULL`, no `0` ([Errores de valor nulo](../../../temas/Etapa-4/04-ValoresNulos.md)).
 
 ## Tu tarea
 

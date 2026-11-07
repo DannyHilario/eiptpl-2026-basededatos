@@ -21,7 +21,7 @@ Lo cobrado con un recorrido es la **suma de lo cobrado** en todas sus reservacio
 | El recorrido existe pero no tiene reservaciones | `0.00` |
 | El recorrido no existe | `NULL` |
 
-Cuidado con el segundo caso: `SUM` sobre cero filas regresa `NULL`, no `0` ([Errores de valor nulo](../../../temas/Etapa-4/05-ValoresNulos.md)).
+Cuidado con el segundo caso: `SUM` sobre cero filas regresa `NULL`, no `0` ([Errores de valor nulo](../../../temas/Etapa-4/04-ValoresNulos.md)).
 
 ## Tu tarea
 

@@ -21,7 +21,7 @@ Lo cobrado con un asesor es la **suma de lo cobrado** en todas sus asesorías: e
 | El asesor existe pero no tiene asesorías | `0.00` |
 | El asesor no existe | `NULL` |
 
-Cuidado con el segundo caso: `SUM` sobre cero filas regresa `NULL`, no `0` ([Errores de valor nulo](../../../temas/Etapa-4/05-ValoresNulos.md)).
+Cuidado con el segundo caso: `SUM` sobre cero filas regresa `NULL`, no `0` ([Errores de valor nulo](../../../temas/Etapa-4/04-ValoresNulos.md)).
 
 ## Tu tarea
 

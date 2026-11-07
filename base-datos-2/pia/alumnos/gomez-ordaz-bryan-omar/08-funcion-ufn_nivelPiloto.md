@@ -25,7 +25,7 @@ Al piloto se le busca por su **teléfono**. Un piloto dado de baja también tien
 
 ## Tu tarea
 
-Crea una función escalar llamada exactamente `ufn_nivelPiloto` que reciba el teléfono de un piloto y regrese su nivel según la tabla de arriba. Para elegir el nivel puedes usar `IF` / `ELSE` o `CASE` ([CASE](../../../temas/Etapa-4/03-Case.md)).
+Crea una función escalar llamada exactamente `ufn_nivelPiloto` que reciba el teléfono de un piloto y regrese su nivel según la tabla de arriba. Para elegir el nivel puedes usar `IF` / `ELSE` o `CASE` ([CASE](../../../temas/Etapa-4/02-Case.md)).
 
 ## Firma de la función
 

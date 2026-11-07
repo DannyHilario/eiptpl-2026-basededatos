@@ -60,7 +60,7 @@ The ORDER BY clause is invalid in views, inline functions, derived tables, subqu
 and common table expressions, unless TOP, OFFSET or FOR XML is also specified.
 ```
 
-- **`CREATE VIEW` debe ser la única sentencia de su lote.** En un script con más sentencias, va un `GO` antes y después del `CREATE VIEW`.
+- **`CREATE VIEW` debe ser la primera sentencia de lo que ejecutas.** En un script con más sentencias, va un `GO` antes y después del `CREATE VIEW`.
 
 ---
 

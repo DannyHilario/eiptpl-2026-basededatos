@@ -67,9 +67,8 @@ Cada ficha trae casos de prueba para que **compruebes** tu objeto antes de entre
 | Los procedimientos almacenados | [Crear y ejecutar](../temas/Etapa-2/02-CrearEjecutar.md), [Variables e IF / ELSE](../temas/Etapa-2/03-VariablesIfElse.md) y [Validaciones y códigos de salida](../temas/Etapa-2/04-Validaciones.md) |
 | Las funciones | [Funciones definidas por el usuario](../temas/Etapa-3/01-FuncionesDefinidasUsuario.md) |
 | El trigger | [Triggers](../temas/Etapa-3/02-Triggers.md) y [Uso de la tabla Inserted y Deleted](../temas/Etapa-3/03-InsertedDeleted.md) |
-| Por qué un script falla completo | [Lotes y GO](../temas/Etapa-4/02-Lotes.md) |
-| `CASE` | [CASE](../temas/Etapa-4/03-Case.md) |
-| `TRY … CATCH` y `ISNULL` | [Errores y TRY CATCH](../temas/Etapa-4/04-Errores.md), [Errores de valor nulo](../temas/Etapa-4/05-ValoresNulos.md) y [Excepciones en procedimientos almacenados](../temas/Etapa-4/06-ExcepcionesProcedimientos.md) |
+| `CASE` | [CASE](../temas/Etapa-4/02-Case.md) |
+| `TRY … CATCH` y `ISNULL` | [Errores y TRY CATCH](../temas/Etapa-4/03-Errores.md), [Errores de valor nulo](../temas/Etapa-4/04-ValoresNulos.md) y [Excepciones en procedimientos almacenados](../temas/Etapa-4/05-ExcepcionesProcedimientos.md) |
 
 ---
 
